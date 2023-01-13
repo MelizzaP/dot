@@ -131,6 +131,7 @@ let g:gitgutter_sign_modified_removed = emoji#for('children_crossing')
 let g:startify_session_autoload=1
 
 
+
 let g:AckAllFiles = 0
 let html_use_css=1
 let html_number_lines=0
@@ -155,6 +156,27 @@ let g:autoclose_on = 1
 
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
+imap <C-L> <SPACE>=><SPACE>
+imap <C-G> \|><SPACE>
+imap <C-F> <Plug>(emoji-start-complete)
+map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+map <LocalLeader>cc :TComment<CR>
+nmap <C-k> <Plug>(ale_previous_wrap)
+nmap <C-j> <Plug>(ale_next_wrap)
+"ws -- white space: removes all trailing whitespace from a file
+map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
+
+autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
+
+if &t_Co == 256
+  colorscheme solarized
+  set background=light
+  hi Normal guibg=NONE ctermbg=NONE
+endif
+
+" Highlight trailing whitespace
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 
 
 " Enable PowerLine
