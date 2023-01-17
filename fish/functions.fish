@@ -87,6 +87,18 @@ function fetch-n-force
   force-push
 end
 
+function set-github-cred
+  ssh-add -D
+  ssh-add $HOME/.ssh/$argv
+end
+
+function personal-github
+ set-github-cred $PERSONAL_GITHUB_KEY
+end
+
+function professional-github
+ set-github-cred $PROF_GITHUB_KEY
+end
 
 ############ NVim ############
 set -x VISUAL nvim
