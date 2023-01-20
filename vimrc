@@ -1,7 +1,7 @@
 syntax on
-
 filetype off
 
+" ========= Plugins =============
 call plug#begin('~/.vim/plugz')
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
@@ -36,43 +36,52 @@ call plug#begin('~/.vim/plugz')
   Plug 'onsails/lspkind-nvim'
 call plug#end()
 
-"rNVim
+" ========= GENERAL SETTINGS =============
+set backspace=indent,eol,start
+set clipboard=unnamed
+set completefunc=emoji#complete
+set dir=/tmp//
+set foldcolumn=0
+set foldmethod=syntax
+set foldlevelstart=20
+set hidden
+set hlsearch
+set incsearch
+set ignorecase
+set nrformats=octal
+set number
+set previewheight=15
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
+set scrolloff=5
+set showmatch
+set smartcase
+set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+set wrap
+
+" ========= COLORS & HIGHLIGHTS =============
+colorscheme solarized
+hi Normal ctermbg=NONE
+hi ExtraWhitespace ctermbg=Yellow
+hi Folded cterm=italic ctermfg=Magenta ctermbg=DarkBlue
+
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd VimEnter * hi CursorLine cterm=NONE ctermbg=Gray
+
+" TODO STOPPED HERE
+" Highlight too-long lines
+autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
+highlight LineLengthError ctermbg=5 guibg=white
+autocmd ColorScheme * highlight LineLengthError ctermbg=20 guibg=white
 
 " gitgutter
 let g:gitgutter_sign_added = emoji#for('heavy_plus_sign')
 let g:gitgutter_sign_modified = emoji#for('wrench')
 let g:gitgutter_sign_removed = emoji#for('heavy_minus_sign')
 let g:gitgutter_sign_modified_removed = emoji#for('scream')
-
 let g:startify_session_autoload=1
 
-highlight FoldColumn  gui=bold    guifg=grey65     guibg=Grey90
-highlight Folded      gui=italic  guifg=Black      guibg=Grey90
-highlight LineNr      gui=NONE    guifg=grey60     guibg=Grey90
-set hlsearch
-set nrformats=
-set number
-set showmatch
-set incsearch
-set background=light
-set hidden
-set previewheight=10
-set backspace=indent,eol,start
-set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-set ruler
-set wrap
-set dir=/tmp//
-set scrolloff=5
-set foldmethod=syntax
-set foldlevelstart=20
-set foldcolumn=0
-set ignorecase
-set smartcase
-set clipboard=unnamed
-set rtp+=/usr/local/opt/fzf
-set completefunc=emoji#complete
 
 
 let g:AckAllFiles = 0
@@ -127,30 +136,11 @@ map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 map <LocalLeader>cc :TComment<CR>
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
-"ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
+map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
-if &t_Co == 256
-  colorscheme solarized
-  set background=light
-  hi Normal guibg=NONE ctermbg=NONE
-endif
-
-" Highlight trailing whitespace
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
-
-" Set up highlight group & retain through colorscheme changes
-highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
-
-" Highlight too-long lines
-autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
-highlight LineLengthError ctermbg=5 guibg=white
-autocmd ColorScheme * highlight LineLengthError ctermbg=20 guibg=white
 
 "Set filetypes
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
@@ -182,8 +172,6 @@ noremap <C-M-Down> :resize -1<CR>
 let g:vim_markdown_folding_disabled=1
 
 " Cursor/Line Highlighting
-autocmd VimEnter * hi CursorLine cterm=NONE ctermbg=7
-autocmd VimEnter * hi CursorColumn cterm=NONE ctermbg=7
 
 augroup CursorLine
   au!
