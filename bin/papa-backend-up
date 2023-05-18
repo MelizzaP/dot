@@ -1,0 +1,28 @@
+tmux has-session -t 👴\ Backend\ 👴
+if [ $? != 0 ]
+then
+  tmux new-session -s 👴\ Backend\ 👴 -n 🐋\ Console\ \|\ DB\ CLI\ 🐋 -d
+  tmux send-keys -t 👴\ Backend\ 👴:1.1 'echo HELLO' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make postgres' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make redis' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make bash' C-m
+
+  tmux split-window -h -t 👴\ Backend\ 👴:1.1
+  tmux send-keys -t 👴\ Backend\ 👴:1.2 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.2 'make psql-dev' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:1.2 '\x' C-m
+
+  tmux new-window -n 📓\ Code\ Editor\ 📓 -d
+  tmux send-keys -t 👴\ Backend\ 👴:2.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:2.1 'nvim' C-m
+
+  tmux split-window -h -p 10 -t 👴\ Backend\ 👴:2.1
+  tmux send-keys -t 👴\ Backend\ 👴:2.2 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:2.2 'make console' C-m
+
+  tmux split-window -v -p 5 -t 👴\ Backend\ 👴:2.2
+  tmux send-keys -t 👴\ Backend\ 👴:2.3 'cd ~/code/backend' C-m
+fi
+
+tmux attach

@@ -92,12 +92,18 @@ function set-github-cred
   ssh-add $HOME/.ssh/$argv
 end
 
+function set-gitemail
+  git config --global user.email $argv
+end
+
 function personal-github
  set-github-cred $PERSONAL_GITHUB_KEY
+ set-gitemail $PERSONAL_EMAIL
 end
 
 function professional-github
  set-github-cred $PROF_GITHUB_KEY
+ set-gitemail $PROF_EMAIL
 end
 
 ############ NVim ############
@@ -107,7 +113,7 @@ function vim
 end
 
 function vi
-  nvim
+  nvim $argv -u $HOME/.config/nvim/init.vim
 end
 
 ########## dotenv ##########
