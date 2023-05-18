@@ -1,0 +1,23 @@
+tmux has-session -t 👼\ Pal\ Signup\ 👼
+if [ $? != 0 ]
+then
+  tmux new-session -s 👼\ Pal\ Signup\ 👼 -n 🏄\ Server\ \|\ node\ repl\ 🏄 -d
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.1 'echo HELLO' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.1 'cd ~/code/pal-signup-web' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.1 'yarn' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.1 'yarn start' C-m
+
+  tmux split-window -h -t 👼\ Pal\ Signup\ 👼:1.1
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.2 'cd ~/code/pal-signup-web' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.2 'node' C-m
+
+  tmux new-window -n 📝\ Code\ Editor\ 📝 -d 
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.1 'cd ~/code/pal-signup-web' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.1 'nvim' C-m
+
+  tmux split-window -h -p 10 -t 👼\ Pal\ Signup\ 👼:2.1
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.2 'cd ~/code/pal-signup-web' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.2 'make bash' C-m
+fi
+
+tmux attach
