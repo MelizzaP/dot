@@ -5,7 +5,6 @@ filetype off
 call plug#begin('~/.vim/plugz')
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
-  Plug 'dense-analysis/ale'
   Plug 'jiangmiao/auto-pairs'
   Plug 'mattn/emmet-vim'
   Plug 'tomtom/tcomment_vim'
@@ -75,6 +74,10 @@ hi ExtraWhitespace ctermbg=Yellow
 hi Folded cterm=italic ctermfg=Black ctermbg=Red
 hi LineLengthError ctermbg=Red
 
+hi CursorLine cterm=NONE ctermbg=Black
+hi cursorcolumn cterm=NONE ctermbg=Black
+
+
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead {*.js,*.jsx}                      set ft=javascript
 au BufNewFile,BufRead {*ts,*.tsx}                       set ft=typescript
@@ -107,13 +110,9 @@ nn <LocalLeader>r <CMD>Telescope lsp_references<CR>
 nn <S-Tab> <C-W><C-W>
 nn <LocalLeader>t <CMD>Telescope<CR>
 
-
-map <silent> <LocalLeader>ws :s/\s\+$//<CR>
+map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
 map <silent> <LocalLeader>cc :TComment<CR>
-map <C-k> <Plug>(ale_previous_wrap)
-map <C-j> <Plug>(ale_next_wrap)
-
 
 "      Insert Mode
 imap <C-L> <SPACE>=><SPACE>
@@ -130,18 +129,10 @@ let g:gitgutter_sign_removed = emoji#for('axe')
 let g:gitgutter_sign_modified_removed = emoji#for('children_crossing')
 let g:startify_session_autoload=1
 
-
 let g:AckAllFiles = 0
 let html_use_css=1
 let html_number_lines=0
 let html_no_pre=1
-
-" ALE Config
-let g:ale_fix_on_save = 1
-let g:ale_close_preview_on_insert = 1
-
-let g:ale_sign_error = emoji#for('skull')
-let g:ale_sign_warning = emoji#for('collision')
 
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
@@ -156,6 +147,21 @@ let g:autoclose_on = 1
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
 
+imap <C-L> <SPACE>=><SPACE>
+imap <C-G> \|><SPACE>
+imap <C-F> <Plug>(emoji-start-complete)
+map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+map <LocalLeader>cc :TComment<CR>
+nmap <C-k> <Plug>(ale_previous_wrap)
+nmap <C-j> <Plug>(ale_next_wrap)
+"ws -- white space: removes all trailing whitespace from a file
+map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
+
+autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
+
+" Highlight trailing whitespace
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 
 " Enable PowerLine
 let g:Powerline_symbols = 'fancy'
@@ -177,6 +183,11 @@ lua << EOF
   local cmp = require'cmp'
 
   cmp.setup({
+  snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),
@@ -190,6 +201,7 @@ lua << EOF
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'vsnip' },
     }, {
       { name = 'buffer' },
     })
@@ -239,10 +251,17 @@ lspconfig.tsserver.setup{
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<C-j>', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
+
+
+local signs = { Error = "💀", Warn = "💥", Hint = "✨", Info = "ℹ️" }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
