@@ -159,12 +159,6 @@ map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
-if &t_Co == 256
-  colorscheme solarized
-  set background=light
-  hi Normal guibg=NONE ctermbg=NONE
-endif
-
 " Highlight trailing whitespace
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
