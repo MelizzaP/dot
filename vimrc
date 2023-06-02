@@ -73,8 +73,10 @@ hi EndOfBuffer ctermbg=NONE
 hi ExtraWhitespace ctermbg=Yellow
 hi Folded cterm=italic ctermfg=Black ctermbg=Red
 hi LineLengthError ctermbg=Red
+
 hi CursorLine cterm=NONE ctermbg=Black
 hi cursorcolumn cterm=NONE ctermbg=Black
+
 
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead {*.js,*.jsx}                      set ft=javascript
@@ -108,7 +110,6 @@ nn <LocalLeader>r <CMD>Telescope lsp_references<CR>
 nn <S-Tab> <C-W><C-W>
 nn <LocalLeader>t <CMD>Telescope<CR>
 
-
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
 map <silent> <LocalLeader>cc :TComment<CR>
@@ -128,8 +129,6 @@ let g:gitgutter_sign_removed = emoji#for('axe')
 let g:gitgutter_sign_modified_removed = emoji#for('children_crossing')
 let g:startify_session_autoload=1
 
-
-
 let g:AckAllFiles = 0
 let html_use_css=1
 let html_number_lines=0
@@ -147,6 +146,7 @@ let g:autoclose_on = 1
 
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
+
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
 imap <C-F> <Plug>(emoji-start-complete)
@@ -162,7 +162,6 @@ autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 " Highlight trailing whitespace
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
-
 
 " Enable PowerLine
 let g:Powerline_symbols = 'fancy'
