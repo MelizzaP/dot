@@ -175,6 +175,7 @@ endif
 " LUA (LSP Stuff)
 lua << EOF
 -- Set up nvim-cmp.
+  local lspkind = require('lspkind')
   local cmp = require'cmp'
 
   cmp.setup({
@@ -182,6 +183,13 @@ lua << EOF
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body)
       end,
+    },
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = 'symbol',
+        maxwidth = 50,
+        ellipsis_char = '...',
+      })
     },
     window = {
       completion = cmp.config.window.bordered(),
