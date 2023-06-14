@@ -106,6 +106,10 @@ function professional-github
  set-gitemail $PROF_EMAIL
 end
 
+function review-requests
+  gh pr list -l Ready\ for\ Review -S "user-review-requested:@me"
+end
+
 ############ NVim ############
 set -x VISUAL nvim
 function vim
