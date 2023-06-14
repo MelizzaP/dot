@@ -3,7 +3,6 @@ filetype off
 
 " ========= Plugins =============
 call plug#begin('~/.vim/plugz')
-  Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
   Plug 'jiangmiao/auto-pairs'
   Plug 'mattn/emmet-vim'
@@ -70,7 +69,7 @@ colorscheme everforest
 hi Normal ctermbg=NONE
 hi NormalNC ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE
-hi ExtraWhitespace ctermbg=Yellow
+hi ExtraWhitespace ctermbg=Red
 hi Folded cterm=italic ctermfg=Black ctermbg=Red
 hi LineLengthError ctermbg=Red
 
@@ -109,6 +108,7 @@ nn <LocalLeader>im <CMD>Telescope lsp_implementations<CR>
 nn <LocalLeader>r <CMD>Telescope lsp_references<CR>
 nn <S-Tab> <C-W><C-W>
 nn <LocalLeader>t <CMD>Telescope<CR>
+nn <LocalLeader>em :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
@@ -122,11 +122,6 @@ imap <Tab> <c-x><c-o>
 
 "      Command Line
 
-" gitgutter
-let g:gitgutter_sign_added = emoji#for('seedling')
-let g:gitgutter_sign_modified = emoji#for('construction')
-let g:gitgutter_sign_removed = emoji#for('axe')
-let g:gitgutter_sign_modified_removed = emoji#for('children_crossing')
 let g:startify_session_autoload=1
 
 let g:AckAllFiles = 0
