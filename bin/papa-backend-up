@@ -15,13 +15,13 @@ then
 
   tmux new-window -n 📓\ Code\ Editor\ 📓 -d
   tmux send-keys -t 👴\ Backend\ 👴:2.1 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:2.1 'nvim' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:2.1 'make console' C-m
 
-  tmux split-window -h -p 10 -t 👴\ Backend\ 👴:2.1
+  tmux split-window -h -p 100 -t 👴\ Backend\ 👴:2.1
   tmux send-keys -t 👴\ Backend\ 👴:2.2 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:2.2 'make console' C-m
+  tmux send-keys -t 👴\ Backend\ 👴:2.2 'nvim' C-m
 
-  tmux split-window -v -p 5 -t 👴\ Backend\ 👴:2.2
+  tmux split-window -v -p 5 -t 👴\ Backend\ 👴:2.1
   tmux send-keys -t 👴\ Backend\ 👴:2.3 'cd ~/code/backend' C-m
 fi
 

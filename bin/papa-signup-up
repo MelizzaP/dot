@@ -11,13 +11,13 @@ then
   tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.2 'cd ~/code/pal-signup-web' C-m
   tmux send-keys -t 👼\ Pal\ Signup\ 👼:1.2 'node' C-m
 
-  tmux new-window -n 📝\ Code\ Editor\ 📝 -d 
+  tmux new-window -n 📝\ Code\ Editor\ 📝 -d
   tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.1 'cd ~/code/pal-signup-web' C-m
-  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.1 'nvim' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.1 'make bash' C-m
 
-  tmux split-window -h -p 10 -t 👼\ Pal\ Signup\ 👼:2.1
+  tmux split-window -h -p 100 -t 👼\ Pal\ Signup\ 👼:2.1
   tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.2 'cd ~/code/pal-signup-web' C-m
-  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.2 'make bash' C-m
+  tmux send-keys -t 👼\ Pal\ Signup\ 👼:2.2 'nvim' C-m
 fi
 
 tmux attach
