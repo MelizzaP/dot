@@ -1,28 +1,33 @@
-tmux has-session -t 👴\ Backend\ 👴
+tmux has-session -t 👴\ Backend
 if [ $? != 0 ]
 then
-  tmux new-session -s 👴\ Backend\ 👴 -n 🐋\ Console\ \|\ DB\ CLI\ 🐋 -d
-  tmux send-keys -t 👴\ Backend\ 👴:1.1 'echo HELLO' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.1 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make postgres' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make redis' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.1 'make bash' C-m
+  tmux new-session -s 👴\ Backend -n 🐋 -d
+  tmux send-keys -t 👴\ Backend:1.1 'echo HELLO' C-m
+  tmux send-keys -t 👴\ Backend:1.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend:1.1 'make services' C-m
+  tmux send-keys -t 👴\ Backend:1.1 'dotenv .env' C-m
+  tmux send-keys -t 👴\ Backend:1.1 C-l
 
-  tmux split-window -h -t 👴\ Backend\ 👴:1.1
-  tmux send-keys -t 👴\ Backend\ 👴:1.2 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.2 'make psql-dev' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:1.2 '\x' C-m
+  tmux split-window -h -t 👴\ Backend:1.1
+  tmux send-keys -t 👴\ Backend:1.2 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend:1.2 'make psql-dev' C-m
+  tmux send-keys -t 👴\ Backend:1.2 '\x' C-m
+  tmux send-keys -t 👴\ Backend:1.2 C-l
 
-  tmux new-window -n 📓\ Code\ Editor\ 📓 -d
-  tmux send-keys -t 👴\ Backend\ 👴:2.1 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:2.1 'make console' C-m
+  tmux new-window -n 📓 -d
+  tmux send-keys -t 👴\ Backend:2.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend:2.1 'dotenv .env' C-m
+  tmux send-keys -t 👴\ Backend:2.1 'iex -S mix phx.server' C-m
+  tmux send-keys -t 👴\ Backend:2.1 'clear' C-m
 
-  tmux split-window -h -p 100 -t 👴\ Backend\ 👴:2.1
-  tmux send-keys -t 👴\ Backend\ 👴:2.2 'cd ~/code/backend' C-m
-  tmux send-keys -t 👴\ Backend\ 👴:2.2 'nvim' C-m
+  tmux split-window -h -p 100 -t 👴\ Backend:2.1
+  tmux send-keys -t 👴\ Backend:2.2 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend:2.2 'dotenv .env' C-m
+  tmux send-keys -t 👴\ Backend:2.2 'nvim' C-m
 
-  tmux split-window -v -p 5 -t 👴\ Backend\ 👴:2.1
-  tmux send-keys -t 👴\ Backend\ 👴:2.3 'cd ~/code/backend' C-m
+  tmux split-window -v -p 5 -t 👴\ Backend:2.1
+  tmux send-keys -t 👴\ Backend:2.2 'cd ~/code/backend' C-m
+  tmux send-keys -t 👴\ Backend:2.2 C-l
 fi
 
 tmux attach
