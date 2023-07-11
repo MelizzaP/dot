@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
   Plug 'vim-airline/vim-airline-themes'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -115,12 +115,18 @@ nn <LocalLeader>em :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
 map <silent> <LocalLeader>cc :TComment<CR>
+nn <silent> [b :bprevious<CR>
+nn <silent> ]b :bnext<CR>
+nn <silent> [B :bfirst<CR>
+nn <silent> ]B :blast<CR>
 
 "      Insert Mode
 imap <C-L> <SPACE>=><SPACE>
 imap <C-S> \|><SPACE>
 imap <C-F> <Plug>(emoji-start-complete)
 imap <Tab> <c-x><c-o>
+
+tnoremap <C-c> <C-\><C-n>
 
 "      Command Line
 
@@ -163,10 +169,16 @@ autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 " Enable PowerLine
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 
 " Disable Markdown folding
 let g:vim_markdown_folding_disabled=1
+
+" Disable lang exts
+let g:loaded_perl_provider = 0
+let g:loaded_python3_provider = 0
+let g:loaded_ruby_provider = 0
 
 
 " Allow local settings overrides with ~/.vimrc.local
@@ -246,7 +258,7 @@ lua << EOF
 local lspconfig = require('lspconfig')
 lspconfig.elixirls.setup{
   cmd = { "/Users/mp/.config/elixir-ls/release/language_server.sh" },
-  dialyzerEnabled = false,
+  dialyzerEnabled = true,
   fetchDeps = false,
     capabilities = capabilities
 }

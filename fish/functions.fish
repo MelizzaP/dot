@@ -107,7 +107,11 @@ function professional-github
 end
 
 function review-requests
+  echo "My review requests:"
   gh pr list -l Ready\ for\ Review -S "user-review-requested:@me"
+
+  echo "Signup team review requests:"
+  gh pr list -l Ready\ for\ Review -S  "team-review-requested:joinpapa/signup"
 end
 
 ############ NVim ############
