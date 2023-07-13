@@ -119,6 +119,10 @@ nn <silent> [b :bprevious<CR>
 nn <silent> ]b :bnext<CR>
 nn <silent> [B :bfirst<CR>
 nn <silent> ]B :blast<CR>
+nn <silent> [t :tabprevious<CR>
+nn <silent> ]t :tabnext<CR>
+nn <silent> [T :tabfirst<CR>
+nn <silent> ]T :tablast<CR>
 
 "      Insert Mode
 imap <C-L> <SPACE>=><SPACE>
@@ -126,7 +130,7 @@ imap <C-S> \|><SPACE>
 imap <C-F> <Plug>(emoji-start-complete)
 imap <Tab> <c-x><c-o>
 
-tnoremap <C-c> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 
 "      Command Line
 
@@ -260,7 +264,7 @@ lspconfig.elixirls.setup{
   cmd = { "/Users/mp/.config/elixir-ls/release/language_server.sh" },
   dialyzerEnabled = true,
   fetchDeps = false,
-    capabilities = capabilities
+  capabilities = capabilities
 }
 lspconfig.tsserver.setup{
     capabilities = capabilities

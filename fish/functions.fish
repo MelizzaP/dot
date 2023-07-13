@@ -83,13 +83,17 @@ end
 
 function fetch-n-force
   git fetch
-  git rebase origin/master
+  git rebase origin/main
   force-push
 end
 
 function set-github-cred
   ssh-add -D
   ssh-add $HOME/.ssh/$argv
+end
+
+function git-diff-commit --description 'Pretty print the commit history diff b/w 2 branches'
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $argv[1]..$argv[2]
 end
 
 function set-gitemail
