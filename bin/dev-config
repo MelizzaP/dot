@@ -1,12 +1,11 @@
-tmux has-session -t 🔧\ config\ 🔧
+tmux has-session -t 󱐍 
 if [ $? != 0 ]
 then
-  tmux new-session -s 🔧\ config\ 🔧 -n 💻 -d
-  tmux send-keys -t 🔧\ config\ 🔧:1.1 'cd ~/.dot/' C-m
+  tmux new-session -s 󱐍 -n 󱝆 -d
 
-  tmux split-window -h -p 100 -t 🔧\ config\ 🔧:1.1
-  tmux send-keys -t 🔧\ config\ 🔧:1.2 'cd ~/.dot/' C-m
-  tmux send-keys -t 🔧\ config\ 🔧:1.2 'nvim' C-m
+  tmux new-window -n  -d
+  tmux send-keys -t 󱐍:2.1 'cd ~/.dot' C-m
+  tmux send-keys -t 󱐍:2.1 'vi' C-m
 fi
 
 tmux attach

@@ -71,12 +71,14 @@ colorscheme everforest
 hi Normal ctermbg=NONE
 hi NormalNC ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE
-hi ExtraWhitespace ctermbg=Red
+hi ExtraWhitespace ctermbg=Black
 hi Folded cterm=italic ctermfg=Black ctermbg=Red
 hi LineLengthError ctermbg=Red
 
 hi CursorLine cterm=NONE ctermbg=Black
 hi cursorcolumn cterm=NONE ctermbg=Black
+hi! link TermCursor Cursor
+hi TermCursorNC ctermbg=Cyan ctermfg=White
 
 
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
@@ -88,7 +90,7 @@ au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,
 au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 au BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
-au ColorScheme * hi ExtraWhitespace ctermbg=red guibg=red
+au ColorScheme * hi ExtraWhitespace ctermbg=Magenta
 au ColorScheme * hi LineLengthError ctermbg=20
 au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au VimEnter * hi CursorLine cterm=NONE ctermbg=Black
@@ -278,7 +280,7 @@ vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
 
 
-local signs = { Error = "💀", Warn = "💥", Hint = "✨", Info = "ℹ️" }
+local signs = { Error = "󰚑", Warn = "󰞸", Hint = "󱁃", Info = "󱕅" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -314,7 +316,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-
 
 -- Octo Configuration
 require"octo".setup({
