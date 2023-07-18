@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'craigmac/vim-mermaid'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
+  Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -152,6 +153,13 @@ let g:autoclose_on = 1
 
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
+
+let g:gitgutter_sign_added = ''
+let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_removed = ''
+let g:gitgutter_sign_removed_first_line = '󰚑'
+let g:gitgutter_sign_removed_above_and_below = ''
+let g:gitgutter_sign_modified_removed = ''
 
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
