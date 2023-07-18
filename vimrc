@@ -104,13 +104,10 @@ augroup END
 " ========= MAPPINGS =============
 " ******* Normal Mode **********
 nn s <CMD>Telescope git_files<CR>
-nn <LocalLeader>gs <CMD>Telescope grep_string<CR>
-nn <LocalLeader>bb <CMD>Telescope buffers<CR>
-nn <LocalLeader>s <CMD>Telescope lsp_definitions<CR>
-nn <LocalLeader>td <CMD>Telescope lsp_type_definitions<CR>
-nn <LocalLeader>im <CMD>Telescope lsp_implementations<CR>
-nn <LocalLeader>r <CMD>Telescope lsp_references<CR>
+nn T <CMD>Telescope<CR>
 nn <S-Tab> <C-W><C-W>
+nn <C-Tab> :tabnext <CR>
+nn <Tab> :bnext<CR>
 nn <LocalLeader>t <CMD>Telescope<CR>
 nn <LocalLeader>em :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 
@@ -280,7 +277,7 @@ vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
 
 
-local signs = { Error = "󰚑", Warn = "󰞸", Hint = "󱁃", Info = "󱕅" }
+local signs = { Error = "󱚟", Warn = "󰞸", Hint = "󰅏", Info = "󱕅" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
