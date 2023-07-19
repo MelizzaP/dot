@@ -39,7 +39,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'craigmac/vim-mermaid'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
-  Plug 'airblade/vim-gitgutter'
+  Plug 'mhinz/vim-signify'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -81,7 +81,6 @@ hi cursorcolumn cterm=NONE ctermbg=Black
 hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
-
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead {*.js,*.jsx}                      set ft=javascript
 au BufNewFile,BufRead {*ts,*.tsx}                       set ft=typescript
@@ -107,10 +106,7 @@ augroup END
 nn s <CMD>Telescope git_files<CR>
 nn T <CMD>Telescope<CR>
 nn <S-Tab> <C-W><C-W>
-nn <C-Tab> :tabnext <CR>
 nn <Tab> :bnext<CR>
-nn <LocalLeader>t <CMD>Telescope<CR>
-nn <LocalLeader>em :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
@@ -154,20 +150,18 @@ let g:autoclose_on = 1
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
 
-let g:gitgutter_sign_added = ''
-let g:gitgutter_sign_modified = ''
-let g:gitgutter_sign_removed = ''
-let g:gitgutter_sign_removed_first_line = '󰚑'
-let g:gitgutter_sign_removed_above_and_below = ''
-let g:gitgutter_sign_modified_removed = ''
+let g:signify_number_highlight = 1
+let g:signify_sign_add               = ''
+let g:signify_sign_delete            = ''
+let g:signify_sign_delete_first_line = ''
+let g:signify_sign_change            = ''
+let g:signify_sign_change_delete     = ''
 
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
 imap <C-F> <Plug>(emoji-start-complete)
 map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 map <LocalLeader>cc :TComment<CR>
-nmap <C-k> <Plug>(ale_previous_wrap)
-nmap <C-j> <Plug>(ale_next_wrap)
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
 
