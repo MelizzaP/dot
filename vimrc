@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'craigmac/vim-mermaid'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
+  Plug 'mhinz/vim-signify'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -80,7 +81,6 @@ hi cursorcolumn cterm=NONE ctermbg=Black
 hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
-
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead {*.js,*.jsx}                      set ft=javascript
 au BufNewFile,BufRead {*ts,*.tsx}                       set ft=typescript
@@ -104,15 +104,9 @@ augroup END
 " ========= MAPPINGS =============
 " ******* Normal Mode **********
 nn s <CMD>Telescope git_files<CR>
-nn <LocalLeader>gs <CMD>Telescope grep_string<CR>
-nn <LocalLeader>bb <CMD>Telescope buffers<CR>
-nn <LocalLeader>s <CMD>Telescope lsp_definitions<CR>
-nn <LocalLeader>td <CMD>Telescope lsp_type_definitions<CR>
-nn <LocalLeader>im <CMD>Telescope lsp_implementations<CR>
-nn <LocalLeader>r <CMD>Telescope lsp_references<CR>
+nn T <CMD>Telescope<CR>
 nn <S-Tab> <C-W><C-W>
-nn <LocalLeader>t <CMD>Telescope<CR>
-nn <LocalLeader>em :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
+nn <Tab> :bnext<CR>
 
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
@@ -156,13 +150,18 @@ let g:autoclose_on = 1
 let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
 
+let g:signify_number_highlight = 1
+let g:signify_sign_add               = ''
+let g:signify_sign_delete            = ''
+let g:signify_sign_delete_first_line = ''
+let g:signify_sign_change            = ''
+let g:signify_sign_change_delete     = ''
+
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
 imap <C-F> <Plug>(emoji-start-complete)
 map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 map <LocalLeader>cc :TComment<CR>
-nmap <C-k> <Plug>(ale_previous_wrap)
-nmap <C-j> <Plug>(ale_next_wrap)
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
 
@@ -280,7 +279,7 @@ vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
 
 
-local signs = { Error = "󰚑", Warn = "󰞸", Hint = "󱁃", Info = "󱕅" }
+local signs = { Error = "󱚟", Warn = "󰞸", Hint = "󰅏", Info = "󱕅" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

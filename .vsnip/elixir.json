@@ -1,0 +1,225 @@
+{
+  "lv_module": {
+    "prefix": "lv",
+    "body": [
+      "defmodule ${WORKSPACE_NAME/(.*)/${1:/pascalcase}/g}Web.${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} do",
+      "  use ${WORKSPACE_NAME/(.*)/${1:/pascalcase}/g}Web, :live_view",
+      "  $0",
+      "end"
+    ],
+    "description": "LiveView module"
+  },
+  "lc_module": {
+    "prefix": "lc",
+    "body": [
+      "defmodule ${WORKSPACE_NAME/(.*)/${1:/pascalcase}/g}Web.${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} do",
+      "  use ${WORKSPACE_NAME/(.*)/${1:/pascalcase}/g}Web, :live_component",
+      "  $0",
+      "end"
+    ],
+    "description": "LiveComponent module"
+  },
+  "lv_mount": {
+    "prefix": "mount",
+    "body": [
+      "def mount(_params, _session, socket) do",
+      "  socket =",
+      "    assign(socket,",
+      "      ${1:key}: ${2:value}",
+      "    )",
+      "",
+      "  {:ok, socket}",
+      "end"
+    ],
+    "description": "LiveView mount function"
+  },
+  "lv_render": {
+    "prefix": "rend",
+    "body": ["def render(assigns) do", "  ~H\"\"\"", "  ${0}", "  \"\"\"", "end"],
+    "description": "LiveView render function"
+  },
+  "lv_function_component": {
+    "prefix": "fc",
+    "body": ["def ${1:name}(assigns) do", "  ~H\"\"\"", "  ${2}", "  \"\"\"", "end"],
+    "description": "LiveView function component"
+  },
+  "lv_handle_event": {
+    "prefix": "he",
+    "body": ["def handle_event(${1:event}, _, socket) do", "  {:noreply, socket}", "end"],
+    "description": "LiveView handle_event function"
+  },
+  "lv_handle_event1": {
+    "prefix": "he1",
+    "body": [
+      "def handle_event(${1:event}, _, socket) do",
+      "  socket = assign(socket, ${2:key}: ${3:value})",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_event function"
+  },
+  "lv_handle_event2": {
+    "prefix": "he2",
+    "body": [
+      "def handle_event(${1:event}, _, socket) do",
+      "  socket =",
+      "    assign(socket,",
+      "      ${2:key}: ${3:value}",
+      "    )",
+      "",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_event function"
+  },
+  "lv_handle_info": {
+    "prefix": "hi",
+    "body": ["def handle_info(${1:message}, socket) do", "  {:noreply, socket}", "end"],
+    "description": "LiveView handle_info function"
+  },
+  "lv_handle_info1": {
+    "prefix": "hi1",
+    "body": [
+      "def handle_info(${1:message}, socket) do",
+      "  socket = assign(socket, ${2:key}: ${3:value})",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_info function"
+  },
+  "lv_handle_info2": {
+    "prefix": "hi2",
+    "body": [
+      "def handle_info(${1:message}, socket) do",
+      "  socket =",
+      "    assign(socket,",
+      "      ${2:key}: ${3:value}",
+      "    )",
+      "",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_info function"
+  },
+  "lv_handle_params": {
+    "prefix": "hp",
+    "body": ["def handle_params(${1:params}, _uri, socket) do", "  {:noreply, socket}", "end"],
+    "description": "LiveView handle_params function"
+  },
+  "lv_heex": {
+    "prefix": "h",
+    "body": ["~H\"\"\"", "${0}", "\"\"\""],
+    "description": "LiveView HEEx template"
+  },
+  "lv_assign": {
+    "prefix": "assign",
+    "body": ["socket =", "  assign(socket,", "    ${1:key}: ${2:value}", "  )"],
+    "description": "LiveView assign"
+  },
+  "insp": {
+    "prefix": "insp",
+    "body": "IO.inspect(self(), label: \"${0:label}\")",
+    "description": "Inspect process with a label"
+  },
+  "map": {
+    "prefix": "m",
+    "body": "%{\"${1}\" => ${2}}",
+    "description": "Elixir map"
+  },
+  "ee": {
+    "prefix": "ee",
+    "body": "<% $0 %>",
+    "description": "embed_eex",
+    "scope": "text.elixir,text.html.elixir"
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": "fn ${1:args} -> $2 end$0",
+    "description": "fn",
+    "scope": "source.elixir"
+  },
+  "ife": {
+    "prefix": "ife",
+    "body": "if $1 do\n  $2\nelse\n  $0\nend",
+    "description": "if else",
+    "scope": "source.elixir"
+  },
+  "iil": {
+    "prefix": "iil",
+    "body": "IO.inspect(label: \"$0\")",
+    "description": "IO.inspect(label: ...)",
+    "scope": "source.elixir"
+  },
+  "pry": {
+    "prefix": "pry",
+    "body": "require IEx; IEx.pry",
+    "description": "Debug with IEx.pry",
+    "scope": "source.elixir"
+  },
+  "oke": {
+    "prefix": "ok",
+    "body": "{:ok, $1} = $0",
+    "description": "{:ok, ... } = ...",
+    "scope": "source.elixir"
+  },
+  "erre": {
+    "prefix": "error",
+    "body": "{:error, $1} = $0",
+    "description": "{:error, ... } = ...",
+    "scope": "source.elixir"
+  },
+  "ok": {
+    "prefix": "ok",
+    "body": "{:ok, $1} $0",
+    "description": "{:ok, ... } ...",
+    "scope": "source.elixir"
+  },
+  "err": {
+    "prefix": "error",
+    "body": "{:error, $1} $0",
+    "description": "{:error, ... } ...",
+    "scope": "source.elixir"
+  },
+  "test": {
+    "prefix": "test",
+    "body": "test $1 do\n\t$0\nend",
+    "description": "test",
+    "scope": "source.elixir"
+  },
+  "GenServer": {
+    "prefix": "gen_server",
+    "body": [
+      "defmodule ${RELATIVE_FILEPATH/^([^\\/\\\\]+[\\/\\\\])|(\\.ex|\\.exs)$|([^._\\/\\\\]+)|_|([\\/\\\\])/${3:/capitalize}${4:+.}/g} do",
+      "\tuse GenServer",
+      "",
+      "\tdef start_link(${init_args}) do",
+      "\t\t# you may want to register your server with `name: __MODULE__`",
+      "\t\t# as a third argument to `start_link`",
+      "\t\tGenServer.start_link(__MODULE__, [${init_args}])",
+      "\tend",
+      "",
+      "\tdef init(_args) do",
+      "\t\t{:ok, :initial_state}",
+      "\tend",
+      "end"
+    ],
+    "description": "Insert code for a OTP GenServer",
+    "scope": "source.elixir"
+  },
+  "ExUnit": {
+    "prefix": ["ex_unit", "exu"],
+    "body": [
+      "defmodule ${RELATIVE_FILEPATH/^([^\\/\\\\]+[\\/\\\\])|(\\.ex|\\.exs)$|([^._\\/\\\\]+)|_|([\\/\\\\])/${3:/capitalize}${4:+.}/g} do",
+      "\tuse ExUnit.Case",
+      "\tdoctest$1",
+      "",
+      "\tdescribe \"${2:description_of_tests}\" do",
+      "\t\ttest \"${3:definition_of_this_test}\" do",
+      "\t\tend",
+      "\tend",
+      "end"
+    ],
+    "description": "Insert code for a ExUnit",
+    "scope": "source.elixir"
+  }
+}
