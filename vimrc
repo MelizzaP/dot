@@ -4,6 +4,7 @@ filetype off
 " ========= Plugins =============
 call plug#begin('~/.vim/plugz')
   Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'jiangmiao/auto-pairs'
   Plug 'mattn/emmet-vim'
   Plug 'tomtom/tcomment_vim'
@@ -12,7 +13,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'kyuhi/vim-emoji-complete'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
-  Plug 'sheerun/vim-polyglot'
   Plug 'prettier/vim-prettier'
   Plug 'tpope/vim-ragtag'
   Plug 'mhinz/vim-startify'
@@ -25,7 +25,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'sainnhe/everforest'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
-  Plug 'vim-airline/vim-airline-themes'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'elixir-editors/vim-elixir'
   Plug 'hrsh7th/nvim-cmp'
@@ -103,10 +102,11 @@ augroup END
 
 " ========= MAPPINGS =============
 " ******* Normal Mode **********
-nn s <CMD>Telescope git_files<CR>
+nn s <CMD>Telescope find_files<CR>
 nn T <CMD>Telescope<CR>
-nn <S-Tab> <C-W><C-W>
 nn <Tab> :bnext<CR>
+nn <S-Tab> :bprev<CR>
+nn <BS> <C-W><C-W>
 
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
@@ -129,6 +129,9 @@ imap <Tab> <c-x><c-o>
 tnoremap <Esc> <C-\><C-n>
 
 "      Command Line
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
 
 let g:startify_session_autoload=1
 
@@ -156,6 +159,8 @@ let g:signify_sign_delete            = ''
 let g:signify_sign_delete_first_line = ''
 let g:signify_sign_change            = ''
 let g:signify_sign_change_delete     = ''
+
+let g:mix_format_on_save = 1
 
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
