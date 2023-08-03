@@ -1,0 +1,14 @@
+{
+  "%": {
+    "prefix": "%",
+    "body": "<% $0 %>"
+  },
+  "ee": {
+    "prefix": "=",
+    "body": "<%= $0 %>"
+  },
+  "gettext": {
+    "prefix": "gt",
+    "body": "<%= gettext(\"$0\") %>"
+  }
+}

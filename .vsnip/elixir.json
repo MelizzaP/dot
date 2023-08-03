@@ -123,12 +123,12 @@
   },
   "map": {
     "prefix": "m",
-    "body": "%{\"${1}\" => ${2}}",
+    "body": "%{\"${1}\" => ${1}}",
     "description": "Elixir map"
   },
   "ee": {
     "prefix": "ee",
-    "body": "<% $0 %>",
+    "body": "<%= $0 %>",
     "description": "embed_eex",
     "scope": "text.elixir,text.html.elixir"
   },
@@ -144,10 +144,16 @@
     "description": "if else",
     "scope": "source.elixir"
   },
-  "iil": {
-    "prefix": "iil",
-    "body": "IO.inspect(label: \"$0\")",
+  "ins": {
+    "prefix": "ins",
+    "body": "IO.inspect($1, label: \"$1\")",
     "description": "IO.inspect(label: ...)",
+    "scope": "source.elixir"
+  },
+  "inspipe": {
+    "prefix": "ip",
+    "body": "|> IO.inspect(label: \"$1\")",
+    "description": "pipe IO.inspect",
     "scope": "source.elixir"
   },
   "pry": {

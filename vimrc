@@ -47,7 +47,9 @@ set clipboard=unnamed
 set completefunc=emoji#complete
 set dir=/tmp//
 set foldcolumn=0
-set foldmethod=syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable " disable folding on startup
 set foldlevelstart=20
 set hidden
 set hlsearch
@@ -115,6 +117,7 @@ nn <silent> [b :bprevious<CR>
 nn <silent> ]b :bnext<CR>
 nn <silent> [B :bfirst<CR>
 nn <silent> ]B :blast<CR>
+nn <silent> XX :bd<CR>
 nn <silent> [t :tabprevious<CR>
 nn <silent> ]t :tabnext<CR>
 nn <silent> [T :tabfirst<CR>
@@ -289,6 +292,36 @@ for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- Tree Sitter Config
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "typescript",
+    "tsx",
+    "elixir",
+    "heex",
+    "eex",
+    "html",
+    "javascript",
+    "json",
+    "scss",
+    "mermaid",
+    "erlang",
+    "markdown",
+    "css",
+    "sql",
+    "fsh",
+    "graphql"
+    },
+  sync_install = false,
+  auto_install = true,
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
+  indent = { enable = true }
+}
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
