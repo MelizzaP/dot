@@ -13,7 +13,7 @@ defmodule AC do
       syntax_colors: [
         number: :light_yellow,
         atom: :light_cyan,
-        string: :light_black,
+        string: :green,
         boolean: [:light_blue],
         nil: [:magenta, :bright]
       ],
@@ -26,10 +26,7 @@ defmodule AC do
     ],
     default_prompt:
       [
-        # ANSI CHA, move cursor to column 1
-        "\e[G",
         :yellow,
-        # plain string
         " 󰇥 ",
         ">",
         :white,

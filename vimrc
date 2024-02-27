@@ -74,8 +74,8 @@ hi Normal ctermbg=NONE
 hi NormalNC ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE
 hi ExtraWhitespace ctermbg=Black
-hi Folded cterm=italic ctermfg=Black ctermbg=Red
-hi LineLengthError ctermbg=Red
+hi Folded cterm=italic ctermfg=Black ctermbg=Cyan
+hi LineLengthError ctermbg=Black
 
 hi CursorLine cterm=NONE ctermbg=Black
 hi cursorcolumn cterm=NONE ctermbg=Black
@@ -83,8 +83,10 @@ hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
-au BufNewFile,BufRead {*.js,*.jsx}                      set ft=javascript
-au BufNewFile,BufRead {*ts,*.tsx}                       set ft=typescript
+au BufNewFile,BufRead *.js                              set ft=javascript
+au BufNewFile,BufRead *.ts                              set ft=typescript
+au BufNewFile,BufRead *.jsx                             set filetype=javascriptreact
+au BufNewFile,BufRead *.tsx                             set filetype=typescriptreact
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs}                      set ft=elixir
 au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md Prettier
@@ -106,6 +108,7 @@ augroup END
 " ******* Normal Mode **********
 nn s <CMD>Telescope find_files<CR>
 nn T <CMD>Telescope<CR>
+nn H <CMD>Telescope buffers<CR>
 nn <Tab> :bnext<CR>
 nn <S-Tab> :bprev<CR>
 nn <BS> <C-W><C-W>
@@ -132,9 +135,7 @@ imap <Tab> <c-x><c-o>
 tnoremap <Esc> <C-\><C-n>
 
 "      Command Line
-
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
 
 let g:startify_session_autoload=1
 
@@ -182,7 +183,6 @@ autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 " Enable PowerLine
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
 
 
 " Disable Markdown folding
@@ -282,12 +282,12 @@ lspconfig.tsserver.setup{
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<C-j>', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<LocalLeader>j', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<LocalLeader>k', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
 
 
-local signs = { Error = "󱚟", Warn = "󰞸", Hint = "󰅏", Info = "󱕅" }
+local signs = { Error = "󱚟", Warn = "󰅏", Hint = "󰞸", Info = "󱕅" }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -338,7 +338,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', 'KK', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
     vim.keymap.set('n', '<space>wl', function()
@@ -384,7 +384,7 @@ require"octo".setup({
       field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
       direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
     },
-    always_select_remote_on_create = "false" -- always give prompt to select base remote repo when creating PRs
+    always_select_remote_on_create = false -- always give prompt to select base remote repo when creating PRs
   },
   file_panel = {
     size = 10,                             -- changed files panel rows

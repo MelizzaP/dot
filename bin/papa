@@ -13,9 +13,6 @@ then
   tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 'cd ~/code/backend' C-m
   tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 'dotenv .env' C-m
   tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 'vi' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 ':tabnew' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 ':terminal' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 '[t'
 
   tmux split-window -v -p 5 -t 󰙃\ papa\ 󰙃:1.1
   tmux send-keys -t 󰙃\ papa\ 󰙃:1.2 'cd ~/code/backend' C-m
@@ -32,9 +29,6 @@ then
   tmux split-window -h -p 100 -t 󰙃\ papa\ 󰙃:2.1
   tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 'cd ~/code/pal-signup-web' C-m
   tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 'vi' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 ':tabnew' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 ':terminal' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 '[t'
 
   tmux split-window -v -p 5 -t 󰙃\ papa\ 󰙃:2.1
   tmux send-keys -t 󰙃\ papa\ 󰙃:2.2 'cd ~/code/pal-signup-web' C-m
@@ -45,9 +39,6 @@ then
   tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 'echo Hello Admin 󰧑' C-m
   tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 'cd ~/code/admin-web' C-m
   tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 'vi' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 ':tabnew' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 ':terminal' C-m
-  tmux send-keys -t 󰙃\ papa\ 󰙃:3.1 '[t'
 fi
 
 tmux attach
