@@ -5,3 +5,16 @@ name = Melissa Patterson
 	email = melissa.patterson.va@gmail.com
 [rerere]
 	enabled = true
+[diff]
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"] 
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
+  # `git dlog` to show `git log -p` with difftastic.
+[alias]
+  df = difftool
+[alias]
+  dlog = "!f() { : git log ; GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
