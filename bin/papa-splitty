@@ -34,10 +34,20 @@ then
   tmux send-keys -t 󰞷:1.1 'iex -S mix phx.server' C-m
   tmux send-keys -t 󰞷:1.1 'clear' C-m
 
-  tmux split-window -v -p 30 -t 󰞷:1.1
-  tmux send-keys -t 󰞷:1.2 'cd ~/code/backend' C-m
-  tmux send-keys -t 󰞷:1.2 'dotenv .env' C-m
-  tmux send-keys -t 󰞷:1.2 C-l
+  tmux new-window -n \  -d
+  tmux send-keys -t 󰞷:2.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 󰞷:2.1 'dotenv .env' C-m
+  tmux send-keys -t 󰞷:2.1 'vi' C-m
+  tmux send-keys -t 󰞷:2.1 ':te' C-m
+  tmux send-keys -t 󰞷:2.1 'i make psql-dev' C-m
+  tmux send-keys -t 󰞷:2.1 '\x' C-m
+  tmux send-keys -t 󰞷:2.1 C-l
+
+  tmux new-window -n 󰐁\ 󰙨\ -d
+  tmux send-keys -t 󰞷:3.1 'cd ~/code/backend' C-m
+  tmux send-keys -t 󰞷:3.1 'dotenv .env' C-m
+  tmux send-keys -t 󰞷:3.1 'dotenv .env' C-m
+  tmux send-keys -t 󰞷:3.1 C-l
 
   tmux new-window -n 󱐍 -d
 fi
