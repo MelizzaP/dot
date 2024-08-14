@@ -264,21 +264,39 @@ lua << EOF
     })
   })
 
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Setup language servers.
-local lspconfig = require('lspconfig')
-lspconfig.elixirls.setup{
-  cmd = { "/Users/mp/.config/elixir-ls/release/language_server.sh" },
-  dialyzerEnabled = true,
-  fetchDeps = false,
-  capabilities = capabilities
+local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
+
+local lexical_config = {
+  filetypes = { "elixir", "eelixir", "heex" },
+  cmd = { "/Users/mp/.config/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  settings = {},
 }
+
+if not configs.lexical then
+  configs.lexical = {
+    default_config = {
+      filetypes = lexical_config.filetypes,
+      cmd = lexical_config.cmd,
+      root_dir = function(fname)
+        return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+      end,
+      -- optional settings
+      settings = lexical_config.settings,
+    },
+  }
+end
+
+lspconfig.lexical.setup({
+    capabilities = capabilities
+})
 lspconfig.tsserver.setup{
     capabilities = capabilities
 }
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
