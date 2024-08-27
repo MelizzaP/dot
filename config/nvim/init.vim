@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'elixir-editors/vim-elixir'
@@ -70,10 +70,10 @@ let g:everforest_background = 'soft'
 let g:everforest_better_performance = 1
 
 colorscheme everforest
-hi Normal ctermbg=NONE
-hi NormalNC ctermbg=NONE
-hi EndOfBuffer ctermbg=NONE
-hi ExtraWhitespace ctermbg=Black
+hi Normal ctermbg=NONE guibg=NONE
+hi NormalNC ctermbg=NONE guibg=NONE
+hi EndOfBuffer ctermbg=NONE guibg=NONE
+hi ExtraWhitespace ctermbg=Black guibg=Black
 hi Folded cterm=italic ctermfg=Black ctermbg=Cyan
 hi LineLengthError ctermbg=Black
 
