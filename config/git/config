@@ -18,3 +18,5 @@ name = Melissa Patterson
   df = difftool
 [alias]
   dlog = "!f() { : git log ; GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+[init]
+	defaultBranch = main
