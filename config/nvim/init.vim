@@ -9,8 +9,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'mattn/emmet-vim'
   Plug 'tomtom/tcomment_vim'
   Plug 'ap/vim-css-color'
-  Plug 'junegunn/vim-emoji'
-  Plug 'kyuhi/vim-emoji-complete'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
   Plug 'prettier/vim-prettier'
@@ -39,12 +37,13 @@ call plug#begin('~/.vim/plugz')
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
   Plug 'mhinz/vim-signify'
+  Plug 'epwalsh/obsidian.nvim'
+  Plug 'github/copilot.vim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
 set backspace=indent,eol,start
 set clipboard=unnamed
-set completefunc=emoji#complete
 set dir=/tmp//
 set foldcolumn=0
 set foldmethod=expr
@@ -129,8 +128,9 @@ nn <silent> ]T :tablast<CR>
 "      Insert Mode
 imap <C-L> <SPACE>=><SPACE>
 imap <C-S> \|><SPACE>
-imap <C-F> <Plug>(emoji-start-complete)
 imap <Tab> <c-x><c-o>
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -154,7 +154,6 @@ let g:prettier#config#parser = 'babylon'
 
 let g:autoclose_on = 1
 
-let g:emoji_complete_overwrite_standard_keymaps = 0
 let maplocalleader="\<Space>"
 
 let g:signify_number_highlight = 1
@@ -168,8 +167,6 @@ let g:mix_format_on_save = 1
 
 imap <C-L> <SPACE>=><SPACE>
 imap <C-G> \|><SPACE>
-imap <C-F> <Plug>(emoji-start-complete)
-map <LocalLeader>ee :%s/:\([^:]\+\):/\=emoji#for(submatch(1), submatch(0))/g<CR>
 map <LocalLeader>cc :TComment<CR>
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
@@ -264,6 +261,14 @@ lua << EOF
     })
   })
 
+  require("obsidian").setup({
+    workspaces = {
+      {
+          name = "personal",
+          path = "~/Documents/melissanotes",
+      },
+    }
+  })
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -294,7 +299,10 @@ end
 lspconfig.lexical.setup({
     capabilities = capabilities
 })
-lspconfig.tsserver.setup{
+lspconfig.ts_ls.setup{
+    capabilities = capabilities
+}
+lspconfig.pyright.setup{
     capabilities = capabilities
 }
 -- Global mappings.
@@ -303,7 +311,6 @@ vim.keymap.set('n', '<LocalLeader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<LocalLeader>j', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<LocalLeader>k', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<LocalLeader>q', vim.diagnostic.setloclist)
-
 
 local signs = { Error = "󱚟", Warn = "󰅏", Hint = "󰞸", Info = "󱕅" }
 for type, icon in pairs(signs) do
@@ -371,6 +378,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
 
 -- Octo Configuration
 require"octo".setup({
