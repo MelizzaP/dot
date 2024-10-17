@@ -111,6 +111,7 @@ nn <Tab> :bnext<CR>
 nn <S-Tab> :bprev<CR>
 nn <BS> <C-W><C-W>
 
+
 map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
 map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
 map <silent> <LocalLeader>cc :TComment<CR>
@@ -128,7 +129,7 @@ nn <silent> ]T :tablast<CR>
 imap <C-L> <SPACE>=><SPACE>
 imap <C-S> \|><SPACE>
 imap <Tab> <c-x><c-o>
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
 tnoremap <Esc> <C-\><C-n>
@@ -189,6 +190,12 @@ let g:loaded_perl_provider = 0
 let g:loaded_python3_provider = 0
 let g:loaded_ruby_provider = 0
 
+" Snippets
+imap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+
+let g:vsnip_filetypes = { 'typescriptreact': ['typescript'], 'elixr': ['elixir'], 'heex': ['heex'] }
 
 " Allow local settings overrides with ~/.vimrc.local
 if filereadable(glob("~/.vimrc.local"))
