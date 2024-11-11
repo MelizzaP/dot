@@ -62,6 +62,7 @@ set showmatch
 set smartcase
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wrap
+set laststatus=2
 
 " ========= COLORS & HIGHLIGHTS =============
 let g:everforest_background = 'soft'
@@ -166,7 +167,7 @@ let g:signify_sign_change_delete     = ''
 let g:mix_format_on_save = 1
 
 imap <C-L> <SPACE>=><SPACE>
-imap <C-G> \|><SPACE>
+imap <C--> \|><SPACE>
 map <LocalLeader>cc :TComment<CR>
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
@@ -193,9 +194,6 @@ let g:loaded_ruby_provider = 0
 " Snippets
 imap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-
-let g:vsnip_filetypes = { 'typescriptreact': ['typescript'], 'elixr': ['elixir'], 'heex': ['heex'] }
 
 " Allow local settings overrides with ~/.vimrc.local
 if filereadable(glob("~/.vimrc.local"))
