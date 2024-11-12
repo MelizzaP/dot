@@ -81,8 +81,8 @@ hide_when_typing = true
 [selection]
 save_to_clipboard = true
 
-[shell]
-program = "/opt/homebrew/bin/fish"
+[terminal]
+shell.program = "/opt/homebrew/bin/fish"
 
 [window]
 decorations = "buttonless"
