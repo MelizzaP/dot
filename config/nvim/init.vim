@@ -42,6 +42,7 @@ call plug#end()
 
 " ========= GENERAL SETTINGS =============
 set backspace=indent,eol,start
+set conceallevel=2
 set clipboard=unnamed
 set dir=/tmp//
 set foldcolumn=0
