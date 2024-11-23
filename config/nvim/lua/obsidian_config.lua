@@ -1,3 +1,4 @@
+local daily_notes_dir = os.getenv("OBSIDIAN_DAILY_DIR") or "Instinct Science/Daily Notes/"
 require("obsidian").setup({
   workspaces = {
     {
@@ -6,8 +7,7 @@ require("obsidian").setup({
     },
   },
   daily_notes = {
-    -- TODO: it would be nice to import this from a config file
-    folder = "Instinct Science/Daily Notes/",
+    folder = daily_notes_dir,
     date_format = "%Y-%m-%d",
     default_tags = { "daily-notes" },
     template = nil
