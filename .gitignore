@@ -6,3 +6,5 @@ config/tmux
 config/AWS\ VPN\ Client
 config/AWSVPNClient
 config/gh
+config/elixir-ls
+config/nvim/pack

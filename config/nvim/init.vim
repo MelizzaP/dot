@@ -38,6 +38,9 @@ call plug#begin('~/.vim/plugz')
   Plug 'mhinz/vim-signify'
   Plug 'epwalsh/obsidian.nvim'
   Plug 'github/copilot'
+  Plug 'MunifTanjim/nui.nvim'
+  Plug 'rcarriga/nvim-notify'
+  Plug 'folke/noice.nvim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -114,9 +117,6 @@ nn <S-Tab> :bprev<CR>
 nn <BS> <C-W><C-W>
 
 
-map <silent> <LocalLeader>ws :%s/\s\+$//e<CR>
-map <silent> <LocalLeader>hws :highlight clear ExtraWhitespace<CR>
-map <silent> <LocalLeader>cc :TComment<CR>
 nn <silent> [b :bprevious<CR>
 nn <silent> ]b :bnext<CR>
 nn <silent> [B :bfirst<CR>
@@ -131,7 +131,7 @@ nn <silent> ]T :tablast<CR>
 imap <C-L> <SPACE>=><SPACE>
 imap <C-S> \|><SPACE>
 imap <Tab> <c-x><c-o>
-
+imap <C-B> -<SPACE>[ ]<SPACE>
 imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 tnoremap <Esc> <C-\><C-n>
@@ -167,11 +167,14 @@ let g:signify_sign_change_delete     = ''
 
 let g:mix_format_on_save = 1
 
-imap <C-L> <SPACE>=><SPACE>
-imap <C--> \|><SPACE>
 map <LocalLeader>cc :TComment<CR>
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
+map <LocalLeader>oo :ObsidianQuickSwitch<CR>
+map <LocalLeader>os :ObsidianSearch<CR>
+map <LocalLeader>ot :ObsidianToday<CR>
+map <LocalLeader>oy :ObsidianYesterday<CR>
+
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
@@ -206,3 +209,4 @@ lua require('cmp_config')
 lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
+lua require('noice_config')

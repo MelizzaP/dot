@@ -1,0 +1,44 @@
+tmux has-session -t 
+if [ $? != 0 ]
+then
+  tmux new-session -s  -n \ \ CHUNKY-KONG -d
+  tmux send-keys -t  'echo Hello Dev! \n Booting IDE' C-m
+  tmux send-keys -t :1.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t :1.1 'nvim' C-m
+
+  tmux new-window -n 󰜈\ \ KONG-FU -d
+  tmux send-keys -t :2.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t :2.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t :2.1 'fish' C-m
+  tmux send-keys -t :2.1 'nvim' C-m
+
+  tmux new-window -n \ \ BRAND -d
+  tmux send-keys -t :3.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t :3.1 'cd ~/code/brand' C-m
+  tmux send-keys -t :3.1 'fish' C-m
+  tmux send-keys -t :3.1 'nvim' C-m
+
+  tmux new-session -s 󰞷 -n 󱖿\ \ CHUNKY-KONG -d
+  tmux send-keys -t 󰞷:1.1 'echo Hello Dev! \n Booting servers' C-m
+  tmux send-keys -t 󰞷:1.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t 󰞷:1.1 'zsh' C-m
+  tmux send-keys -t 󰞷:1.1 'ws start -d' C-m
+
+  tmux new-window -n 󰜈\ \ KONG-FU -d
+  tmux send-keys -t 󰞷:2.1 'echo Hello Dev! \n Booting servers' C-m
+  tmux send-keys -t 󰞷:2.1 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t 󰞷:2.1 'zsh' C-m
+  tmux send-keys -t 󰞷:2.1 'ws start' C-m
+  tmux send-keys -t 󰞷:2.1 C-l
+
+  tmux new-window -n \  -d
+  tmux send-keys -t 󰞷:3.1 'echo Hello Dev! \n Opening DB Query' C-m
+  tmux send-keys -t 󰞷:3.1 'nvim' C-m
+  tmux send-keys -t 󰞷:3.1 ':te' C-m
+  tmux send-keys -t 󰞷:3.1 'docker exec -it dda4b73251dc /bin/bash' C-m
+  tmux send-keys -t 󰞷:3.1 'psql -U postgres instinct_dev' C-m
+  tmux send-keys -t 󰞷:3.1 '\x' C-m
+  tmux send-keys -t 󰞷:3.1 C-l
+fi
+
+tmux attach

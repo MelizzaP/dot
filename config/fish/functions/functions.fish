@@ -1,3 +1,4 @@
+set -x ME "MelizzaP"
 ############ General ############
 function reload-config
   source ~/.config/fish/config.fish
