@@ -2,9 +2,8 @@
 
 format = """
 [ ](bg:color_purple)\
-$os\
-[ ](bg:color_purple)\
 $username\
+[ ](bg:color_purple)\
 [](bg:color_yellow fg:color_purple)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
@@ -27,9 +26,10 @@ $conda\
 [](fg:color_bg3 bg:color_bg1)\
 $time\
 [ ](fg:color_bg1)\
-$line_break$shell$character"""
+$shell$character"""
 
 palette = 'everforest'
+add_newline = false
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'
@@ -168,7 +168,7 @@ format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
 disabled = false
 time_format = "%T"
 style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+format = '[[ $time](fg:color_fg0 bg:color_bg1)]($style)'
 
 [line_break]
 disabled = false
