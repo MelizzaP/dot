@@ -170,11 +170,11 @@ let g:mix_format_on_save = 1
 map <LocalLeader>cc :TComment<CR>
 "ws -- white space: removes all trailing whitespace from a file
 map <silent> <LocalLeader>ws :%s/\s\+$//<CR>
-map <LocalLeader>oo :ObsidianQuickSwitch<CR>
-map <LocalLeader>os :ObsidianSearch<CR>
-map <LocalLeader>ot :ObsidianToday<CR>
-map <LocalLeader>oy :ObsidianYesterday<CR>
-
+map <silent> <LocalLeader>oo :ObsidianQuickSwitch<CR>
+map <silent> <LocalLeader>os :ObsidianSearch<CR>
+map <silent> <LocalLeader>ot :ObsidianToday<CR>
+map <silent> <LocalLeader>oy :ObsidianYesterday<CR>
+map <silent> <LocalLeader>hh :NoiceDismiss<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
