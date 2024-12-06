@@ -8,3 +8,4 @@ config/AWSVPNClient
 config/gh
 config/elixir-ls
 config/nvim/pack
+config/fish/fish_variables

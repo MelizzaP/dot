@@ -37,7 +37,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'pwntester/octo.nvim'
   Plug 'mhinz/vim-signify'
   Plug 'epwalsh/obsidian.nvim'
-  Plug 'github/copilot'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
   Plug 'folke/noice.nvim'
@@ -132,8 +131,6 @@ imap <C-L> <SPACE>=><SPACE>
 imap <C-S> \|><SPACE>
 imap <Tab> <c-x><c-o>
 imap <C-B> -<SPACE>[ ]<SPACE>
-imap <silent><script><expr> <C-k> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
 tnoremap <Esc> <C-\><C-n>
 
 "      Command Line
