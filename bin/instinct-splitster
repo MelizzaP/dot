@@ -1,61 +1,57 @@
-tmux has-session -t \ Intinct\ 
+tmux has-session -t \ Intinct\ Vim
 if [ $? != 0 ]
 then
-  tmux new-session -s \ Intinct\  -n chunky-kong\ \  -d
-  tmux send-keys -t \ Intinct\  'echo Hello Dev! \n Booting IDE' C-m
-  tmux send-keys -t \ Intinct\ :1.1 'cd ~/code/chunky-kong' C-m
-  tmux send-keys -t :1.1 'nvim' C-m
+  tmux new-session -s \ Intinct\ Vim -n chunky-kong\ \  -d
+  tmux send-keys -t \ Intinct\ Vim:1.1 'echo Hello Dev! \n Booting IDE' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.1 'nvim' C-m
 
   tmux new-window -n kong-fu\ 󰜈\  -d
-  tmux send-keys -t \ Intinct\ :2.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ :2.1 'cd ~/code/kong-fu' C-m
-  tmux send-keys -t \ Intinct\ :2.1 'fish' C-m
-  tmux send-keys -t \ Intinct\ :2.1 'nvim' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.1 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.1 'nvim' C-m
 
   tmux new-window -n workstation\ 󱆃\  -d
-  tmux send-keys -t \ Intinct\ :3.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ :3.1 'cd ~/code/workstation' C-m
-  tmux send-keys -t \ Intinct\ :3.1 'nvim' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'cd ~/code/workstation' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'nvim' C-m
 
   tmux new-window -n helm\ 󰌪 -d
-  tmux send-keys -t \ Intinct\ :4.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ :4.1 'cd ~/code/brand' C-m
-  tmux send-keys -t \ Intinct\ :4.1 'fish' C-m
-  tmux send-keys -t \ Intinct\ :4.1 'nvim' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'cd ~/code/brand' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'nvim' C-m
 
   tmux new-window -n dev_scripts\ 󰯁 -d
-  tmux send-keys -t \ Intinct\ :5.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ :5.1 'cd ~/code/dev_scripts' C-m
-  tmux send-keys -t \ Intinct\ :5.1 'fish' C-m
-  tmux send-keys -t \ Intinct\ :5.1 'nvim' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/dev_scripts' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'nvim' C-m
 
   tmux new-window -n standard-data\ \ 󰉀 -d
-  tmux send-keys -t \ Intinct\ :6.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ :6.1 'cd ~/code/standard-data' C-m
-  tmux send-keys -t \ Intinct\ :6.1 'fish' C-m
-  tmux send-keys -t \ Intinct\ :6.1 'nvim' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/standard-data' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'nvim' C-m
 
-  tmux new-session -s \ Servers \&\ Database\  -n chunky-kong\ \  -d
-  tmux send-keys -t \ Servers \&\ Database\ :1.1 'echo Hello Dev! \n Booting servers' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :1.1 'cd ~/code/chunky-kong' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :1.1 'zsh' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :1.1 'ws start -d' C-m
+  tmux new-session -s \ Servers\ \&\ Database\  -n chunky-kong\ \  -d
+  tmux send-keys -t \ Servers\ \&\ Database\ :1.1 'echo Hello Dev! \n Booting servers' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :1.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :1.1 'zsh' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :1.1 'ws start -d' C-m
 
-  tmux new-window -n kong-fu \  -d
-  tmux send-keys -t \ Servers \&\ Database\ :2.1 'echo Hello Dev! \n Booting servers' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :2.1 'cd ~/code/kong-fu' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :2.1 'zsh' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :2.1 'ws start' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :2.1 C-l
+  tmux new-window -n kong-fu\ \  -d
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'echo Hello Dev! \n Booting servers' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'zsh' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'ws start' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 C-l
 
   tmux new-window -n database\ \  -d
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 'echo Hello Dev! \n Opening DB Query' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 'nvim' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 ':te' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 'docker exec -it dda4b73251dc /bin/bash' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 'psql -U postgres instinct_dev' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 '\x' C-m
-  tmux send-keys -t \ Servers \&\ Database\ :3.1 C-l
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 'echo Hello Dev! \n Opening DB Query' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 'nvim' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 ':te' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 'docker exec -it dda4b73251dc /bin/bash' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 'psql -U postgres instinct_dev' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 '\x' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :3.1 C-l
 fi
 
 tmux attach
