@@ -4,11 +4,34 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
+-- local elixir = require("elixir")
+-- local elixirls = require("elixirls")
+
+local elixirls_config = {
+  cmd = { "/Users/mp/.lsps/elixir-ls/release/language_server.sh" },
+  capabilities = capabilities,
+  dialyzerEnabled = true,
+  fetchDeps = true,
+  }
+
+local nextls_config = {
+    cmd = {"nextls", "--stdio"},
+      init_options = {
+        extensions = {
+          credo = { enable = true }
+        },
+      experimental = {
+        completions = {
+          enable = true -- control if completions are enabled. defaults to false
+        }
+      }
+    },
+    capabilities = capabilities
+}
 
 local lexical_config = {
-  filetypes = { "elixir", "eelixir", "heex" },
-  cmd = { "/Users/mp/.config/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-  settings = {},
+  cmd = { "/Users/mp/.lsps/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  capabilities = capabilities
 }
 
 if not configs.lexical then
@@ -25,14 +48,11 @@ if not configs.lexical then
   }
 end
 
-lspconfig.lexical.setup({
-  capabilities = capabilities
-})
-
+lspconfig.lexical.setup(lexical_config)
+-- lspconfig.elixirls.setup(elixirls_config)
 lspconfig.ts_ls.setup{
   capabilities = capabilities
 }
-
 lspconfig.pyright.setup{
   capabilities = capabilities
 }

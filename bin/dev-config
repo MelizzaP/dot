@@ -1,15 +1,15 @@
 tmux has-session -t 󱓧\ Notes\ \&\ Tools\ 
 if [ $? != 0 ]
 then
-  tmux new-session -s 󱓧\ Notes\ \&\ Tools\  -d -n Notes\  -d
-  tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :1.1 'cd ~/Desktop/melissanotes' C-m
+  tmux new-session -s 󱓧\ Notes\ \&\ Tools\  -d -n dotfiles\  -d
+  tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :1.1 'cd ~/.dot' C-m
   tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :1.1 'nvim' C-m
 
   tmux new-window -n terminal\  -d
   tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :2.1 'echo 󰳗' C-m
 
-  tmux new-window -n dotfiles\  -d
-  tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :3.1 'cd ~/.dot' C-m
+  tmux new-window -n Notes\  -d
+  tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :3.1 'cd ~/Desktop/melissanotes' C-m
   tmux send-keys -t 󱓧\ Notes\ \&\ Tools\ :3.1 'nvim' C-m
 fi
 
