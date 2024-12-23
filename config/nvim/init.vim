@@ -201,6 +201,7 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 
+lua require('mappings')
 lua require('ls')
 lua require('cmp_config')
 lua require('obsidian_config')

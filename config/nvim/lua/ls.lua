@@ -4,8 +4,6 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
--- local elixir = require("elixir")
--- local elixirls = require("elixirls")
 
 local elixirls_config = {
   cmd = { "/Users/mp/.lsps/elixir-ls/release/language_server.sh" },
@@ -49,7 +47,7 @@ if not configs.lexical then
 end
 
 lspconfig.lexical.setup(lexical_config)
--- lspconfig.elixirls.setup(elixirls_config)
+lspconfig.elixirls.setup(elixirls_config)
 lspconfig.ts_ls.setup{
   capabilities = capabilities
 }
