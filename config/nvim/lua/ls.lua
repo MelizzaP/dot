@@ -7,9 +7,10 @@ local configs = require("lspconfig.configs")
 
 local elixirls_config = {
   cmd = { "/Users/mp/.lsps/elixir-ls/release/language_server.sh" },
+  filetypes = { "elixir", "eelixir", "heex" },
   capabilities = capabilities,
   dialyzerEnabled = true,
-  fetchDeps = true,
+  fetchDeps = false,
   }
 
 local nextls_config = {
@@ -28,8 +29,10 @@ local nextls_config = {
 }
 
 local lexical_config = {
-  cmd = { "/Users/mp/.lsps/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-  capabilities = capabilities
+  cmd = { "/Users/mp/code/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  filetypes = { "elixir", "eelixir", "heex" },
+  capabilities = capabilities,
+  fetchDeps = false
 }
 
 if not configs.lexical then

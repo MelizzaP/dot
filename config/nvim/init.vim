@@ -24,7 +24,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'elixir-editors/vim-elixir'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
@@ -32,7 +31,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'onsails/lspkind-nvim'
-  Plug 'craigmac/vim-mermaid'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
   Plug 'mhinz/vim-signify'
@@ -40,6 +38,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
   Plug 'folke/noice.nvim'
+  Plug 'epwalsh/pomo.nvim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -91,7 +90,7 @@ au BufNewFile,BufRead *.jsx                             set filetype=javascriptr
 au BufNewFile,BufRead *.tsx                             set filetype=typescriptreact
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs}                      set ft=elixir
-au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md Prettier
+au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
 au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 au BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
@@ -208,3 +207,4 @@ lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
 lua require('noice_config')
+lua require('pomo').setup({})

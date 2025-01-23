@@ -1,0 +1,77 @@
+tmux has-session -t \ Intinct\ Vim
+if [ $? != 0 ]
+then
+  tmux new-session -s \ Intinct\ Vim -n chunky-kong\ \  -d
+  tmux send-keys -t \ Intinct\ Vim:1.1 'echo Hello Dev! \n Booting IDE' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.1 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.1 'nvim' C-m
+
+  tmux split-window -h -p 100 -t \ Intinct\ Vim:1.1
+  tmux send-keys -t \ Intinct\ Vim:1.2 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.2 C-l
+
+  tmux split-window -v -p 10 -t \ Intinct\ Vim:1.2
+  tmux send-keys -t \ Intinct\ Vim:1.3 'cd ~/code/chunky-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.3 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.3 'set pg_container (docker ps | grep postgres | string sub --length 12)' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.3 'docker exec -it $pg_container /bin/bash' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.3 'psql -U postgres instinct_dev' C-m
+  tmux send-keys -t \ Intinct\ Vim:1.3 '\x' C-m
+
+  tmux new-window -n kong-fu\ 󰜈\  -d
+  tmux send-keys -t \ Intinct\ Vim:2.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.1 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.1 'nvim' C-m
+
+  tmux split-window -h -p 100 -t \ Intinct\ Vim:2.1
+  tmux send-keys -t \ Intinct\ Vim:2.2 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:2.2 C-l
+
+  tmux new-window -n 󰐂\ trippy-kong\ \  -d
+  tmux send-keys -t \ Intinct\ Vim:3.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'cd ~/code/trippy-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'nvim' C-m
+
+  tmux split-window -h -p 100 -t \ Intinct\ Vim:3.1
+  tmux send-keys -t \ Intinct\ Vim:3.2 'cd ~/code/trippy-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.2 C-l
+
+  tmux split-window -v -p 10 -t \ Intinct\ Vim:3.2
+  tmux send-keys -t \ Intinct\ Vim:3.3 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.3 'set pg_container (docker ps | grep postgres | string sub --length 12)' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.3 'docker exec -it $pg_container /bin/bash' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.3 'psql -U postgres scripts_dev' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.3 '\x' C-m
+
+  tmux new-window -n 󰒃\ donkey-kong\ \  -d
+  tmux send-keys -t \ Intinct\ Vim:4.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'cd ~/code/donkey-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'nvim' C-m
+
+  tmux split-window -h -p 100 -t \ Intinct\ Vim:4.1
+  tmux send-keys -t \ Intinct\ Vim:4.2 'cd ~/code/donkey-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.2 C-l
+
+  tmux split-window -v -p 10 -t \ Intinct\ Vim:4.2
+  tmux send-keys -t \ Intinct\ Vim:4.3 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.3 'set pg_container (docker ps | grep postgres | string sub --length 12)' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.3 'docker exec -it $pg_container /bin/bash' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.3 'psql -U postgres donkey' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.3 '\x' C-m
+
+  tmux new-window -n 󰉀\ standard-data\ \ \  -d
+  tmux send-keys -t \ Intinct\ Vim:5.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/standard-data' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'nvim' C-m
+
+  tmux new-window -n \ helm\ 󰌪 -d
+  tmux send-keys -t \ Intinct\ Vim:6.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/brand' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'nvim' C-m
+fi
+
+tmux attach

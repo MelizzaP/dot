@@ -11,14 +11,14 @@ then
   tmux send-keys -t \ Intinct\ Vim:2.1 'cd ~/code/kong-fu' C-m
   tmux send-keys -t \ Intinct\ Vim:2.1 'nvim' C-m
 
-  tmux new-window -n workstation\ 󱆃\  -d
+  tmux new-window -n trippy-kong\ 󰐂\ \  -d
   tmux send-keys -t \ Intinct\ Vim:3.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ Vim:3.1 'cd ~/code/workstation' C-m
+  tmux send-keys -t \ Intinct\ Vim:3.1 'cd ~/code/trippy-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:3.1 'nvim' C-m
 
-  tmux new-window -n helm\ 󰌪 -d
+  tmux new-window -n standard-data\ \ 󰉀 -d
   tmux send-keys -t \ Intinct\ Vim:4.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ Vim:4.1 'cd ~/code/brand' C-m
+  tmux send-keys -t \ Intinct\ Vim:4.1 'cd ~/code/standard-data' C-m
   tmux send-keys -t \ Intinct\ Vim:4.1 'nvim' C-m
 
   tmux new-window -n dev_scripts\ 󰯁 -d
@@ -26,10 +26,16 @@ then
   tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/dev_scripts' C-m
   tmux send-keys -t \ Intinct\ Vim:5.1 'nvim' C-m
 
-  tmux new-window -n standard-data\ \ 󰉀 -d
+
+  tmux new-window -n workstation\ 󱆃\  -d
   tmux send-keys -t \ Intinct\ Vim:6.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/standard-data' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/workstation' C-m
   tmux send-keys -t \ Intinct\ Vim:6.1 'nvim' C-m
+
+  tmux new-window -n helm\ 󰌪 -d
+  tmux send-keys -t \ Intinct\ Vim:7.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.1 'cd ~/code/brand' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.1 'nvim' C-m
 
   tmux new-session -s \ Servers\ \&\ Database\  -n chunky-kong\ \  -d
   tmux send-keys -t \ Servers\ \&\ Database\ :1.1 'echo Hello Dev! \n Booting servers' C-m
@@ -40,6 +46,13 @@ then
   tmux new-window -n kong-fu\ \  -d
   tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'echo Hello Dev! \n Booting servers' C-m
   tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'cd ~/code/kong-fu' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'zsh' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'ws start' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 C-l
+
+  tmux new-window -n trippy-kong\ \  -d
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'echo Hello Dev! \n Booting servers' C-m
+  tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'cd ~/code/trippy-kong' C-m
   tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'zsh' C-m
   tmux send-keys -t \ Servers\ \&\ Database\ :2.1 'ws start' C-m
   tmux send-keys -t \ Servers\ \&\ Database\ :2.1 C-l
