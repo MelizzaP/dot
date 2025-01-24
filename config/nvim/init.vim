@@ -38,7 +38,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
   Plug 'folke/noice.nvim'
-  Plug 'epwalsh/pomo.nvim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -207,4 +206,3 @@ lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
 lua require('noice_config')
-lua require('pomo').setup({})
