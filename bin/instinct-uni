@@ -63,15 +63,25 @@ then
   tmux send-keys -t \ Intinct\ Vim:4.3 'psql -U postgres donkey' C-m
   tmux send-keys -t \ Intinct\ Vim:4.3 '\x' C-m
 
-  tmux new-window -n 󰉀\ standard-data\ \ \  -d
+  tmux new-window -n Cranky\   -d
   tmux send-keys -t \ Intinct\ Vim:5.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/standard-data' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/cranky-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:5.1 'nvim' C-m
 
-  tmux new-window -n \ helm\ 󰌪 -d
+  tmux split-window -h -p 100 -t \ Intinct\ Vim:5.1
+  tmux send-keys -t \ Intinct\ Vim:5.2 'cd ~/code/cranky-kong' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:5.2 C-l
+
+  tmux new-window -n 󰉀\ standard-data\ \ \  -d
   tmux send-keys -t \ Intinct\ Vim:6.1 'echo Hello Melly 󰧑' C-m
-  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/brand' C-m
+  tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/standard-data' C-m
   tmux send-keys -t \ Intinct\ Vim:6.1 'nvim' C-m
+
+  tmux new-window -n workstation\ 󱆃\  -d
+  tmux send-keys -t \ Intinct\ Vim:7.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.1 'cd ~/code/workstation' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.1 'nvim' C-m
 fi
 
 tmux attach

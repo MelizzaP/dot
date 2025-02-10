@@ -79,3 +79,12 @@ function dotenv --description 'Load environment variables from .env file'
     end
   end
 end
+
+######### AI ##########
+function ask_gemini --description 'Curl gemini API for an answer'
+echo -e (curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$GEMINI_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d "{ \"contents\": [{ \"parts\":[{\"text\": \"$argv\"}] }] }" \
+  |  jq '.candidates[0].content.parts[0].text')
+end
