@@ -195,6 +195,9 @@ let g:loaded_perl_provider = 0
 let g:loaded_python3_provider = 0
 let g:loaded_ruby_provider = 0
 
+" Shelly Shell
+let &shell = '/opt/homebrew/bin/fish'
+
 " Snippets
 imap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-g>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
