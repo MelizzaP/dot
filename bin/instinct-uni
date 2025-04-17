@@ -6,7 +6,7 @@ then
   tmux send-keys -t \ Intinct\ Vim:1.1 'cd ~/code/chunky-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:1.1 'nvim' C-m
 
-  tmux split-window -h -p 100 -t \ Intinct\ Vim:1.1
+  tmux split-window -h -p 75 -t \ Intinct\ Vim:1.1
   tmux send-keys -t \ Intinct\ Vim:1.2 'cd ~/code/chunky-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:1.2 'fish' C-m
   tmux send-keys -t \ Intinct\ Vim:1.2 C-l
@@ -24,7 +24,7 @@ then
   tmux send-keys -t \ Intinct\ Vim:2.1 'cd ~/code/kong-fu' C-m
   tmux send-keys -t \ Intinct\ Vim:2.1 'nvim' C-m
 
-  tmux split-window -h -p 100 -t \ Intinct\ Vim:2.1
+  tmux split-window -h -p 75 -t \ Intinct\ Vim:2.1
   tmux send-keys -t \ Intinct\ Vim:2.2 'cd ~/code/kong-fu' C-m
   tmux send-keys -t \ Intinct\ Vim:2.2 'fish' C-m
   tmux send-keys -t \ Intinct\ Vim:2.2 C-l
@@ -34,7 +34,7 @@ then
   tmux send-keys -t \ Intinct\ Vim:3.1 'cd ~/code/trippy-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:3.1 'nvim' C-m
 
-  tmux split-window -h -p 100 -t \ Intinct\ Vim:3.1
+  tmux split-window -h -p 75 -t \ Intinct\ Vim:3.1
   tmux send-keys -t \ Intinct\ Vim:3.2 'cd ~/code/trippy-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:3.2 'fish' C-m
   tmux send-keys -t \ Intinct\ Vim:3.2 C-l
@@ -68,7 +68,7 @@ then
   tmux send-keys -t \ Intinct\ Vim:5.1 'cd ~/code/cranky-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:5.1 'nvim' C-m
 
-  tmux split-window -h -p 100 -t \ Intinct\ Vim:5.1
+  tmux split-window -h -p 75 -t \ Intinct\ Vim:5.1
   tmux send-keys -t \ Intinct\ Vim:5.2 'cd ~/code/cranky-kong' C-m
   tmux send-keys -t \ Intinct\ Vim:5.2 'fish' C-m
   tmux send-keys -t \ Intinct\ Vim:5.2 C-l
@@ -78,10 +78,19 @@ then
   tmux send-keys -t \ Intinct\ Vim:6.1 'cd ~/code/standard-data' C-m
   tmux send-keys -t \ Intinct\ Vim:6.1 'nvim' C-m
 
-  tmux new-window -n workstation\ 󱆃\  -d
+  tmux new-window -n workstation,\ helm,\ \&\ dev_scripts\ 󱆃\  -d
   tmux send-keys -t \ Intinct\ Vim:7.1 'echo Hello Melly 󰧑' C-m
   tmux send-keys -t \ Intinct\ Vim:7.1 'cd ~/code/workstation' C-m
   tmux send-keys -t \ Intinct\ Vim:7.1 'nvim' C-m
+
+  tmux split-window -h -p 75 -t \ Intinct\ Vim:7.1
+  tmux send-keys -t \ Intinct\ Vim:7.2 'cd ~/code/dev_scripts' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.2 C-l
+
+  tmux split-window -v -p 50 -t \ Intinct\ Vim:7.2
+  tmux send-keys -t \ Intinct\ Vim:7.2 'fish' C-m
+  tmux send-keys -t \ Intinct\ Vim:7.2 'cd code/helm' C-m
 fi
 
 tmux attach

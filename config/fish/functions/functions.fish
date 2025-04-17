@@ -88,3 +88,21 @@ echo -e (curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.
   -d "{ \"contents\": [{ \"parts\":[{\"text\": \"$argv\"}] }] }" \
   |  jq '.candidates[0].content.parts[0].text')
 end
+
+function ask_ai --description 'Curl openai API for an answer'
+  echo -e (curl https://api.openai.com/v1/responses \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -d "{ \"model\": \"gpt-4o\", \"input\": \"$argv\" }" \
+  | jq '.output[0]["content"][0]["text"]')
+end
+
+function openai_models --description 'Curl available models'
+curl https://api.openai.com/v1/models \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  | jq '.'
+end
+
+function openai_usage --description 'Open web browser with openai api usage'
+  open "https://platform.openai.com/usage"
+end

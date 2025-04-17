@@ -1,4 +1,5 @@
 local daily_notes_dir = os.getenv("OBSIDIAN_DAILY_DIR") or "Instinct Science/Daily Notes/"
+local daily_notes_template = os.getenv("OBSIDIAN_DAILY_DIR") or "~/Documents/melissanotes/templates/dailies.md"
 require("obsidian").setup({
   workspaces = {
     {
@@ -10,7 +11,7 @@ require("obsidian").setup({
     folder = daily_notes_dir,
     date_format = "%Y-%m-%d",
     default_tags = { "daily-notes" },
-    template = nil
+    template = 'dailies.md'
   },
   -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
   -- URL it will be ignored but you can customize this behavior here.
@@ -29,5 +30,20 @@ require("obsidian").setup({
     vim.fn.jobstart { "qlmanage", "-p", img }  -- Mac OS quick look preview
     -- vim.fn.jobstart({"xdg-open", url})  -- linux
     -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+  end,
+  templates = {
+    folder = "templates",
+    date_format = "%Y-%m-%d",
+    time_format = "%H:%M",
+    -- A map for custom variables, the key should be the variable and the value a function
+    substitutions = {},
+  },
+ -- Optional, customize how note file names are generated given the ID, target directory, and title.
+  ---@param spec { id: string, dir: obsidian.Path, title: string|? }
+  ---@return string|obsidian.Path The full path to the new note.
+  note_path_func = function(spec)
+    -- This is equivalent to the default behavior.
+    local path = spec.dir / spec.title
+    return path:with_suffix(".md")
   end,
 })

@@ -5,7 +5,6 @@ filetype off
 call plug#begin('~/.vim/plugz')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'jiangmiao/auto-pairs'
   Plug 'mattn/emmet-vim'
   Plug 'tomtom/tcomment_vim'
   Plug 'ap/vim-css-color'
@@ -21,7 +20,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.3' }
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'hrsh7th/nvim-cmp'
@@ -30,6 +29,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
   Plug 'onsails/lspkind-nvim'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'pwntester/octo.nvim'
@@ -90,7 +90,8 @@ au BufNewFile,BufRead *.jsx                             set filetype=javascriptr
 au BufNewFile,BufRead *.tsx                             set filetype=typescriptreact
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs}                      set ft=elixir
-au BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql Prettier
+au BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql Prettier
+" au BufWritePost *.ts,*.tsx Prettier
 au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 au BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
@@ -107,9 +108,9 @@ augroup END
 
 " ========= MAPPINGS =============
 " ******* Normal Mode **********
-nn s <CMD>Telescope find_files<CR>
+nn s <CMD>Telescope find_files theme=get_ivy<CR>
 nn T <CMD>Telescope<CR>
-nn H <CMD>Telescope buffers<CR>
+nn H <CMD>Telescope buffers theme=get_ivy<CR>
 nn <Tab> :bnext<CR>
 nn <S-Tab> :bprev<CR>
 nn <BS> <C-W><C-W>
@@ -171,6 +172,9 @@ map <silent> <LocalLeader>os :ObsidianSearch<CR>
 map <silent> <LocalLeader>ot :ObsidianToday<CR>
 map <silent> <LocalLeader>oy :ObsidianYesterday<CR>
 map <silent> <LocalLeader>hh :NoiceDismiss<CR>
+map <silent> <LocalLeader>gs :Telescope grep_string theme=get_ivy<CR>
+map <silent> <LocalLeader>lg :Telescope live_grep theme=get_ivy<CR>
+map <silent> <LocalLeader>ai :CodeCompanionActions<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
