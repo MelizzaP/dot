@@ -29,7 +29,7 @@ local nextls_config = {
 }
 
 local lexical_config = {
-  cmd = { "/Users/mp/code/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  cmd = { "/Users/mp/.lsps/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
   filetypes = { "elixir", "eelixir", "heex" },
   capabilities = capabilities,
   fetchDeps = false
@@ -90,5 +90,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-
-

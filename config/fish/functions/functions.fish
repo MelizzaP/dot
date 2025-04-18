@@ -33,6 +33,10 @@ function review-requests
   gh pr list -S user-review-requested:$ME
 end
 
+function git-view-commit --description 'Review a commit for a given sha'
+   git rev-list --format=%B --max-count=1 $agrv[1]
+end
+
 function set-github-cred
   ssh-add -D
   ssh-add $HOME/.ssh/$argv
