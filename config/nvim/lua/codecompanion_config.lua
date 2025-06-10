@@ -9,7 +9,7 @@ require("codecompanion").setup({
   },
    display = {
     action_palette = {
-      width = 95,
+      width = 50,
       height = 10,
       prompt = "Prompt ", -- Prompt used for interactive LLM calls
       provider = "telescope", -- default|telescope|mini_pick
