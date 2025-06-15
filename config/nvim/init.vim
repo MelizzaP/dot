@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'tpope/vim-ragtag'
   Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-dadbod'
   Plug 'rizzatti/dash.vim'
   Plug 'mhinz/vim-mix-format'
   Plug 'neovim/nvim-lspconfig'
@@ -39,6 +38,9 @@ call plug#begin('~/.vim/plugz')
   Plug 'rcarriga/nvim-notify'
   Plug 'folke/noice.nvim'
   Plug 'olimorris/codecompanion.nvim'
+  Plug 'nvim-telescope/telescope-frecency.nvim'
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-telescope/telescope-media-files.nvim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -108,9 +110,9 @@ augroup END
 
 " ========= MAPPINGS =============
 " ******* Normal Mode **********
-nn s <CMD>Telescope find_files theme=get_ivy<CR>
+nn s <CMD>Telescope find_files<CR>
 nn T <CMD>Telescope<CR>
-nn H <CMD>Telescope buffers theme=get_ivy<CR>
+nn H <CMD>Telescope buffers<CR>
 nn <Tab> :bnext<CR>
 nn <S-Tab> :bprev<CR>
 nn <BS> <C-W><C-W>
@@ -209,6 +211,7 @@ endif
 
 lua require('mappings')
 lua require('ls')
+lua require('telescope_config')
 lua require('cmp_config')
 lua require('obsidian_config')
 lua require('octo_config')
