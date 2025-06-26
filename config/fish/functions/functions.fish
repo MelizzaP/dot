@@ -16,20 +16,41 @@ function go-home
     cd $HOME
 end
 
+function toggle-dark-mode
+  osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
+end
+
 ########### Git ###############
 function gsq
-  git rebase -i HEAD-$argv
+  git rebase -i HEAD~$argv
+end
+
+function gs
+  git status
+end
+
+function push-branch
+  git push --set-upstream origin (git branch --show-current)
 end
 
 function conflicts
   git ls-files -u
 end
 
-function force-push
+function gp
   git push --force-with-lease
 end
 
-function review-requests 
+function gco
+  git checkout
+end
+
+function gm
+  git commit
+end
+
+function review-requests
+  echo "(set color purple)  checking for pr review requests for $ME (set color normal)"
   gh pr list -S user-review-requested:$ME
 end
 
@@ -48,16 +69,6 @@ end
 
 function set-gitemail
   git config --global user.email $argv
-end
-
-function personal-github
- set-github-cred $PERSONAL_GITHUB_KEY
- set-gitemail $PERSONAL_EMAIL
-end
-
-function professional-github
- set-github-cred $PROF_GITHUB_KEY
- set-gitemail $PROF_EMAIL
 end
 
 ############ NVim ############
@@ -109,4 +120,60 @@ end
 
 function openai_usage --description 'Open web browser with openai api usage'
   open "https://platform.openai.com/usage"
+end
+
+######### VPN ##########
+
+function vpn -a connect_to maybe_disconnect_from
+  # checking the status & possibly disconnecting from this VPN
+  set status_line_str (tunnelblickctl status | grep "^$maybe_disconnect_from")
+  set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
+  if test "$status_line_list[2]" = "CONNECTED"
+    echo "󱠽 Disconnecting from the $maybe_disconnect_from VPN..."
+    tunnelblickctl disconnect $maybe_disconnect_from
+
+    while true
+      set status_line_str (tunnelblickctl status | grep "^$maybe_disconnect_from")
+      set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
+      if test "$status_line_list[2]" = "EXITING"
+        echo "󰌙 disconnected"
+        break
+      end
+      sleep 1
+    end
+  else
+    echo "󰩐 already disconnected from $maybe_disconnect_from VPN"
+  end
+
+  set status_line_str (tunnelblickctl status | grep "^$connect_to")
+  set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
+  if test "$status_line_list[2]" = "CONNECTED"
+    echo "󰩐 already connected from $connect_to VPN"
+  else
+    echo "󱠽 Connecting to the $connect_to VPN..."
+    tunnelblickctl connect $connect_to
+    while true
+      set status_line_str (tunnelblickctl status | grep "^$connect_to")
+      set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
+      if test "$status_line_list[2]" = "CONNECTED"
+        echo "󰌘"
+        echo " connected"
+        break
+      end
+      printf " "
+      sleep 1
+    end
+  end
+end
+
+
+######### DB ##########
+function query_prod --description 'Open readonly production db in postgres CLI'
+  vpn prod staging
+  psql $PROD_DB
+end
+
+function query_staging --description 'Open staging db in postgres CLI'
+  vpn staging prod
+  psql $STAGING_DB
 end
