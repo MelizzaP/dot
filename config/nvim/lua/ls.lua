@@ -50,7 +50,7 @@ if not configs.lexical then
 end
 
 lspconfig.lexical.setup(lexical_config)
-lspconfig.elixirls.setup(elixirls_config)
+-- lspconfig.elixirls.setup(elixirls_config)
 lspconfig.ts_ls.setup{
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },

@@ -9,7 +9,10 @@ local setup = {
     buffers = { theme = "ivy" },
     grep_string = { theme = "ivy" },
     live_grep = { theme = "ivy" },
-    lsp_references = { theme = "ivy" },
+    lsp_references = {
+      theme = "ivy",
+      path_display = { "tail" }
+    },
     diagnostics = { theme = "ivy" },
     git_branches = { theme = "ivy" },
     git_status = { theme = "ivy" },
