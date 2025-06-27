@@ -50,7 +50,11 @@ function gm
 end
 
 function review-requests
-  echo "(set color purple)  checking for pr review requests for $ME (set color normal)"
+  set_color green
+  echo "------------------------------------------------"
+  echo " checking for pr review requests for $ME "
+  echo "------------------------------------------------"
+  set_color normal
   gh pr list -S user-review-requested:$ME
 end
 
