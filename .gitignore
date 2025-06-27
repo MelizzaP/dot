@@ -10,3 +10,4 @@ config/elixir-ls
 config/nvim/pack
 config/fish/fish_variables
 config/configstore
+config/yarn

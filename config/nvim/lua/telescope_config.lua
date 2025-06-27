@@ -35,5 +35,6 @@ local setup = {
   }
 }
 require('telescope').setup(setup)
+require('telescope').load_extension('nerdy')
 require('telescope').load_extension('frecency')
 require('telescope').load_extension('media_files')

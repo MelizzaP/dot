@@ -41,6 +41,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope-media-files.nvim'
+  Plug '2kabhishek/nerdy.nvim'
 call plug#end()
 
 " ========= GENERAL SETTINGS =============
@@ -177,6 +178,7 @@ map <silent> <LocalLeader>hh :NoiceDismiss<CR>
 map <silent> <LocalLeader>gs :Telescope grep_string theme=get_ivy<CR>
 map <silent> <LocalLeader>lg :Telescope live_grep theme=get_ivy<CR>
 map <silent> <LocalLeader>ai :CodeCompanionActions<CR>
+map <silent> <LocalLeader>ni :Telescope nerdy<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 
