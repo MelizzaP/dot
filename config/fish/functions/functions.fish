@@ -20,6 +20,13 @@ function toggle-dark-mode
   osascript -e 'tell app "System Events" to tell appearance preferences to set dark mode to not dark mode'
 end
 
+function toggle-term-color
+  set tmp_dir (pwd)
+  cd $HOME/.dot
+  git checkout -
+  cd $tmp_dir
+end
+
 ########### Git ###############
 function gsq
   git rebase -i HEAD~$argv
