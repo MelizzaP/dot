@@ -72,6 +72,7 @@ set laststatus=2
 " ========= COLORS & HIGHLIGHTS =============
 let g:everforest_background = 'soft'
 let g:everforest_better_performance = 1
+set termguicolors
 
 colorscheme everforest
 hi Normal ctermbg=NONE guibg=NONE

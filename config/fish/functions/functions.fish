@@ -133,38 +133,52 @@ function vpn -a connect_to maybe_disconnect_from
   set status_line_str (tunnelblickctl status | grep "^$maybe_disconnect_from")
   set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
   if test "$status_line_list[2]" = "CONNECTED"
+    set_color red
     echo "󱠽 Disconnecting from the $maybe_disconnect_from VPN..."
+    set_color normal
     tunnelblickctl disconnect $maybe_disconnect_from
 
     while true
       set status_line_str (tunnelblickctl status | grep "^$maybe_disconnect_from")
       set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
       if test "$status_line_list[2]" = "EXITING"
+        set_color red
         echo "󰌙 disconnected"
+        set_color normal
         break
       end
       sleep 1
     end
   else
+    set_color blue
     echo "󰩐 already disconnected from $maybe_disconnect_from VPN"
+    set_color normal
   end
 
   set status_line_str (tunnelblickctl status | grep "^$connect_to")
   set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
   if test "$status_line_list[2]" = "CONNECTED"
+    set_color blue
     echo "󰩐 already connected from $connect_to VPN"
+    set_color normal
   else
+    set_color yellow
     echo "󱠽 Connecting to the $connect_to VPN..."
     tunnelblickctl connect $connect_to
+    set_color normal
     while true
       set status_line_str (tunnelblickctl status | grep "^$connect_to")
       set status_line_list (string split ' ' (string trim -- $status_line_str | string replace -ar '\s+' ' '))
       if test "$status_line_list[2]" = "CONNECTED"
+        set_color green
         echo "󰌘"
         echo " connected"
+        set_color normal
         break
       end
+      set_color yellow
       printf " "
+      set_color normal
       sleep 1
     end
   end
