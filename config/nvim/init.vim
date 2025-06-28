@@ -82,8 +82,8 @@ hi ExtraWhitespace ctermbg=Black guibg=Black
 hi Folded cterm=italic ctermfg=Black ctermbg=Cyan
 hi LineLengthError ctermbg=Black
 
-hi CursorLine cterm=NONE ctermbg=Black
-hi cursorcolumn cterm=NONE ctermbg=Black
+hi CursorLine cterm=NONE ctermbg=White
+hi cursorcolumn cterm=NONE ctermbg=White
 hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
