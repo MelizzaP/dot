@@ -179,7 +179,7 @@ map <silent> <LocalLeader>hh :NoiceDismiss<CR>
 map <silent> <LocalLeader>gs :Telescope grep_string theme=get_ivy<CR>
 map <silent> <LocalLeader>lg :Telescope live_grep theme=get_ivy<CR>
 map <silent> <LocalLeader>ai :CodeCompanionActions<CR>
-map <silent> <LocalLeader>ni :Telescope nerdy<CR>
+map <silent> <LocalLeader>ii :Telescope nerdy<CR>
 
 autocmd BufNewFile,BufRead {*.txt,*.md} setlocal spell spelllang=en_us
 

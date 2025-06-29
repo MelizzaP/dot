@@ -7,7 +7,7 @@ require("codecompanion").setup({
       adapter = "openai",
     },
   },
-   display = {
+  display = {
     action_palette = {
       width = 50,
       height = 10,
@@ -19,4 +19,36 @@ require("codecompanion").setup({
       },
     },
   },
+  prompt_library = {
+    ["Dinosaur"] = {
+      strategy = "chat",
+      description = "Write documentation for me",
+      opts = {
+        index = 11,
+        is_slash_cmd = false,
+        auto_submit = false,
+        short_name = "docs",
+      },
+      references = {
+        {
+          type = "file",
+          path = {
+            "doc/.vitepress/config.mjs",
+            "lua/codecompanion/config.lua",
+            "README.md",
+          },
+        },
+      },
+      prompts = {
+        {
+          role = "user",
+          content = [[I'm a dinosaur, I like to use dinosaur language for variable names when coding.
+
+            I ate eggs this morning and my tummy hurts.
+          ]],
+        },
+      },
+    },
+  },
 })
+
