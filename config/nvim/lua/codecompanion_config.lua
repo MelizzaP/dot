@@ -1,7 +1,14 @@
+-- TODO: change ctrl-c to esc to close chat
 require("codecompanion").setup({
   strategies = {
     chat = {
       adapter = "openai",
+      keymaps = {
+        close = {
+          modes = { n = "<C-c>", i = "<C-x>" },
+          opts = {},
+        }
+      }
     },
     inline = {
       adapter = "openai",
