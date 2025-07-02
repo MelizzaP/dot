@@ -1,0 +1,19 @@
+tmux has-session -t \ hatch-elixir\ 
+if [ $? != 0 ]
+then
+  tmux new-session -s \ hatch-elixir\  -n  -d
+  tmux send-keys -t \ hatch-elixir\ :1.1 'echo Hello! \n Booting IDE' C-m
+  tmux send-keys -t \ hatch-elixir\ :1.1 'cd ~/code/hatch-elixir' C-m
+  tmux send-keys -t \ hatch-elixir\ :1.1 'nvim' C-m
+
+  tmux new-window -n \ \&\  -d
+  tmux send-keys -t \ hatch-elixir\ :2.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ hatch-elixir\ :2.1 'cd ~/code/hatch-elixir' C-m
+  tmux send-keys -t \ hatch-elixir\ :2.1 'iex -S mix phx.server' C-m
+
+  tmux split-window -h -t \ hatch-elixir\ :2.1
+  tmux send-keys -t \ hatch-elixir\ :2.2 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ hatch-elixir\ :2.2 'cd ~/code/hatch-elixir' C-m
+fi
+
+tmux attach
