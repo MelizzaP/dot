@@ -1,32 +1,23 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[ ](bg:color_purple)\
 $username\
-[ ](bg:color_purple)\
-[](bg:color_yellow fg:color_purple)\
-$directory\
-[](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
+[](fg:color_aqua bg:color_yellow)\
+$directory\
+[](fg:color_yellow bg:color_blue)\
 $elixir\
-$c\
 $rust\
 $golang\
 $nodejs\
-$php\
-$java\
-$kotlin\
 $haskell\
 $python\
-[](fg:color_blue bg:color_bg3)\
+[](fg:color_blue bg:color_bg0)\
 $docker_context\
-$conda\
-[](fg:color_bg3 bg:color_bg1)\
-$time\
-[ ](fg:color_bg1)\
-$line_break$shell$character"""
+$kubernetes\
+$aws\
+$shell$character"""
 
 palette = 'everforest'
 add_newline = false
@@ -83,16 +74,16 @@ RedHatEnterprise = "󱄛"
 Pop = ""
 
 [username]
-show_always = true
+show_always = false
 style_user = "bg:color_purple fg:color_fg0"
 style_root = "bg:color_purple fg:color_fg0"
 format = '[$user]($style)'
+disabled = true
 
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
-format = "[ $path ]($style)"
+format = "[$path]($style)"
 truncation_length = 3
-truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -102,13 +93,13 @@ truncation_symbol = "…/"
 "code" = "󰲋 "
 
 [git_branch]
-symbol = ""
+symbol = " "
 style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+format = '[[$symbol $branch](fg:color_fg0 bg:color_aqua)]($style)'
 
 [git_status]
 style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+format = '[[ ($all_status$ahead_behind)](fg:color_fg0 bg:color_aqua)]($style)'
 
 [nodejs]
 symbol = ""
@@ -183,11 +174,11 @@ vimcmd_replace_symbol = '[ ](bold fg:color_purple)'
 vimcmd_visual_symbol = '[ ](bold fg:color_yellow)'
 
 [shell]
-fish_indicator = '[ 󰈺 ](fg:color_blue)'
-zsh_indicator = '[ zsh ](fg:color_purple)'
+fish_indicator = '[󰈺](fg:color_blue)'
+zsh_indicator = '[zsh](fg:color_purple)'
 powershell_indicator = '_'
 unknown_indicator = 'l'
-disabled = false
+disabled = true
 
 [elixir]
 symbol = ''
@@ -195,3 +186,15 @@ detect_files = ['mix.exs']
 disabled = false
 format = '[ $symbol ($version/(OTP $otp_version))](fg:color_fg0 bg:color_blue)'
 style = "fg:color_fg0 bg:color_blue"
+
+[kubernetes]
+symbol = '󱃾 '
+style = "bg:color_red"
+format = '[[ $symbol$context( \($namespace\))](fg:color_red bg:color_bg0)]($style) '
+disabled = false
+
+[aws]
+symbol = "  "        # optional; AWS icon
+style = "bg:color_bg0 fg:color_orange"
+format = '[ $symbol($profile)(:$region)]($style)'
+disabled = true

@@ -44,6 +44,8 @@ call plug#begin('~/.vim/plugz')
   Plug '2kabhishek/nerdy.nvim'
 call plug#end()
 
+filetype plugin indent on
+
 " ========= GENERAL SETTINGS =============
 set backspace=indent,eol,start
 set conceallevel=2
