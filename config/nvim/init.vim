@@ -70,6 +70,7 @@ set smartcase
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wrap
 set laststatus=2
+set spell spelllang=en_us
 
 " ========= COLORS & HIGHLIGHTS =============
 let g:everforest_background = 'soft'
@@ -98,7 +99,7 @@ au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs}                      set ft=elixir
 au BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql Prettier
 " au BufWritePost *.ts,*.tsx Prettier
-au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
+" au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 au BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
 au ColorScheme * hi ExtraWhitespace ctermbg=Magenta
