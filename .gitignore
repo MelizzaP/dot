@@ -11,3 +11,6 @@ config/nvim/pack
 config/fish/fish_variables
 config/configstore
 config/yarn
+config/fish/conf.d/uv.env.fish
+config/mcphub/
+config/uv/

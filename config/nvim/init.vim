@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-surround'
   Plug 'rizzatti/dash.vim'
-  Plug 'mhinz/vim-mix-format'
+  Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
@@ -42,6 +42,8 @@ call plug#begin('~/.vim/plugz')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope-media-files.nvim'
   Plug '2kabhishek/nerdy.nvim'
+  Plug 'Davidyz/VectorCode'
+  Plug 'ravitemer/mcphub.nvim'
 call plug#end()
 
 filetype plugin indent on
@@ -223,4 +225,6 @@ lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
 lua require('noice_config')
+lua require('vectorcode_config')
+lua require('mcp_config')
 lua require('codecompanion_config')

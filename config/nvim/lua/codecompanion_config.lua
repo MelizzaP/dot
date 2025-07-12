@@ -1,5 +1,5 @@
--- TODO: change ctrl-c to esc to close chat
-require("codecompanion").setup({
+
+require("codecompanion").setup {
   strategies = {
     chat = {
       adapter = "openai",
@@ -7,11 +7,44 @@ require("codecompanion").setup({
         close = {
           modes = { n = "<C-c>", i = "<C-x>" },
           opts = {},
-        }
-      }
+        },
+      },
     },
     inline = {
       adapter = "openai",
+    },
+  },
+  extensions = {
+    vectorcode = {
+      opts = {
+        tool_group = {
+          enabled = true,
+          extras = {},
+          collapse = false, -- whether the individual tools should be shown in the chat
+        },
+        tool_opts = {
+          ls = {},
+          vectorise = {},
+          query = {
+            max_num = { chunk = -1, document = -1 },
+            default_num = { chunk = 50, document = 10 },
+            no_duplicate = true,
+            chunk_mode = false,
+            summarise = {
+              adapter = true,
+              query_augmented = true,
+            },
+          },
+        },
+      },
+    },
+    mcphub = {
+      callback = "mcphub.extensions.codecompanion",
+      opts = {
+        show_result_in_chat = true,  -- Show mcp tool results in chat
+        make_vars = true,            -- Convert resources to #variables
+        make_slash_commands = true,  -- Add prompts as /slash commands
+      },
     },
   },
   display = {
@@ -51,11 +84,11 @@ require("codecompanion").setup({
           role = "user",
           content = [[I'm a dinosaur, I like to use dinosaur language for variable names when coding.
 
-            I ate eggs this morning and my tummy hurts.
+I ate eggs this morning and my tummy hurts.
           ]],
         },
       },
     },
   },
-})
+}
 
