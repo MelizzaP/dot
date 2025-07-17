@@ -2,7 +2,10 @@
 require("codecompanion").setup {
   strategies = {
     chat = {
-      adapter = "openai",
+      adapter = {
+        name = "openai",
+        model = "gpt-4.1-mini",
+      },
       keymaps = {
         close = {
           modes = { n = "<C-c>", i = "<C-x>" },

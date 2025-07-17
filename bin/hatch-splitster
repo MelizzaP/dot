@@ -1,0 +1,48 @@
+tmux has-session -t \ Hatch\ 
+if [ $? != 0 ]
+then
+  tmux new-session -s \ Hatch\  -n \ hatch-elixir\  -d
+  tmux send-keys -t \ Hatch\ :1.1 'echo Hello! \n Booting IDE' C-m
+  tmux send-keys -t \ Hatch\ :1.1 'cd ~/code/hatch-elixir' C-m
+  tmux send-keys -t \ Hatch\ :1.1 'nvim' C-m
+
+  tmux new-window -n 󰌠\ livekit-agent\ 󰵰 -d
+  tmux send-keys -t \ Hatch\ :2.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Hatch\ :2.1 'cd ~/code/livekit-agent' C-m
+  tmux send-keys -t \ Hatch\ :2.1 'nvim' C-m
+
+  tmux new-window -n \ helm-hatch-elixir\  -d
+  tmux send-keys -t \ Hatch\ :3.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Hatch\ :3.1 'cd ~/code/helm-hatch-elixir' C-m
+  tmux send-keys -t \ Hatch\ :3.1 'nvim' C-m
+
+  tmux new-window -n \ helm-livekit-agent\  -d
+  tmux send-keys -t \ Hatch\ :4.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Hatch\ :4.1 'cd ~/code/helm-livekit-agent' C-m
+  tmux send-keys -t \ Hatch\ :4.1 'nvim' C-m
+
+  tmux new-window -n \ hatch-web-client\  -d
+  tmux send-keys -t \ Hatch\ :5.1 'echo Hello Melly 󰧑' C-m
+  tmux send-keys -t \ Hatch\ :5.1 'cd ~/code/hatch-web-client' C-m
+  tmux send-keys -t \ Hatch\ :5.1 'nvim' C-m
+fi
+
+tmux has-session -t \ Servers\ 
+if [ $? != 0 ]
+then
+  tmux new-session -s \ Servers\  -n \ hatch-elixir\  -d
+  tmux send-keys -t \ Servers\ :1.1 'echo Hello! \n Booting hatch-elixir' C-m
+  tmux send-keys -t \ Servers\ :1.1 'cd ~/code/hatch-elixir' C-m
+  tmux send-keys -t \ Servers\ :1.1 'source .env.assistant' C-m
+  tmux send-keys -t \ Servers\ :1.1 'vpn_staging' C-m
+  tmux send-keys -t \ Servers\ :1.1 'iex -S mix phx.server' C-m
+
+  tmux split-window -v -t \ Servers\ :1.1
+  tmux send-keys -t \ Servers\ :1.2 'echo Hello!' C-m
+  tmux send-keys -t \ Servers\ :1.2 'cd ~/code/hatch-elixir' C-m
+
+  tmux new-window -n 󰌠\ livekit-agent\ 󰵰 -d
+  tmux send-keys -t \ Servers\ :2.1 'echo Hello! \n to boot server run python main.py dev' C-m
+fi
+
+tmux attach
