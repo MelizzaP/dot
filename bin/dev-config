@@ -1,7 +1,7 @@
 tmux has-session -t 󱓧\ \&\ 
 if [ $? != 0 ]
 then
-  tmux new-session -s 󱓧\ \&\  -d -n \  -d
+  tmux new-session -s 󱓧\ \&\  -d -n  -d
   tmux send-keys -t 󱓧\ \&\ :1.1 'cd ~/.dot' C-m
   tmux send-keys -t 󱓧\ \&\ :1.1 'nvim' C-m
 
@@ -9,7 +9,7 @@ then
   tmux send-keys -t 󱓧\ \&\ :2.1 'echo 󰳗' C-m
 
   tmux new-window -n  -d
-  tmux send-keys -t 󱓧\ \&\ :3.1 'cd ~/Desktop/melissanotes' C-m
+  tmux send-keys -t 󱓧\ \&\ :3.1 'cd ~/Documents/melissanotes' C-m
   tmux send-keys -t 󱓧\ \&\ :3.1 'nvim' C-m
 fi
 
