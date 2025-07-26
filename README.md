@@ -1,27 +1,46 @@
-# Cheat Sheet
+# Laptop Setup
 
-| Command          | Action                                                                       | Mode           |
-| ---------------- | ---------------------------------------------------------------------------- | -------------- |
-| <LocalLeader>ws  | Clears extra whitespace                                                      | Normal, Visual |
-| <LocalLeader>hws | Clears extra whitespace highlighting                                         | Normal, Visual |
-| <LocalLeader>cc  | comments out current or selected lines                                       | Normal, Visual |
-| s                | Fuzzy search through the output of git ls-files command, respects .gitignore | Normal         |
-| <LocalLeader>gs  | Greps the filepath for the word under the cursor                             | Normal         |
-| <LocalLeader>ff  | Lists files in your current working directory, respects .gitignore           | Normal         |
-| <LocalLeader>s   | Goto the definition of the word under the cursor                             | Normal         |
-| <LocalLeader>td  | Goto the type definition of the word under the cursor                        | Normal         |
-| <LocalLeader>im  | Goto the implementation of the word under the cursor                         | Normal         |
-| <LocalLeader>r   | Lists LSP references for word under the cursor                               | Normal         |
-| <C-L>            | inserts fat arrow `=>`                                                       | Insert         |
-| <C-S>            | inserts pipe `\|>`                                                           | Insert         |
-| <C-F>            | insert emoji                                                                 | Insert         |
-| <Tab>            | function completion via `omnifunc`                                           | Insert         |
-| gd               | vim.lsp.buf.definition                                                       | Normal         |
-| gD               | vim.lsp.buf.declaration                                                      | Normal         |
-| K                | vim.lsp.buf.hover                                                            | Normal         |
-| gi               | vim.lsp.buf.implementation                                                   | Normal         |
-| gr               | vim.lsp.buf.references                                                       | Normal         |
-| <C-k>            | vim.lsp.buf.signature_help                                                   | Normal         |
-| <space>D         | vim.lsp.buf.type_definition                                                  | Normal         |
-| <space>rn        | vim.lsp.buf.rename                                                           | Normal         |
-| <space>f         | vim.lsp.buf.format                                                           | Normal         |
+## Install some basic programs and tools
+
+- [firefox](https://www.mozilla.org/en-US/firefox/mac/)
+- [1Password](https://1password.com/downloads/mac/)
+- [Rectangle Pro](https://rectangleapp.com/pro)
+- [Alacritty](https://alacritty.org/)
+- [Dash](https://kapeli.com/dash)
+- [Postgres App](https://postgresapp.com/)
+- Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+- [Open Dyslexic Font](https://www.nerdfonts.com/font-downloads), then in Font Book application click file add font for this user
+- add .localrc add, `eval "$(/opt/homebrew/bin/brew shellenv)"
+- add open ai and anthropic api keys to `OPENAI_API_KEY` and `ANTHROPIC_API_KEY` to localrc
+- brew install
+    - git
+    - gh
+    - fish
+    - neovim
+    - asdf
+    - ripgrep
+    - fd
+    - tmux
+    - starship
+    - chafa
+- setup github ssh key
+    - `ssh-keygen -t ed25519 -C "melissa.patterson.va@gmail.com"`
+    - `pbcopy < .ssh/id_ed25519.pub`
+- clone dotfiles `git clone git@github.com:MelizzaP/dot.git .dot`
+- install Vector code cli
+    install [uv](curl -LsSf https://astral.sh/uv/install.sh | sh)
+    `uv tool install vectorcode`
+- symlink dotfiles config directory `ln -s .dot/config .config`
+- symlink snippets directory `ln -s .dot/vsnip .vsnip`
+- symlink tmux conf to $HOME path `ln -s .dot/tmux.conf $HOME/.tmux.conf`
+- install omf `curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish`
+- install [vim plug](https://github.com/junegunn/vim-plug)
+    `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'`
+-   install lexical ls
+    -   `git clone git@github.com:lexical-lsp/lexical.git`
+    -   `cd lexical`
+    -   `mix deps.get`
+    -   `mix package`
+-   install ts_ls `npm install -g typescript-language-server typescript`
+-   open neovim and run plug install
