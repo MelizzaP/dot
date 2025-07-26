@@ -1,10 +1,16 @@
 
 require("codecompanion").setup {
+  adapters = {
+    opts = {
+      show_defaults = true,
+      show_model_choices = true,
+    },
+  },
   strategies = {
     chat = {
       adapter = {
-        name = "openai",
-        model = "gpt-4.1-mini",
+        name = "anthropic",
+        model = "claude-sonnet-4-20250514",
       },
       keymaps = {
         close = {
@@ -14,7 +20,8 @@ require("codecompanion").setup {
       },
     },
     inline = {
-      adapter = "openai",
+      name = "anthropic",
+      model = "claude-sonnet-4-20250514",
     },
   },
   extensions = {

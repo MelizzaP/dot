@@ -1,4 +1,5 @@
 set -x ME "MelizzaP"
+source ~/.config/fish/functions/hatch.fish
 ############ General ############
 function reload-config
   source ~/.config/fish/config.fish
