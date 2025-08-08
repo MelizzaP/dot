@@ -1,0 +1,5 @@
+diff_files=$(git diff --cached --name-only)
+if [ -d ".vectorcode" ] && [ ! -z "$diff_files" ]; then
+  vectorcode vectorise $diff_files >/dev/null 2>&1 &
+  disown
+fi

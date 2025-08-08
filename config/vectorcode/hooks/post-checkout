@@ -1,0 +1,13 @@
+if [ -z "$(echo $1|grep [^0])" ]; then
+  files=""
+  ( [ -f .vectorcode/vectorcode.include ] || [ -f ~/.config/vectorcode/vectorcode.include ] ) && {
+    vectorcode vectorise >/dev/null 2>&1 &
+    disown
+  } || true
+else
+  files=$(git diff --name-only "$1" "$2")
+fi
+if [ -d ".vectorcode" ] && [ ! -z "$files" ]; then
+  vectorcode vectorise $files >/dev/null 2>&1 &
+  disown
+fi
