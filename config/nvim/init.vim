@@ -19,7 +19,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+  Plug 'nvim-telescope/telescope.nvim',
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'hrsh7th/nvim-cmp'
@@ -44,6 +44,8 @@ call plug#begin('~/.vim/plugz')
   Plug '2kabhishek/nerdy.nvim'
   Plug 'Davidyz/VectorCode'
   Plug 'ravitemer/mcphub.nvim'
+  Plug 'ravitemer/codecompanion-history.nvim'
+  Plug 'minusfive/codecompanion-agent-rules'
 call plug#end()
 
 filetype plugin indent on
