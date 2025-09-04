@@ -36,7 +36,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'epwalsh/obsidian.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
-  Plug 'folke/noice.nvim'
   Plug 'olimorris/codecompanion.nvim'
   Plug 'nvim-telescope/telescope-frecency.nvim'
   Plug 'nvim-lua/popup.nvim'
@@ -94,16 +93,23 @@ hi cursorcolumn cterm=NONE ctermbg=Black
 hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
+function! FormatElixir()
+  if executable('mix')
+    silent! execute '!mix format ' . shellescape(expand('%'))
+    redraw!
+  endif
+endfunction
+
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead *.js                              set ft=javascript
 au BufNewFile,BufRead *.ts                              set ft=typescript
 au BufNewFile,BufRead *.jsx                             set filetype=javascriptreact
 au BufNewFile,BufRead *.tsx                             set filetype=typescriptreact
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
-au BufNewFile,BufRead {*.ex,*.exs}                      set ft=elixir
+au BufNewFile,BufRead {*.ex,*.exs,*.heex}               set ft=elixir
+au BufWritePost *.ex,*.exs,*.heex call FormatElixir()
 au BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql Prettier
 " au BufWritePost *.ts,*.tsx Prettier
-" au BufNewFile,BufRead {*.txt,*.md}                      setlocal spell spelllang=en_us
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 au BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%121v.*/
 au ColorScheme * hi ExtraWhitespace ctermbg=Magenta
@@ -182,7 +188,6 @@ map <silent> <LocalLeader>oo :ObsidianQuickSwitch<CR>
 map <silent> <LocalLeader>os :ObsidianSearch<CR>
 map <silent> <LocalLeader>ot :ObsidianToday<CR>
 map <silent> <LocalLeader>oy :ObsidianYesterday<CR>
-map <silent> <LocalLeader>hh :NoiceDismiss<CR>
 map <silent> <LocalLeader>gs :Telescope grep_string theme=get_ivy<CR>
 map <silent> <LocalLeader>lg :Telescope live_grep theme=get_ivy<CR>
 map <silent> <LocalLeader>ai :CodeCompanionActions<CR>
@@ -227,7 +232,6 @@ lua require('cmp_config')
 lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
-lua require('noice_config')
 lua require('vectorcode_config')
 lua require('mcp_config')
 lua require('codecompanion_config')

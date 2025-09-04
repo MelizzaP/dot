@@ -14,3 +14,4 @@ config/yarn
 config/fish/conf.d/uv.env.fish
 config/mcphub/
 config/uv/
+cli/**

@@ -67,7 +67,7 @@ require("codecompanion").setup {
         -- Number of days after which chats are automatically deleted (0 to disable)
         expiration_days = 0,
         -- Picker interface (auto resolved to a valid picker)
-        picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default") 
+        picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
         ---Optional filter function to control which chats are shown when browsing
         chat_filter = nil, -- function(chat_data) return boolean end
         -- Customize picker keymaps (optional)
@@ -79,7 +79,7 @@ require("codecompanion").setup {
         ---Automatically generate titles for new chats
         auto_generate_title = true,
         title_generation_opts = {
-          ---Adapter for generating titles (defaults to current chat adapter) 
+          ---Adapter for generating titles (defaults to current chat adapter)
           adapter = nil, -- "copilot"
           ---Model for generating titles (defaults to current chat model)
           model = nil, -- "gpt-4o"
@@ -127,9 +127,9 @@ require("codecompanion").setup {
           -- Path to the VectorCode executable
           vectorcode_exe = "vectorcode",
           -- Tool configuration
-          tool_opts = { 
+          tool_opts = {
             -- Default number of memories to retrieve
-            default_num = 10 
+            default_num = 10
           },
           -- Enable notifications for indexing progress
           notify = true,
@@ -140,7 +140,7 @@ require("codecompanion").setup {
       }
     },
     agent_rules = {
-      enabled = true,
+      enabled = false,
       opts = {
         -- Optional: override defaults
         rules_filenames = {
@@ -148,6 +148,8 @@ require("codecompanion").setup {
           ".cursorrules",
           "AGENT.md",
           "AGENTS.md",
+          ".claude/CLAUDE.md",
+          "PLANNING.md",
           "CLAUDE.md",
           ".codecompanionrules",
         },
