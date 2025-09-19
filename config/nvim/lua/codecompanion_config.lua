@@ -26,37 +26,6 @@ require("codecompanion").setup {
     },
   },
   extensions = {
-    vectorcode = {
-      opts = {
-        tool_group = {
-          enabled = true,
-          extras = {},
-          collapse = false, -- whether the individual tools should be shown in the chat
-        },
-        tool_opts = {
-          ls = {},
-          vectorise = {},
-          query = {
-            max_num = { chunk = -1, document = -1 },
-            default_num = { chunk = 50, document = 10 },
-            no_duplicate = true,
-            chunk_mode = false,
-            summarise = {
-              adapter = true,
-              query_augmented = true,
-            },
-          },
-        },
-      },
-    },
-    mcphub = {
-      callback = "mcphub.extensions.codecompanion",
-      opts = {
-        show_result_in_chat = true,  -- Show mcp tool results in chat
-        make_vars = true,            -- Convert resources to #variables
-        make_slash_commands = true,  -- Add prompts as /slash commands
-      },
-    },
     history = {
       enabled = true,
       opts = {
@@ -120,24 +89,6 @@ require("codecompanion").setup {
             system_prompt = nil, -- custom system prompt (string or function)
             format_summary = nil, -- custom function to format generated summary e.g to remove <think/> tags from summary
           },
-        },
-
-        -- Memory system (requires VectorCode CLI)
-        memory = {
-          -- Automatically index summaries when they are generated
-          auto_create_memories_on_summary_generation = true,
-          -- Path to the VectorCode executable
-          vectorcode_exe = "vectorcode",
-          -- Tool configuration
-          tool_opts = {
-            -- Default number of memories to retrieve
-            default_num = 10
-          },
-          -- Enable notifications for indexing progress
-          notify = true,
-          -- Index all existing memories on startup
-          -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
-          index_on_startup = false,
         },
       }
     },

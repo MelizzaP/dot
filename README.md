@@ -27,9 +27,6 @@
     - `ssh-keygen -t ed25519 -C "melissa.patterson.va@gmail.com"`
     - `pbcopy < .ssh/id_ed25519.pub`
 - clone dotfiles `git clone git@github.com:MelizzaP/dot.git .dot`
-- install Vector code cli
-    install [uv](curl -LsSf https://astral.sh/uv/install.sh | sh)
-    `uv tool install vectorcode`
 - symlink dotfiles config directory `ln -s .dot/config .config`
 - symlink snippets directory `ln -s .dot/vsnip .vsnip`
 - symlink tmux conf to $HOME path `ln -s .dot/tmux.conf $HOME/.tmux.conf`

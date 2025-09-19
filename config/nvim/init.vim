@@ -41,8 +41,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope-media-files.nvim'
   Plug '2kabhishek/nerdy.nvim'
-  Plug 'Davidyz/VectorCode'
-  Plug 'ravitemer/mcphub.nvim'
   Plug 'ravitemer/codecompanion-history.nvim'
   Plug 'minusfive/codecompanion-agent-rules'
 call plug#end()
@@ -232,6 +230,4 @@ lua require('cmp_config')
 lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
-lua require('vectorcode_config')
-lua require('mcp_config')
 lua require('codecompanion_config')
