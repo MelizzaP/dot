@@ -1,8 +1,10 @@
 require("codecompanion").setup {
   adapters = {
-    opts = {
-      show_defaults = true,
-      show_model_choices = true,
+    http = {
+      opts = {
+        show_defaults = true,
+        show_model_choices = true,
+      },
     },
   },
   strategies = {
