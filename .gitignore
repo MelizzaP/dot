@@ -15,3 +15,11 @@ config/fish/conf.d/uv.env.fish
 config/mcphub/
 config/uv/
 cli/**
+
+claude/plugins
+claude/projects
+claude/todos
+claude/shell-snapshots
+claude/statsig
+
+claude/tmp.txt

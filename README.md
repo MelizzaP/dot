@@ -30,6 +30,7 @@
 - symlink dotfiles config directory `ln -s .dot/config .config`
 - symlink snippets directory `ln -s .dot/vsnip .vsnip`
 - symlink tmux conf to $HOME path `ln -s .dot/tmux.conf $HOME/.tmux.conf`
+- symlink claude code conf to $HOME path `ln -s .dot/claude $HOME/.claude`
 - install omf `curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish`
 - install [vim plug](https://github.com/junegunn/vim-plug)
     `sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
