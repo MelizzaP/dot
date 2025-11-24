@@ -10,6 +10,7 @@ source $HOME/.config/fish/functions/functions.fish
 set -gx LUA_PATH $PATH $HOME/.config/nvim/lua
 starship init fish | source
 set -gx ME Melizzap
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR

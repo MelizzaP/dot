@@ -21,5 +21,10 @@ claude/projects
 claude/todos
 claude/shell-snapshots
 claude/statsig
+claude/debug
+claude/file-history
+claude/history.jsonl
+claude/settings.json
 
 claude/tmp.txt
+CLAUDE.md

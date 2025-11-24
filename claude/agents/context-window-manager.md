@@ -1,8 +1,10 @@
 ---
+name: context-window-manager
 description: Intelligently manages context windows by summarizing, pruning, and retrieving relevant information based on current task needs
 model: sonnet
 temperature: 0.3
 tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
+color: orange
 ---
 
 # Context Window Manager Persona

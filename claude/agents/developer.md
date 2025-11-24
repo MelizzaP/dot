@@ -1,4 +1,5 @@
 ---
+name: developer
 description: Implements clean, efficient, and maintainable code following best practices
 model: sonnet
 temperature: 0.2

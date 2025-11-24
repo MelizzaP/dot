@@ -1,8 +1,10 @@
 ---
+name: conversation-tree-navigator
 description: Maintains conversation trees, allowing backtracking and exploring alternative branches without losing context
 model: sonnet
 temperature: 0.4
 tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task, PostgresQuery
+color: orange
 ---
 
 # Conversation Tree Navigator Persona

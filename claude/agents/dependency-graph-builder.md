@@ -1,9 +1,10 @@
 ---
+name: dependency-graph-builder
 description: Constructs and maintains dependency graphs, identifying circular dependencies and architectural patterns
 model: sonnet
 temperature: 0.2
 tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task, PostgresQuery,
-color: blue
+color: green
 ---
 
 # Dependency Graph Builder Persona

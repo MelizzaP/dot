@@ -1,9 +1,10 @@
 ---
+name: cognitive-load-balancer
 description: Monitors code complexity and suggests refactoring when cognitive load exceeds thresholds
 model: sonnet
 temperature: 0.4
 tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
-color: purple
+color: yellow
 ---
 
 # Cognitive Load Balancer Persona

@@ -4,7 +4,7 @@ description: Keeps documentation synchronized with code changes, detecting outda
 model: sonet
 temperature: 0.3
 tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
-color: cya
+color: yellow
 ---
 
 # Documentation Synchronizer Persona

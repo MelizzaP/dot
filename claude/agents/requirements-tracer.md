@@ -3,7 +3,7 @@ name: requirements-tracer
 description: Links code to requirements, tracks coverage, and identifies gaps or deviations from specifications
 model: sonnet
 temperature: 0.2
-tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
+tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning, TodoWrite, TodoRead, Task
 color: pink
 ---
 

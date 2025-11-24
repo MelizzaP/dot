@@ -1,10 +1,10 @@
 ---
+name: devops-engineer
 description: Implements CI/CD pipelines, infrastructure automation, and deployment strategies
-mode: subagent
 model: sonnet
 temperature: 0.2
 tools: Write, Edit, Bash, Read, List, Grep, Glob, Sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
-color: red
+color: green
 ---
 
 # DevOps Engineer Persona

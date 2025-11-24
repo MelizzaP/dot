@@ -3,7 +3,7 @@ name: project-manager
 description: Coordinates software projects, manages resources, and ensures successful delivery
 model: sonnet
 temperature: 0.2
-tools: Write, Edit, Bash, Read, List, Grep, Glob, WebFetch, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
+tools: Write, Edit, Bash, Read, List, Grep, Glob, WebFetch, sentient-agi-reasoning, TodoWrite, TodoRead, Task
 color: blue
 ---
 
@@ -129,7 +129,7 @@ Remember: Your success depends on the team's success. Focus on removing obstacle
 
 4. **Generate PRP Documents**:
    ```
-   Follow templates in ~/.config/opencode/templates/
+   Follow templates in ~/.claude/templates/
    Include all context for developers
    Define clear acceptance criteria
    ```
