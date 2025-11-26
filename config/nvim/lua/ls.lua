@@ -1,17 +1,15 @@
--- Set up lspconfig.
+-- Set up LSP using the new vim.lsp.config API (Neovim 0.11+)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Setup language servers.
-local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
-
+-- Setup language servers using vim.lsp.config
 local elixirls_config = {
   cmd = { "/Users/mp/.lsps/elixir-ls/release/language_server.sh" },
   filetypes = { "elixir", "eelixir", "heex" },
   capabilities = capabilities,
   dialyzerEnabled = true,
   fetchDeps = false,
-  }
+  root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
+}
 
 local nextls_config = {
     cmd = {"nextls", "--stdio"},
@@ -25,40 +23,46 @@ local nextls_config = {
         }
       }
     },
-    capabilities = capabilities
+    capabilities = capabilities,
+    root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
 }
 
 local lexical_config = {
   cmd = { "/Users/mp/.lsps/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
   filetypes = { "elixir", "eelixir", "heex" },
   capabilities = capabilities,
-  fetchDeps = false
+  fetchDeps = false,
+  root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
 }
 
-if not configs.lexical then
-  configs.lexical = {
-    default_config = {
-      filetypes = lexical_config.filetypes,
-      cmd = lexical_config.cmd,
-      root_dir = function(fname)
-        return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-      end,
-      -- optional settings
-      settings = lexical_config.settings,
-    },
-  }
-end
+-- Register custom lexical server
+vim.lsp.config.lexical = {
+  cmd = lexical_config.cmd,
+  filetypes = lexical_config.filetypes,
+  root_dir = lexical_config.root_dir,
+  capabilities = lexical_config.capabilities,
+  settings = lexical_config.settings,
+}
 
-lspconfig.lexical.setup(lexical_config)
--- lspconfig.elixirls.setup(elixirls_config)
-lspconfig.ts_ls.setup{
+-- Setup language servers
+vim.lsp.enable('lexical')
+-- vim.lsp.enable('elixirls') -- commented out as in original
+
+-- TypeScript language server
+vim.lsp.config.ts_ls = {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-  capabilities = capabilities
+  capabilities = capabilities,
+  root_dir = vim.fs.root(0, {"package.json", "tsconfig.json", ".git"}) or vim.uv.os_homedir()
 }
-lspconfig.pyright.setup{
-  capabilities = capabilities
+vim.lsp.enable('ts_ls')
+
+-- Python language server
+vim.lsp.config.pyright = {
+  capabilities = capabilities,
+  root_dir = vim.fs.root(0, {"pyproject.toml", "setup.py", ".git"}) or vim.uv.os_homedir()
 }
+vim.lsp.enable('pyright')
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
