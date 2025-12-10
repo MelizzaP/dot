@@ -197,10 +197,10 @@ end
 ######### DB ##########
 function query_prod --description 'Open readonly production db in postgres CLI'
   vpn prod staging
-  psql $PROD_DB
+  pgcli $PROD_DB
 end
 
 function query_staging --description 'Open staging db in postgres CLI'
   vpn staging prod
-  psql $STAGING_DB
+  pgcli $STAGING_DB
 end

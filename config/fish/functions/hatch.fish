@@ -13,7 +13,7 @@ end
 
 function query_assistant --description 'Open assistant db in postgres CLI'
   vpn staging prod
-  psql $ASSISTANT_DB
+  pgcli $ASSISTANT_DB
 end
 
 function vpn_staging
