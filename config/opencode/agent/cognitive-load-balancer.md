@@ -1,7 +1,7 @@
 ---
 description: Monitors code complexity and suggests refactoring when cognitive load exceeds thresholds
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.4
 tools:
   write: true

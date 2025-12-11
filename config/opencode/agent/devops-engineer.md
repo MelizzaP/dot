@@ -1,7 +1,7 @@
 ---
 description: Implements CI/CD pipelines, infrastructure automation, and deployment strategies
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.2
 tools:
   write: true

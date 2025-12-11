@@ -1,7 +1,7 @@
 ---
 description: Constructs and maintains dependency graphs, identifying circular dependencies and architectural patterns
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.2
 tools:
   write: true

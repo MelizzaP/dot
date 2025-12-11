@@ -1,7 +1,7 @@
 ---
 description: Maintains conversation trees, allowing backtracking and exploring alternative branches without losing context
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.4
 tools:
   write: true

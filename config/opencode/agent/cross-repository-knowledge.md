@@ -1,7 +1,7 @@
 ---
 description: Learns patterns from multiple repositories and applies cross-project insights
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.5
 tools:
   write: true

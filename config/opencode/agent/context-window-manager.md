@@ -1,7 +1,7 @@
 ---
 description: Intelligently manages context windows by summarizing, pruning, and retrieving relevant information based on current task needs
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: sonnet
 temperature: 0.3
 tools:
   write: true

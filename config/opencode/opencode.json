@@ -46,7 +46,7 @@
     },
     "sentient-agi-reasoning": {
       "type": "local",
-      "command": ["node", "--expose-gc", "/Users/mp/git/map-think-do/dist/index.js"],
+      "command": ["node", "--expose-gc", "/Users/mp/.agent-tools/map-think-do/dist/index.js"],
       "environment": {
         "NODE_ENV": "production",
         "DEBUG": "true",
