@@ -1,10 +1,9 @@
 ---
 description: Implements clean, efficient, and maintainable code following best practices
 mode: subagent
-model: sonnet
 temperature: 0.2
 tools:
-  write: true
+  write: false
   edit: true
   bash: true
   read: true

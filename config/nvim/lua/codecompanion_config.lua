@@ -11,7 +11,7 @@ require("codecompanion").setup {
     chat = {
       adapter = {
         name = "anthropic",
-        model = "claude-sonnet-4-20250514",
+        model = "claude-sonnet",
       },
       keymaps = {
         close = {
@@ -21,8 +21,10 @@ require("codecompanion").setup {
       },
     },
     inline = {
-      name = "anthropic",
-      model = "claude-sonnet-4-20250514",
+      adapter = {
+        name = "anthropic",
+        model = "claude-sonnet-4",
+      },
     },
   },
   extensions = {
