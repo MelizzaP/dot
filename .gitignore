@@ -28,3 +28,6 @@ claude/settings.json
 
 claude/tmp.txt
 CLAUDE.md
+
+config/opencode/secrets/
+.opencode
