@@ -90,3 +90,24 @@ function load_prod
   set_color normal
   kubectx prod
 end
+
+function deploy --description 'Deploy current branch to environment'
+  if not set -q WORKSPACE_ID_CD
+    set_color red
+    echo "Error: WORKSPACE_ID_CD environment variable must be set"
+    set_color normal
+    return 1
+  end
+
+  if not set -q env
+    set_color red
+    echo "Error: env environment variable must be set"
+    set_color normal
+    return 1
+  end
+
+  set_color green
+  echo "🚀 deploying the current branch to env: $env"
+  set_color normal
+  gh workflow run $WORKSPACE_ID -f ENVIRONMENT=$env -f REF=(git branch --show-current) -f HELM_REF="main"
+end
