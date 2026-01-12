@@ -80,12 +80,8 @@
       "enabled": false
     },
     "github": {
-      "type": "local",
-      "command": ["/Users/mp/git/github-mcp-server/github-mcp-server", "stdio"],
-      "environment": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "{file:~/.config/opencode/secrets/github_token}"
-      },
-      "enabled": true
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/"
     },
     "incidentio": {
       "type": "local",
@@ -97,9 +93,9 @@
     },
     "slack": {
       "type": "local",
-      "command": ["/Users/blentz/git/slack-mcp-server/build/slack-mcp-server"],
+      "command": ["npx", "-y", "slack-mcp-server@latest", "--transport", "stdio"],
       "environment": {
-        "SLACK_MCP_XOXP_TOKEN": "{file:~/.config/opencode/secrets/slack_token}",
+        "SLACK_MCP_XOXC_TOKEN": "{file:~/.config/opencode/secrets/slack_token}",
         "SLACK_MCP_LOG_LEVEL": "info",
         "SLACK_MCP_USERS_CACHE": "/Users/mp/git/.opencode/.users_cache.json",
         "SLACK_MCP_CHANNELS_CACHE": "/Users/mp/git/.opencode/.channels_cache.json"
@@ -112,12 +108,12 @@
       "enabled": true
     },
     "notion": {
-      "type": "local",
-      "command": ["npx", "-y", "/Users/blentz/git/notion-mcp-server/bin/cli.mjs"],
-      "environment": {
-        "NOTION_TOKEN": "{file:~/.config/opencode/secrets/notion_token}"
-      },
-      "enabled": true
+      "type": "remote",
+      "url": "https://mcp.notion.com/mcp",
+      "enabled": true,
+      "oauth": {
+        "scope": "tools:read"
+      }
     },
     "mongodb-atlas": {
       "type": "local",

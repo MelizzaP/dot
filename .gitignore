@@ -17,6 +17,7 @@ config/uv/
 cli/**
 config/pgcli/history
 config/pgcli/log
+config/containers
 
 claude/plugins
 claude/projects
@@ -24,6 +25,9 @@ claude/todos
 claude/shell-snapshots
 claude/statsig
 claude/debug
+claude/cache
+claude/plans
+claude/stats-cache.json
 claude/file-history
 claude/history.jsonl
 claude/settings.json
