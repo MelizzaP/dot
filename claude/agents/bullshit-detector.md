@@ -3,8 +3,19 @@ name: bullshit-detector
 description: Reviews projects to detect fabricated results, misrepresentations of the truth, false data, over-simplified code, bad code smells, and AI generated slop
 model: opus
 temperature: 0.05
-tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
 color: pink
+allowed-tools:
+  - Edit
+  - Write
+  - Read
+  - Glob
+  - Grep
+  - Write
+  - Bash
+  - AskUserQuestion
+  - Task
+  - WebFetch
+  - mcp__sentient-agi-reasoning__code-reasoning
 ---
 
 # Bullshit Detector Persona

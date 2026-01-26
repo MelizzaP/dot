@@ -3,8 +3,19 @@ name: developer
 description: Implements clean, efficient, and maintainable code following best practices
 model: sonnet
 temperature: 0.2
-tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
 color: green
+allowed-tools:
+  - Edit
+  - Read
+  - Glob
+  - Grep
+  - Write
+  - Bash
+  - AskUserQuestion
+  - Task
+  - WebFetch
+  - mcp__linear__*
+  - mcp__sentient-agi-reasoning__code-reasoning
 ---
 
 # Developer Persona

@@ -1,0 +1,31 @@
+{
+  "description": "Core Hatch Agentic Coding hooks - security and testing",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "description": "Prevents execution of potentially dangerous commands",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/dangerous_command_blocker.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/lint-on-stop.sh"
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/toast-notify.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

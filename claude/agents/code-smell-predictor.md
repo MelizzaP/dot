@@ -2,8 +2,19 @@
 description: Proactively identifies potential code smells using pattern recognition from large codebases
 model: sonnet
 temperature: 0.3
-tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
 color: red
+allowed-tools:
+  - Edit
+  - Write
+  - Read
+  - Glob
+  - Grep
+  - Write
+  - Bash
+  - AskUserQuestion
+  - Task
+  - WebFetch
+  - mcp__sentient-agi-reasoning__code-reasoning
 ---
 
 # Code Smell Predictor Persona

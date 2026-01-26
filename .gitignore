@@ -31,6 +31,10 @@ claude/stats-cache.json
 claude/file-history
 claude/history.jsonl
 claude/settings.json
+claude/.update.lock
+claude/paste-cache
+claude/telemetry
+
 
 claude/tmp.txt
 CLAUDE.md

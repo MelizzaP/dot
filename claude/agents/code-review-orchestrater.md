@@ -4,8 +4,20 @@ description: Meta-agent that coordinates multiple specialized reviewers and synt
 mode: subagent
 model: sonnet
 temperature: 0.3
-tools: Write, Edit, Bash, Read, List, Grep, Glob, sentient-agi-reasoning_code_reasoning, TodoWrite, TodoRead, Task
 color: pink
+allowed-tools:
+  - Edit
+  - Write
+  - Read
+  - Glob
+  - Grep
+  - Write
+  - Bash
+  - AskUserQuestion
+  - Task
+  - WebFetch
+  - mcp__linear__*
+  - mcp__sentient-agi-reasoning__code-reasoning
 ---
 
 # Code Review Orchestrator Persona
