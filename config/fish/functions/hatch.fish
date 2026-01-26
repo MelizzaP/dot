@@ -12,12 +12,39 @@ function install_tools
 end
 
 function query_assistant --description 'Open assistant db in postgres CLI'
-  vpn staging prod
-  pgcli $ASSISTANT_DB
+  load_assistant
+  set -x PGPASSWORD (kubectl get secret assistant-postgresql-role-hatch-elixir -n assistant -o jsonpath='{.data.password}' | base64 -d)
+  pgcli -h localhost -p 5432 -U hatch-elixir -d hatch-elixir
+  pkill -f "kubectl port-forward svc/assistant-postgresql-rw"
+end
+
+function query_assistant2 --description 'Open assistant db in postgres CLI'
+  load_assistant2
+  set -x PGPASSWORD (kubectl get secret assistant-2-postgresql-role-hatch-elixir -n assistant-2 -o jsonpath='{.data.password}' | base64 -d)
+  pgcli -h localhost -p 5432 -U hatch-elixir -d hatch-elixir
+  pkill -f "kubectl port-forward svc/assistant-2-postgresql-rw"
 end
 
 function vpn_staging
   vpn staging prod
+end
+
+function load_assistant
+  vpn_staging
+  echo "Loading Environment Variables"
+  source .env.assistant
+  echo "Port Forwarding DB"
+  kubectl port-forward svc/assistant-postgresql-rw 5432:5432 -n assistant &
+  sleep 2
+end
+
+function load_assistant2
+  vpn_staging
+  echo "Loading Environment Variables"
+  source .env.assistant2
+  echo "Port Forwarding DB"
+  kubectl port-forward svc/assistant-2-postgresql-rw 5432:5432 -n assistant-2 &
+  sleep 2
 end
 
 function vpn_prod
@@ -106,8 +133,25 @@ function deploy --description 'Deploy current branch to environment'
     return 1
   end
 
+  if not set -q NAMESPACE
+    set_color red
+    echo "Error: NAMESPACE environment variable must be set"
+    set_color normal
+    return 1
+  end
+
   set_color green
   echo "🚀 deploying the current branch to env: $env"
   set_color normal
-  gh workflow run $WORKSPACE_ID -f ENVIRONMENT=$env -f REF=(git branch --show-current) -f HELM_REF="main"
+
+  if test "$NAMESPACE" = "hatch-elixir"
+    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$env -f REF=(git branch --show-current) -f HELM_REF="main"
+  else if test "$NAMESPACE" = "livekit-agent"
+    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$env -f REF=(git branch --show-current)
+  else
+    set_color yellow
+    echo "No deploy command configured for namespace: $NAMESPACE"
+    set_color normal
+    return 1
+  end
 end
