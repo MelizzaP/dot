@@ -9,10 +9,7 @@ require("codecompanion").setup {
   },
   strategies = {
     chat = {
-      adapter = {
-        name = "anthropic",
-        model = "claude-sonnet",
-      },
+      adapter = "openai",
       keymaps = {
         close = {
           modes = { n = "<C-c>", i = "<C-x>" },
@@ -21,10 +18,7 @@ require("codecompanion").setup {
       },
     },
     inline = {
-      adapter = {
-        name = "anthropic",
-        model = "claude-sonnet-4",
-      },
+      adapter = "openai",
     },
   },
   extensions = {
