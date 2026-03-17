@@ -192,6 +192,10 @@ style = "fg:color_fg0 bg:color_blue"
  "prod-eks.angler-elver.ts.net" = "prod"
 
 [kubernetes]
+contexts = [
+  { context_pattern = "staging-eks.angler-elver.ts.net", context_alias = "staging" },
+  { context_pattern = "prod-eks.angler-elver.ts.net", context_alias = "prod" },
+]
 symbol = '󱃾 '
 style = "bg:color_red"
 format = '[[ $symbol$context( \($namespace|split("-")|first\))](fg:color_red bg:color_bg0)]($style) '
