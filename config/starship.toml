@@ -187,11 +187,15 @@ disabled = false
 format = '[ $symbol ($version/(OTP $otp_version))](fg:color_fg0 bg:color_blue)'
 style = "fg:color_fg0 bg:color_blue"
 
+ [kubernetes.context_aliases]
+ "staging-eks.angler-elver.ts.net" = "staging"
+ "prod-eks.angler-elver.ts.net" = "prod"
+
 [kubernetes]
 symbol = '󱃾 '
 style = "bg:color_red"
-format = '[[ $symbol$context( \($namespace\))](fg:color_red bg:color_bg0)]($style) '
-disabled = true
+format = '[[ $symbol$context( \($namespace|split("-")|first\))](fg:color_red bg:color_bg0)]($style) '
+disabled = false
 
 [aws]
 symbol = "  "        # optional; AWS icon
