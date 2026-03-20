@@ -187,10 +187,6 @@ disabled = false
 format = '[ $symbol ($version/(OTP $otp_version))](fg:color_fg0 bg:color_blue)'
 style = "fg:color_fg0 bg:color_blue"
 
- [kubernetes.context_aliases]
- "staging-eks.angler-elver.ts.net" = "staging"
- "prod-eks.angler-elver.ts.net" = "prod"
-
 [kubernetes]
 contexts = [
   { context_pattern = "staging-eks.angler-elver.ts.net", context_alias = "staging" },
