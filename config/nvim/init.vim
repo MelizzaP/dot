@@ -54,7 +54,7 @@ set clipboard=unnamed
 set dir=/tmp//
 set foldcolumn=0
 set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+set foldexpr=v:lua.vim.treesitter.foldexpr()
 set nofoldenable " disable folding on startup
 set foldlevelstart=20
 set hidden

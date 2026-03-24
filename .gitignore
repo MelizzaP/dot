@@ -1,12 +1,13 @@
 TODO.md
 config/**
-!config/alacritty
+!config/alacritty/alacritty.toml
 !config/fish
 !config/fish/*
 !config/fish/functions/*
 !config/git
 !config/lua
 !config/nvim
+!config/nvim/**
 !config/opencode
 config/fish/fish_variables
 cli/**

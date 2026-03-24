@@ -12,20 +12,35 @@ function install_tools
 end
 
 function vpn_staging
+  tailscale up
   tailscale configure kubeconfig staging-eks
 end
 
 function vpn_prod
+  tailscale up
   tailscale configure kubeconfig prod-eks
+end
+
+function vpn_disconnect
+  tailscale down
+  kubectl config unset current-context
+end
+
+function load_assistant
+  vpn_staging
+  echo "Loading Environment Variables"
+  source .env.assistant
+  echo "Port Forwarding DB"
+  kubectl port-forward -n assistant assistant-postgresql-1 5432:5432 &
+  sleep 2
 end
 
 function load_assistant2
   vpn_staging
-  load_staging
   echo "Loading Environment Variables"
   source .env.assistant2
   echo "Port Forwarding DB"
-  kubectl port-forward svc/assistant-2-postgresql-rw 5432:5432 -n assistant-2 &
+  kubectl port-forward -n assistant-2 assistant-2-postgresql-1 5432:5432 &
   sleep 2
 end
 
@@ -38,7 +53,7 @@ function list_review_ready_prs
   echo "---------------------------------------------------------"
   set_color normal
 
-  gh pr list -S team-review-requested:Hatch1fy/instruct
+  gh pr list -S team-review-requested:Hatch1fy/agents
   set_color magenta
   echo "--------------------------------------------------------"
   echo " checking for pr review requests for Hatch1fy/backend "

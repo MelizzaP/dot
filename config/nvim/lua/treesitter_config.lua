@@ -1,28 +1,16 @@
-require('nvim-treesitter.configs').setup({
-  ensure_installed = {
-    "lua",
-    "vim",
-    "vimdoc",
-    "query",
-    "typescript",
-    "tsx",
-    "elixir",
-    "heex",
-    "eex",
-    "html",
-    "javascript",
-    "json",
-    "scss",
-    "mermaid",
-    "erlang",
-    "markdown",
-    "css",
-    "sql",
-    "fsh",
-    "graphql"
-  },
-  sync_install = false,
-  auto_install = true,
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
-  indent = { enable = true }
+-- nvim-treesitter 1.0+ uses Neovim's built-in treesitter APIs
+-- Parsers are installed via :TSInstall <lang>
+
+-- Enable treesitter-based highlighting for all supported filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})
+
+-- Enable treesitter-based indentation
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
