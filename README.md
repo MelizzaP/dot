@@ -7,7 +7,8 @@
 - [Rectangle Pro](https://rectangleapp.com/pro)
 - [Alacritty](https://alacritty.org/)
 - [Dash](https://kapeli.com/dash)
-- [Postgres App](https://postgresapp.com/)
+- [Podman desktop](https://podman-desktop.io/)
+- [Obsidian](https://obsidian.md/)
 - Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 - [Open Dyslexic Font](https://www.nerdfonts.com/font-downloads), then in Font Book application click file add font for this user
 - add .localrc add, `eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -24,6 +25,7 @@
     - starship
     - chafa
     - pgcli
+    - --cask claude-code
 - setup github ssh key
     - `ssh-keygen -t ed25519 -C "melissa.patterson.va@gmail.com"`
     - `pbcopy < .ssh/id_ed25519.pub`
