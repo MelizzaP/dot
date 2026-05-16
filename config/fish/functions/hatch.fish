@@ -47,26 +47,16 @@ end
 function list_review_ready_prs
   review-requests
 
-  set_color magenta
-  echo "---------------------------------------------------------"
-  echo " checking for pr review requests for Hatch1fy/instruct "
-  echo "---------------------------------------------------------"
-  set_color normal
-
-  gh pr list -S team-review-requested:Hatch1fy/agents
-  set_color magenta
-  echo "--------------------------------------------------------"
-  echo " checking for pr review requests for Hatch1fy/backend "
-  echo "--------------------------------------------------------"
-  set_color normal
-  gh pr list -S team-review-requested:Hatch1fy/backend
-
-  set_color magenta
-  echo "------------------------------------------------------------"
-  echo " checking for pr review requests for Hatch1fy/engineering "
-  echo "------------------------------------------------------------"
-  set_color normal
-  gh pr list -S team-review-requested:Hatch1fy/engineering
+  for team in Hatch1fy/agents Hatch1fy/backend Hatch1fy/engineering
+    set -l label "  checking for pr review requests for $team  "
+    set -l rule (string repeat -n (string length -- $label) -)
+    set_color magenta
+    echo $rule
+    echo $label
+    echo $rule
+    set_color normal
+    gh pr list -S team-review-requested:$team
+  end
 end
 
 function deploy --description 'Deploy current branch to environment'
@@ -115,30 +105,28 @@ function query_prod --description 'Open readonly production db in postgres CLI'
   pgcli $PROD_DB
 end
 
-function query_staging --description 'Open staging db in pgcli'
+function _query_staging_pg --argument-names namespace
+  set -l svc $namespace-postgresql-rw
+  set -l secret $namespace-postgresql-role-hatch-elixir
+  set -l forward "kubectl port-forward -n $namespace svc/$svc 15432:5432"
+
   tailscale configure kubeconfig staging-eks
-  kubectl port-forward -n staging svc/staging-postgresql-rw 15432:5432 & sleep 2
-  env PGPASSWORD=(kubectl get secret staging-postgresql-role-hatch-elixir -n staging -o jsonpath='{.data.password}' | base64 -d) \
-  PGSSLMODE=disable \
-  pgcli -h 127.0.0.1 -p 15432 -U hatch-elixir
-  pkill -f "kubectl port-forward -n staging svc/staging-postgresql-rw 15432:5432"
+  eval $forward & sleep 2
+  env PGPASSWORD=(kubectl get secret $secret -n $namespace -o jsonpath='{.data.password}' | base64 -d) \
+    PGSSLMODE=disable \
+    pgcli -h 127.0.0.1 -p 15432 -U hatch-elixir
+  pkill -f "$forward"
+end
+
+function query_staging --description 'Open staging db in pgcli'
+  _query_staging_pg staging
 end
 
 function query_assistant --description 'Open assistant staging db in pgcli'
-  tailscale configure kubeconfig staging-eks
-  kubectl port-forward -n assistant svc/assistant-postgresql-rw 15432:5432 & sleep 2
-  env PGPASSWORD=(kubectl get secret assistant-postgresql-role-hatch-elixir -n assistant -o jsonpath='{.data.password}' | base64 -d) \
-  PGSSLMODE=disable \
-  pgcli -h 127.0.0.1 -p 15432 -U hatch-elixir
-  pkill -f "kubectl port-forward -n assistant svc/assistant-postgresql-rw 15432:5432"
+  _query_staging_pg assistant
 end
 
 function query_assistant2 --description 'Open assistant-2 staging db in pgcli'
-  tailscale configure kubeconfig staging-eks
-  kubectl port-forward -n assistant-2 svc/assistant-2-postgresql-rw 15432:5432 & sleep 2
-  env PGPASSWORD=(kubectl get secret assistant-2-postgresql-role-hatch-elixir -n assistant-2 -o jsonpath='{.data.password}' | base64 -d) \
-  PGSSLMODE=disable \
-  pgcli -h 127.0.0.1 -p 15432 -U hatch-elixir
-  pkill -f "kubectl port-forward -n assistant-2 svc/assistant-2-postgresql-rw 15432:5432"
+  _query_staging_pg assistant-2
 end
 
