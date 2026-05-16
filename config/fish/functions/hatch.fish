@@ -115,14 +115,16 @@ end
 function _query_staging_pg --argument-names namespace
   set -l svc $namespace-postgresql-rw
   set -l secret $namespace-postgresql-role-hatch-elixir
-  set -l forward "kubectl port-forward -n $namespace svc/$svc 15432:5432"
 
+  tailscale up
   tailscale configure kubeconfig staging-eks
-  eval $forward & sleep 2
+  kubectl port-forward -n $namespace svc/$svc 15432:5432 &
+  set -l pf_pid $last_pid
+  sleep 2
   env PGPASSWORD=(kubectl get secret $secret -n $namespace -o jsonpath='{.data.password}' | base64 -d) \
     PGSSLMODE=disable \
     pgcli -h 127.0.0.1 -p 15432 -U hatch-elixir
-  pkill -f "$forward"
+  kill $pf_pid 2>/dev/null
 end
 
 function query --description 'Open a database in pgcli'
@@ -138,6 +140,7 @@ function query --description 'Open a database in pgcli'
     case prod
       gum confirm "Connect to PRODUCTION database?"; or return 1
       gum style --foreground 196 "󰆼 Connecting to prod"
+      tailscale up
       tailscale configure kubeconfig prod-eks
       pgcli $PROD_DB
     case staging
