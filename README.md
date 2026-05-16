@@ -27,6 +27,12 @@
     - chafa
     - gum
     - pgcli
+    - tree-sitter
+    - tree-sitter-cli
+    - kubectl
+    - podman
+    - podman-compose
+    - uv
     - --cask claude-code
 - setup github ssh key
     - `ssh-keygen -t ed25519 -C "melissa.patterson.va@gmail.com"`
