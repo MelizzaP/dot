@@ -25,6 +25,7 @@
     - tmux
     - starship
     - chafa
+    - gum
     - pgcli
     - --cask claude-code
 - setup github ssh key

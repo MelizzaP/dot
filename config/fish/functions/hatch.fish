@@ -11,23 +11,37 @@ function install_tools
   cargo install --path $HOME/.dot/cli/kiex
 end
 
-function vpn_staging
-  tailscale up
-  tailscale configure kubeconfig staging-eks
-end
+function vpn --description 'Manage tailscale VPN connection'
+  set -l action $argv[1]
+  if test -z "$action"
+    set action (gum choose --header "󰖟 VPN action" staging prod disconnect)
+  end
+  if test -z "$action"
+    return 1
+  end
 
-function vpn_prod
-  tailscale up
-  tailscale configure kubeconfig prod-eks
-end
-
-function vpn_disconnect
-  tailscale down
-  kubectl config unset current-context
+  switch $action
+    case staging
+      gum style --foreground 46 "󰖟 Connecting tailscale → staging-eks"
+      tailscale up
+      tailscale configure kubeconfig staging-eks
+    case prod
+      gum confirm "Connect to PRODUCTION cluster?"; or return 1
+      gum style --foreground 196 "󰖟 Connecting tailscale → prod-eks"
+      tailscale up
+      tailscale configure kubeconfig prod-eks
+    case disconnect
+      gum style --foreground 245 "󰖟 Disconnecting tailscale"
+      tailscale down
+      kubectl config unset current-context
+    case '*'
+      gum style --foreground 196 "󰀦 Unknown action: $action"
+      return 1
+  end
 end
 
 function load_assistant
-  vpn_staging
+  vpn staging
   echo "Loading Environment Variables"
   source .env.assistant
   echo "Port Forwarding DB"
@@ -36,7 +50,7 @@ function load_assistant
 end
 
 function load_assistant2
-  vpn_staging
+  vpn staging
   echo "Loading Environment Variables"
   source .env.assistant2
   echo "Port Forwarding DB"
@@ -61,50 +75,43 @@ end
 
 function deploy --description 'Deploy current branch to environment'
   if not set -q WORKSPACE_ID_CD
-    set_color red
-    echo "Error: WORKSPACE_ID_CD environment variable must be set"
-    set_color normal
-    return 1
-  end
-
-  if not set -q env
-    set_color red
-    echo "Error: env environment variable must be set"
-    set_color normal
+    gum style --foreground 196 "󰀦 WORKSPACE_ID_CD environment variable must be set"
     return 1
   end
 
   if not set -q NAMESPACE
-    set_color red
-    echo "Error: NAMESPACE environment variable must be set"
-    set_color normal
+    gum style --foreground 196 "󰀦 NAMESPACE environment variable must be set"
     return 1
   end
 
-  set_color green
-  echo "🚀 deploying the current branch to env: $env"
-  set_color normal
+  set -l selected_env (gum choose --header "󱓞 Deploy to which environment?" staging prod)
+  if test -z "$selected_env"
+    return 1
+  end
+
+  set -l branch (git branch --show-current)
+
+  gum style --border rounded --padding "0 1" --border-foreground 46 \
+    "󱓞 Deploy preview" \
+    "󰘬 Branch:    $branch" \
+    "󰖟 Env:       $selected_env" \
+    "󰉋 Namespace: $NAMESPACE"
+
+  gum confirm "Trigger deploy?"; or return 1
 
   if test "$NAMESPACE" = "hatch-elixir"
-    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$env -f REF=(git branch --show-current) -f HELM_REF="main"
+    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$selected_env -f REF=$branch -f HELM_REF="main"
   else if test "$NAMESPACE" = "livekit-agent"
-    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$env -f REF=(git branch --show-current)
+    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$selected_env -f REF=$branch
   else if test "$NAMESPACE" = "hatch-scheduler-assistant"
-    gh workflow run $WORKSPACE_ID_CD -f environment=$env -f REF=(git branch --show-current)
+    gh workflow run $WORKSPACE_ID_CD -f environment=$selected_env -f REF=$branch
   else
-    set_color yellow
-    echo "No deploy command configured for namespace: $NAMESPACE"
-    set_color normal
+    gum style --foreground 226 "󰀦 No deploy command configured for namespace: $NAMESPACE"
     return 1
   end
 end
 
 ######### DB ##########
-function query_prod --description 'Open readonly production db in postgres CLI'
-  tailscale configure kubeconfig prod-eks
-  pgcli $PROD_DB
-end
-
 function _query_staging_pg --argument-names namespace
   set -l svc $namespace-postgresql-rw
   set -l secret $namespace-postgresql-role-hatch-elixir
@@ -118,15 +125,30 @@ function _query_staging_pg --argument-names namespace
   pkill -f "$forward"
 end
 
-function query_staging --description 'Open staging db in pgcli'
-  _query_staging_pg staging
-end
+function query --description 'Open a database in pgcli'
+  set -l target $argv[1]
+  if test -z "$target"
+    set target (gum choose --header "󰆼 Which database?" prod staging assistant assistant-2)
+  end
+  if test -z "$target"
+    return 1
+  end
 
-function query_assistant --description 'Open assistant staging db in pgcli'
-  _query_staging_pg assistant
-end
-
-function query_assistant2 --description 'Open assistant-2 staging db in pgcli'
-  _query_staging_pg assistant-2
+  switch $target
+    case prod
+      gum confirm "Connect to PRODUCTION database?"; or return 1
+      gum style --foreground 196 "󰆼 Connecting to prod"
+      tailscale configure kubeconfig prod-eks
+      pgcli $PROD_DB
+    case staging
+      _query_staging_pg staging
+    case assistant
+      _query_staging_pg assistant
+    case assistant-2
+      _query_staging_pg assistant-2
+    case '*'
+      gum style --foreground 196 "󰀦 Unknown target: $target"
+      return 1
+  end
 end
 
