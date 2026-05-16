@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Print a compact summary of windows with an unacknowledged bell.
+# Used by tmux status-right; outputs nothing when the inbox is empty.
+set -eu
+
+list=$(tmux list-windows -a -F '#{?window_bell_flag,#{session_name}:#{window_index} #{window_name},}' | grep -v '^$' || true)
+
+if [ -z "$list" ]; then
+  exit 0
+fi
+
+count=$(printf '%s\n' "$list" | wc -l | tr -d ' ')
+printf '󰂞 %s ' "$count"

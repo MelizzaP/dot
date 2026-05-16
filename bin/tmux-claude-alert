@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Surface a Claude Code notification through tmux.
+# Picks the right indicator based on where the user is looking.
+#
+# Usage: tmux-claude-alert <tab-icon> <flash-color>
+# Expects $TMUX_PANE in the environment (set by tmux).
+set -eu
+
+icon="$1"
+color="$2"
+
+[ -z "${TMUX_PANE:-}" ] && exit 0
+
+state=$(tmux display-message -p -t "$TMUX_PANE" '#{session_attached}:#{window_active}:#{pane_active}')
+
+case "$state" in
+  [1-9]*:1:1)
+    # focused on Claude's pane — say nothing
+    ;;
+  [1-9]*:1:*)
+    # same window, different pane — flash the border briefly
+    tmux select-pane -t "$TMUX_PANE" -P "fg=${color}"
+    (sleep 4 && tmux select-pane -t "$TMUX_PANE" -P 'default') >/dev/null 2>&1 &
+    ;;
+  *)
+    # different window, or session has no client attached — set the tab icon
+    tmux set-option -w -t "$TMUX_PANE" @claude "$icon"
+    ;;
+esac

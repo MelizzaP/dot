@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Count windows with a Claude Code status flag set (@claude).
+# Hooks in ~/.claude/settings.json stamp each window with one of two icons:
+#   󰀦  — Claude needs user input
+#   󰸞  — Claude finished a turn
+# Output goes to tmux status-right; empty when no windows are flagged.
+set -eu
+
+values=$(tmux list-windows -a -F '#{@claude}' 2>/dev/null | grep -v '^$' || true)
+[ -z "$values" ] && exit 0
+
+input=$(printf '%s\n' "$values" | grep -c '󰀦' || true)
+done=$(printf '%s\n' "$values"  | grep -c '󰸞' || true)
+
+out=""
+[ "$input" -gt 0 ] && out+="#[fg=#dbbc7f,bold]󰀦 $input #[default]"
+[ "$done"  -gt 0 ] && out+="#[fg=#a7c080,bold]󰸞 $done #[default]"
+printf '%s' "$out"

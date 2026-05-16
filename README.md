@@ -20,6 +20,7 @@
     - neovim
     - asdf
     - ripgrep
+    - fzf
     - fd
     - tmux
     - starship
