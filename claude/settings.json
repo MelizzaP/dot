@@ -1,0 +1,39 @@
+{
+  "theme": "auto",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dot/bin/tmux-claude-alert '󰸞 ' '#a7c080'"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dot/bin/tmux-claude-alert '󰀦 ' '#e67e80'"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX_PANE\" ] || tmux set-option -w -t \"$TMUX_PANE\" -u @claude"
+          }
+        ]
+      }
+    ]
+  }
+}

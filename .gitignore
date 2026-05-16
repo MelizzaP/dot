@@ -18,6 +18,7 @@ claude/*
 !claude/templates
 !claude/hooks
 !claude/commands
+!claude/settings.json
 CLAUDE.md
 
 config/opencode/secrets/
