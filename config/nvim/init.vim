@@ -43,6 +43,7 @@ call plug#begin('~/.vim/plugz')
   Plug '2kabhishek/nerdy.nvim'
   Plug 'ravitemer/codecompanion-history.nvim'
   Plug 'minusfive/codecompanion-agent-rules'
+  Plug 'mistweaverco/kulala.nvim'
 call plug#end()
 
 filetype plugin indent on
@@ -105,6 +106,7 @@ au BufNewFile,BufRead *.jsx                             set filetype=javascriptr
 au BufNewFile,BufRead *.tsx                             set filetype=typescriptreact
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs,*.heex}               set ft=elixir
+au BufNewFile,BufRead {*.http,*.rest}                   set ft=http
 au BufWritePost *.ex,*.exs,*.heex call FormatElixir()
 au BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql Prettier
 " au BufWritePost *.ts,*.tsx Prettier
@@ -231,3 +233,4 @@ lua require('obsidian_config')
 lua require('octo_config')
 lua require('treesitter_config')
 lua require('codecompanion_config')
+lua require('kulala_config')
