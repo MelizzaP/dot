@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Popup picker for windows with an alert flag (bell or @claude).
+# Invoked from tmux.conf via prefix+N.
+set -eu
+
+list=$(tmux list-windows -a -F "#{?#{||:#{window_bell_flag},#{@claude}},#{session_name}:#{window_index} #{?window_bell_flag,󰂞 ,}#{@claude}#W,}" | grep -v '^$' || true)
+
+selection=$(printf '%s\n' "${list:-(no alerts)}" | fzf --reverse --prompt='alerts > ' || true)
+
+target=$(printf '%s' "$selection" | cut -d' ' -f1)
+case "$target" in
+  *:*) tmux switch-client -t "$target" ;;
+esac
