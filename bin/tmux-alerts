@@ -3,11 +3,18 @@
 # Invoked from tmux.conf via prefix+N.
 set -eu
 
-list=$(tmux list-windows -a -F "#{?#{||:#{window_bell_flag},#{@claude}},#{session_name}:#{window_index} #{?window_bell_flag,󰂞 ,}#{@claude}#W,}" | grep -v '^$' || true)
+# Tab-separate target from display so session names with spaces survive `cut`.
+TAB=$(printf '\t')
+fmt="#{?#{||:#{window_bell_flag},#{@claude}},#{session_name}:#{window_index}${TAB}#{session_name}:#{window_index} #{?window_bell_flag,󰂞 ,}#{@claude}#W,}"
 
-selection=$(printf '%s\n' "${list:-(no alerts)}" | fzf --reverse --prompt='alerts > ' || true)
+list=$(tmux list-windows -a -F "$fmt" | grep -v '^$' || true)
 
-target=$(printf '%s' "$selection" | cut -d' ' -f1)
+selection=$(printf '%s\n' "${list:-(no alerts)}" | fzf --reverse --delimiter="$TAB" --with-nth=2 --prompt='alerts > ' || true)
+
+target=$(printf '%s' "$selection" | cut -f1)
 case "$target" in
-  *:*) tmux switch-client -t "$target" ;;
+  *:*)
+    tmux switch-client -t "$target"
+    tmux select-window -t "$target"
+    ;;
 esac
