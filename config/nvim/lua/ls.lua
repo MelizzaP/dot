@@ -1,79 +1,58 @@
--- Set up LSP using the new vim.lsp.config API (Neovim 0.11+)
+-- LSP configuration using vim.lsp.config API (Neovim 0.11+)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Setup language servers using vim.lsp.config
-local elixirls_config = {
-  cmd = { "/Users/mp/.lsps/elixir-ls/release/language_server.sh" },
+-- Expert: official Elixir language server
+vim.lsp.config.expert = {
+  cmd = { "expert", "--stdio=true" },
   filetypes = { "elixir", "eelixir", "heex" },
   capabilities = capabilities,
-  dialyzerEnabled = true,
-  fetchDeps = false,
-  root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
+  root_dir = vim.fs.root(0, { "mix.exs", ".git" }) or vim.uv.os_homedir(),
 }
+vim.lsp.enable("expert")
 
-local nextls_config = {
-    cmd = {"nextls", "--stdio"},
-      init_options = {
-        extensions = {
-          credo = { enable = true }
-        },
-      experimental = {
-        completions = {
-          enable = true -- control if completions are enabled. defaults to false
-        }
-      }
-    },
-    capabilities = capabilities,
-    root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
-}
-
-local lexical_config = {
-  cmd = { "/Users/mp/.lsps/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-  filetypes = { "elixir", "eelixir", "heex" },
-  capabilities = capabilities,
-  fetchDeps = false,
-  root_dir = vim.fs.root(0, {"mix.exs", ".git"}) or vim.uv.os_homedir()
-}
-
--- Register custom lexical server
-vim.lsp.config.lexical = {
-  cmd = lexical_config.cmd,
-  filetypes = lexical_config.filetypes,
-  root_dir = lexical_config.root_dir,
-  capabilities = lexical_config.capabilities,
-  settings = lexical_config.settings,
-}
-
--- Setup language servers
-vim.lsp.enable('lexical')
--- vim.lsp.enable('elixirls') -- commented out as in original
-
--- TypeScript language server
+-- TypeScript
 vim.lsp.config.ts_ls = {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   capabilities = capabilities,
-  root_dir = vim.fs.root(0, {"package.json", "tsconfig.json", ".git"}) or vim.uv.os_homedir()
+  root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" }) or vim.uv.os_homedir(),
 }
-vim.lsp.enable('ts_ls')
+vim.lsp.enable("ts_ls")
 
--- Python language server
+-- Python
 vim.lsp.config.pyright = {
+  cmd = { "pyright-langserver", "--stdio" },
+  filetypes = { "python" },
   capabilities = capabilities,
-  root_dir = vim.fs.root(0, {"pyproject.toml", "setup.py", ".git"}) or vim.uv.os_homedir()
+  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.uv.os_homedir(),
 }
-vim.lsp.enable('pyright')
+vim.lsp.enable("pyright")
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
+-- Format Elixir on save, but only if a client advertises the capability and
+-- doesn't time out quickly. Expert v0.1.x may not fully implement formatting yet;
+-- this prevents BufWritePre from hanging on saves.
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.ex", "*.exs", "*.heex" },
+  callback = function()
+    local has_formatter = false
+    for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+      if client.server_capabilities.documentFormattingProvider then
+        has_formatter = true
+        break
+      end
+    end
+    if has_formatter then
+      vim.lsp.buf.format({ async = false, timeout_ms = 1500 })
+    end
+  end,
+})
+
+-- Buffer-local LSP mappings on attach
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)

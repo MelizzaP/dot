@@ -15,7 +15,6 @@ call plug#begin('~/.vim/plugz')
   Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-surround'
   Plug 'rizzatti/dash.vim'
-  Plug 'mhinz/vim-mix-format', { 'for': 'elixir' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'sainnhe/everforest'
@@ -92,13 +91,6 @@ hi cursorcolumn cterm=NONE ctermbg=Black
 hi! link TermCursor Cursor
 hi TermCursorNC ctermbg=Cyan ctermfg=White
 
-function! FormatElixir()
-  if executable('mix')
-    silent! execute '!mix format ' . shellescape(expand('%'))
-    redraw!
-  endif
-endfunction
-
 au BufRead,BufNewFile {*.md,*.mkd,*.markdown}           set ft=markdown
 au BufNewFile,BufRead *.js                              set ft=javascript
 au BufNewFile,BufRead *.ts                              set ft=typescript
@@ -107,7 +99,6 @@ au BufNewFile,BufRead *.tsx                             set filetype=typescriptr
 au BufRead,BufNewFile {*.jar,*.war,*.ear,*.sar,*.rar}   set ft=zip
 au BufNewFile,BufRead {*.ex,*.exs,*.heex}               set ft=elixir
 au BufNewFile,BufRead {*.http,*.rest}                   set ft=http
-au BufWritePost *.ex,*.exs,*.heex call FormatElixir()
 au BufWritePre *.js,*.jsx,*.mjs,*.css,*.less,*.scss,*.json,*.graphql Prettier
 " au BufWritePost *.ts,*.tsx Prettier
 au BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
@@ -178,8 +169,6 @@ let g:signify_sign_delete            = ''
 let g:signify_sign_delete_first_line = ''
 let g:signify_sign_change            = ''
 let g:signify_sign_change_delete     = ''
-
-let g:mix_format_on_save = 1
 
 map <LocalLeader>cc :TComment<CR>
 "ws -- white space: removes all trailing whitespace from a file

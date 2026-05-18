@@ -33,7 +33,9 @@
     - podman
     - podman-compose
     - uv
+    - expert
     - --cask claude-code
+    - mcp-grafana
 - setup github ssh key
     - `ssh-keygen -t ed25519 -C "melissa.patterson.va@gmail.com"`
     - `pbcopy < .ssh/id_ed25519.pub`
