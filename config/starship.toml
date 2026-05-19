@@ -83,7 +83,7 @@ disabled = true
 [directory]
 style = "fg:color_fg0 bg:color_yellow"
 format = "[$path]($style)"
-truncation_length = 3
+truncation_length = 2
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -91,6 +91,7 @@ truncation_length = 3
 "Music" = "󰝚 "
 "Pictures" = " "
 "code" = "󰲋 "
+"code-review" = " "
 
 [git_branch]
 symbol = " "
