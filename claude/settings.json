@@ -1,5 +1,4 @@
 {
-  "theme": "auto",
   "attribution": {
     "commit": "",
     "pr": ""
@@ -46,5 +45,10 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "theme": "auto",
+  "tui": "fullscreen"
 }
