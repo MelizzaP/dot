@@ -28,11 +28,16 @@ vim.lsp.config.pyright = {
 }
 vim.lsp.enable("pyright")
 
--- Format Elixir on save, but only if a client advertises the capability and
--- doesn't time out quickly. Expert v0.1.x may not fully implement formatting yet;
--- this prevents BufWritePre from hanging on saves.
+vim.lsp.config.ruff = {
+  cmd = { "ruff", "server" },
+  filetypes = { "python" },
+  capabilities = capabilities,
+  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.uv.os_homedir(),
+}
+vim.lsp.enable("ruff")
+
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.ex", "*.exs", "*.heex" },
+  pattern = { "*.ex", "*.exs", "*.heex", "*.py" },
   callback = function()
     local has_formatter = false
     for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
