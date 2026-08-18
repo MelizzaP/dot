@@ -15,16 +15,36 @@ vim.lsp.config.ts_ls = {
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   capabilities = capabilities,
-  root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" }) or vim.uv.os_homedir(),
+  root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" }) or vim.fn.getcwd(),
 }
 vim.lsp.enable("ts_ls")
 
 -- Python
+local python_analysis_exclude = {
+  "**/.git",
+  "**/.venv",
+  "**/venv",
+  "**/env",
+  "**/node_modules",
+  "**/__pycache__",
+  "**/.mypy_cache",
+  "**/.pytest_cache",
+  "**/.ruff_cache",
+}
+
 vim.lsp.config.pyright = {
   cmd = { "pyright-langserver", "--stdio" },
   filetypes = { "python" },
   capabilities = capabilities,
-  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.uv.os_homedir(),
+  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.fn.getcwd(),
+  settings = {
+    python = {
+      analysis = {
+        exclude = python_analysis_exclude,
+        ignore = python_analysis_exclude,
+      },
+    },
+  },
 }
 vim.lsp.enable("pyright")
 
@@ -32,7 +52,7 @@ vim.lsp.config.ruff = {
   cmd = { "ruff", "server" },
   filetypes = { "python" },
   capabilities = capabilities,
-  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.uv.os_homedir(),
+  root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", ".git" }) or vim.fn.getcwd(),
 }
 vim.lsp.enable("ruff")
 
