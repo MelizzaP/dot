@@ -84,7 +84,7 @@ function deploy --description 'Deploy current branch to environment'
     return 1
   end
 
-  set -l selected_env (gum choose --header "󱓞 Deploy to which environment?" staging prod)
+  set -l selected_env (gum choose --header "󱓞 Deploy to which environment?" staging prod assistant assistant-2 kobold)
   if test -z "$selected_env"
     return 1
   end
@@ -100,7 +100,7 @@ function deploy --description 'Deploy current branch to environment'
   gum confirm "Trigger deploy?"; or return 1
 
   if test "$NAMESPACE" = "hatch-elixir"
-    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$selected_env -f REF=$branch -f HELM_REF="main"
+    gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$selected_env -f REF=$branch
   else if test "$NAMESPACE" = "livekit-agent"
     gh workflow run $WORKSPACE_ID_CD -f ENVIRONMENT=$selected_env -f REF=$branch
   else if test "$NAMESPACE" = "hatch-scheduler-assistant"

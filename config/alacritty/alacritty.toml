@@ -62,3 +62,11 @@ y = 0
 key = "Return"
 mods = "Shift"
 chars = "\u001B\r"
+
+[[hints.enabled]]
+command = "open"
+hyperlinks = true
+post_processing = true
+mouse = { enabled = true }
+binding = { key = "U", mods = "Control|Shift" }
+regex = "(https://|http://|mailto:|file:)[^<>\"\\s{-}\\^⟨⟩`]+"
