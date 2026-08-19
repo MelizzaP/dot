@@ -44,11 +44,24 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.dot/claude/hooks/lsp-diagnostics.sh"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true
   },
   "theme": "auto",
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "effortLevel": "high",
+  "theme": "auto"
 }
