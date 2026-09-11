@@ -60,8 +60,11 @@
   "enabledPlugins": {
     "pyright-lsp@claude-plugins-official": true
   },
+  "effortLevel": "high",
   "theme": "auto",
   "tui": "fullscreen",
-  "effortLevel": "high",
-  "theme": "auto"
+  "skipAutoPermissionPrompt": true,
+  "permissions": {
+    "defaultMode": "auto"
+  }
 }
