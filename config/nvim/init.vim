@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugz')
   Plug 'ap/vim-css-color'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
-  Plug 'prettier/vim-prettier'
+  Plug 'prettier/vim-prettier', { 'tag': '1.0.0' }
   Plug 'tpope/vim-ragtag'
   Plug 'mhinz/vim-startify'
   Plug 'tpope/vim-surround'
@@ -158,6 +158,7 @@ let g:no_html_toolbar = 'yes'
 
 let g:prettier#autoformat = 0
 let g:prettier#config#parser = 'babylon'
+let g:prettier#exec_cmd_path = expand('~/.asdf/shims/prettier')
 
 let g:autoclose_on = 1
 
