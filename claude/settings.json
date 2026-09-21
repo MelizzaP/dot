@@ -3,6 +3,9 @@
     "commit": "",
     "pr": ""
   },
+  "permissions": {
+    "allow": ["WebSearch", "WebFetch"]
+  },
   "hooks": {
     "Stop": [
       {
