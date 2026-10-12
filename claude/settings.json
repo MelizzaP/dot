@@ -4,7 +4,7 @@
     "pr": ""
   },
   "permissions": {
-    "allow": ["WebSearch", "WebFetch"]
+    "defaultMode": "auto"
   },
   "hooks": {
     "Stop": [
@@ -64,10 +64,7 @@
     "pyright-lsp@claude-plugins-official": true
   },
   "effortLevel": "high",
-  "theme": "auto",
-  "tui": "fullscreen",
   "skipAutoPermissionPrompt": true,
-  "permissions": {
-    "defaultMode": "auto"
-  }
+  "theme": "auto",
+  "tui": "fullscreen"
 }
