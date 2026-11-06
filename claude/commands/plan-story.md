@@ -1,5 +1,5 @@
 ---
-description: End-to-end story workflow, plan with atomic TDD commits, implement, draft PR, interactive review loop, Obsidian capture
+description: End-to-end story workflow, plan with atomic TDD commits, implement, draft PR, Obsidian capture
 allowed-tools:
   - Bash
   - Read
@@ -19,7 +19,7 @@ allowed-tools:
 
 # Plan Story
 
-End-to-end workflow: read a Linear story, plan atomic TDD commits, implement, open a draft PR, run an interactive review loop via Octo.nvim, then capture everything in Obsidian.
+End-to-end workflow: read a Linear story, plan atomic TDD commits, implement, open a draft PR, then capture everything in Obsidian.
 
 ## Input
 
@@ -53,7 +53,7 @@ These apply to ALL generated text throughout this command:
 1. Parse `$ARGUMENTS`. The first token matching `[A-Z]{2,}-\d+` is the story ID. Everything after it is the initial prompt.
 2. If no story ID found, use `AskUserQuestion` to get one (or skip).
 3. Fetch the story via `mcp__claude_ai_Linear__get_issue` with the identifier. Capture title, description, status, labels, project. If Linear MCP is unauthorized, warn and continue with whatever the user provided.
-4. **Store the raw initial prompt text.** This exact text gets saved to Obsidian in Phase 7.
+4. **Store the raw initial prompt text.** This exact text gets saved to Obsidian in Phase 5.
 5. Spawn an Explore subagent via `Task` to map the change surface area:
    - Search for files/modules relevant to the story
    - Identify existing patterns and conventions
@@ -114,14 +114,6 @@ Present the plan to the user via `AskUserQuestion`:
 
 Iterate until approved.
 
-### Model switch gate
-
-After plan approval, pause with `AskUserQuestion`:
-- "Continue (current model)"
-- "Switching model first"
-
-Display: "Plan approved. If you want to switch to a faster model for implementation, do it now (`/model sonnet`), then select Continue."
-
 ## Phase 3: Implementation
 
 For each commit in the approved plan, in order:
@@ -176,9 +168,7 @@ In parallel:
 
 ### Draft Context (no subagent)
 
-Write Context yourself: 2-3 tight sentences explaining the *why*. Use Linear story + user prompt + commit history. No code references, no file lists. Propose to user via `AskUserQuestion`:
-- "Looks good"
-- "I'll write my own" (user provides replacement)
+Write Context yourself: 2-3 tight sentences explaining the *why*. Use Linear story + user prompt + commit history. No code references, no file lists.
 
 ### Ask about Monitoring
 
@@ -232,7 +222,7 @@ Send one message with two `Task` calls. Include global writing rules in each pro
 
 ```markdown
 ## Context
-<user-approved context>
+<drafted context>
 
 ## Changes
 <developer output>
@@ -279,67 +269,9 @@ gh pr create --draft --base <base> --title "<title>" --body-file "$BODY_FILE"
 rm "$BODY_FILE"
 ```
 
-Capture the PR number and URL from output.
+Capture the PR number and URL from output. Report the PR URL to the user. The PR stays in draft; marking it ready and labeling it is on you once review wraps up.
 
-## Phase 5: Review Loop
-
-### Setup
-
-1. Detect tmux session: `tmux display-message -p '#S'`
-2. Create review window:
-   ```bash
-   tmux new-window -t "$SESSION" -n "PR Review"
-   tmux send-keys -t "$SESSION:PR Review" "nvim -c 'Octo pr edit $PR_NUMBER'" Enter
-   ```
-3. Tell the user:
-
-   > PR Review window created. Switch to it (Prefix+N or Prefix+number).
-   >
-   > Review workflow:
-   > 1. Start review: `<localleader>vs`
-   > 2. Leave line comments: `<localleader>ca`
-   > 3. Submit review as "Comment" (not Approve/Reject) so comments land on GitHub
-   > 4. Come back here and select "Review submitted"
-
-### Loop
-
-Repeat until approval:
-
-1. `AskUserQuestion`:
-   - "Review submitted: read my comments"
-   - "I have feedback to type here"
-   - "Approved: mark ready for review"
-
-2. **If "Review submitted":**
-   - Fetch comments:
-     ```bash
-     gh api repos/{owner}/{repo}/pulls/{number}/comments --jq '.[] | {path: .path, line: .line, body: .body, id: .id}'
-     gh pr view $PR_NUMBER --json reviews,comments
-     ```
-   - If no new comments found, tell user and re-prompt.
-   - Group comments by theme: bugs, questions, style, change requests.
-   - For questions: gather all, answer in a single response, ask for confirmation before proceeding.
-   - For change requests: make the changes.
-   - **Before pushing**: run tests + lint. If failing, fix first.
-   - `git push`
-   - Notify user changes are pushed and ready for re-review.
-
-3. **If "Feedback here":** read user input, address each point, make changes, test, push.
-
-4. **If "Approved":** proceed to Phase 6.
-
-## Phase 6: Finalization
-
-```bash
-gh pr ready $PR_NUMBER
-gh pr edit $PR_NUMBER --add-label "env:assistant-2"
-```
-
-If `env:assistant-2` label doesn't exist, try `gh label create "env:assistant-2"`. If that fails too, warn and skip.
-
-Report final PR URL to user.
-
-## Phase 7: Obsidian Capture
+## Phase 5: Obsidian Capture
 
 Two insertions into today's daily note.
 
@@ -386,7 +318,5 @@ Two insertions into today's daily note.
 | On `main`/`master` with no workspace | Offer `/linear-workspace` setup |
 | `gh pr create` fails | Print error + assembled body for manual submission |
 | Tests fail during implementation (2 tries) | Stop, ask user |
-| No review comments after "review submitted" | Tell user, re-prompt |
-| `env:assistant-2` label missing | Try `gh label create`, else warn and skip |
 | Daily note missing | Create via `obsidian daily:read`, then proceed |
 | Subagent returns empty | Stop before PR create, report which section failed |

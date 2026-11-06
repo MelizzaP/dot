@@ -1,0 +1,38 @@
+#!/usr/bin/env fish
+# Adds the Hatch MCP servers to the local Claude Code CLI.
+# See: https://app.notion.com/p/406a9c2619b281778307ce4abc48c375
+
+set -l servers \
+    "hatch-mcp-assistant-2|https://hatch-mcp-assistant-2.usehatchapp.com/mcp" \
+    "hatch-mcp-staging|https://hatch-mcp-staging.angler-elver.ts.net/mcp" \
+    "hatch-mcp-prod|https://app.usehatchapp.com/mcp"
+
+set -l needs_tailscale 0
+for server in $servers
+    set -l url (string split -m1 "|" $server)[2]
+    if string match -q "*.ts.net/*" $url
+        set needs_tailscale 1
+        break
+    end
+end
+
+if test $needs_tailscale -eq 1
+    if not tailscale status >/dev/null 2>&1
+        gum style --foreground 196 "󰖟 Tailscale is not connected, but at least one server (*.ts.net) requires the tailnet."
+        gum style --foreground 196 "   Run 'tailscale up' (or 'vpn staging') and re-run this script."
+        exit 1
+    end
+end
+
+for server in $servers
+    set -l parts (string split -m1 "|" $server)
+    set -l name $parts[1]
+    set -l url $parts[2]
+
+    gum style --foreground 46 "󰐻 $name → $url"
+    claude mcp remove $name >/dev/null 2>&1
+    claude mcp add --transport http $name $url
+end
+
+echo ""
+gum style --foreground 226 "Now run 'claude', then '/mcp', select each server, and choose Authenticate to sign in."

@@ -49,6 +49,11 @@ Follow this systematic workflow when reviewing Elixir PRs:
 - Look for existing test patterns, naming conventions, and architectural decisions
 - Note any domain-specific patterns (e.g., how the codebase handles errors, structures contexts, or organizes tests)
 
+**Load project-specific architecture rules:**
+
+- Check for a project CLAUDE.md or architecture documentation
+- For hatch-elixir: Read `references/hatch_architecture.md` for domain/UseCase conventions
+
 ### 2. Analyze Code Changes
 
 **Review each changed file systematically:**
@@ -109,6 +114,33 @@ Read references/elixir_otp_best_practices.md
 - Premature abstraction
 - Missing backpressure handling
 
+### 4b. Check Assertive Programming Patterns
+
+**Load assertive programming reference:**
+```elixir
+Read references/assertive_elixir.md
+```
+
+**Check for defensive coding that masks bugs:**
+- Nil checks on preloaded Ecto associations (if you preloaded it, assert on it)
+- Unnecessary rescue clauses (especially rescue-and-return-nil)
+- Unreachable code paths and dead pattern match arms
+- Validation duplicated across multiple layers
+- `if not` / `unless` where a positive assertion is clearer
+
+### 4c. Check Database Operation Patterns
+
+**Load database operations reference:**
+```elixir
+Read references/database_operations.md
+```
+
+**Check for inefficient or incorrect database usage:**
+- `Enum.each/map` wrapping individual `Repo.insert/update/delete` calls (should batch)
+- Manual foreign key joins where `Ecto.assoc/2` would work
+- Missing `deleted_at` filters in query paths (when schema uses soft deletes)
+- Import collisions between `Ecto.Query` and other modules
+
 ### 5. Review Ecto and Phoenix Patterns
 
 **For code involving Ecto or Phoenix, verify:**
@@ -131,6 +163,38 @@ Read references/elixir_otp_best_practices.md
 # Load Ecto and Phoenix patterns
 Read references/ecto_phoenix_patterns.md
 ```
+
+### 5b. Review Security and API Contracts
+
+**Load security review reference:**
+```elixir
+Read references/security_review.md
+```
+
+**Check for security issues:**
+- Missing `additionalProperties: false` on request schemas
+- JWT claim changes that break downstream consumers
+- Secrets, tokens, or PII in log/telemetry output
+- Auth checks happening too late in the pipeline (should be early)
+- Feature flags controlling multiple independent failure domains with a single switch
+- Soft delete operations that create irreversible state
+- `String.to_atom/1` with external input
+
+**Check API contract stability:**
+- Do changes break existing consumers?
+- Are OpenApiSpex plugs configured with `struct?: false, derive?: false`?
+- Are import collisions handled with `:except`?
+
+### 5c. Question Necessity
+
+**Flag unnecessary code:**
+- Wrappers that add no value ("why do we need this wrapper?")
+- Premature abstractions for one-time operations
+- Excessive comments where function names and types are self-documenting
+- AI-generated boilerplate comments (obvious doc strings on obvious functions)
+- Single-pipe chains (either use multiple pipes or call directly)
+- Verbose patterns where capture syntax would suffice
+- Dead code paths, unreachable pattern match arms
 
 ### 6. Assess Test Coverage
 
@@ -195,11 +259,6 @@ Read references/testing_practices.md
 ### 8. Provide Structured Feedback
 
 **Organize findings into clear categories:**
-
-#### ✅ Strengths
-- List positive aspects of the code
-- Highlight good practices observed
-- Acknowledge well-tested or well-structured code
 
 #### ⚠️ Issues Found
 
@@ -268,10 +327,20 @@ def handle_info(_msg, state) do
 end
 ```
 
+#### ❓ Open Questions
+
+Surface things the reviewer cannot determine from the code alone. These are questions the author needs to answer:
+- "What consumes these events downstream?"
+- "Are there existing instances where X already handles this?"
+- "Should this configuration come from runtime config or compile-time?"
+- "Does this need to deploy before/after another PR?"
+- "What happens to existing data when this flag is toggled?"
+
+This section is critical. A review that only renders verdicts and never admits uncertainty is hiding its blind spots.
+
 #### 🎯 Summary
 
 Provide a high-level summary:
-- Overall code quality assessment
 - Major themes in the feedback
 - Priority of changes needed
 - Any blocking issues before merge
@@ -283,16 +352,21 @@ Provide a high-level summary:
 - Don't introduce new patterns without discussing with the team
 - When in doubt, match what already exists
 
-**Be Constructive:**
-- Focus on helping improve the code, not criticizing
-- Explain the "why" behind suggestions
+**Be Direct:**
+- Lead with problems, not praise
+- Explain the "why" behind each issue
 - Provide concrete examples and alternatives
-- Acknowledge good work
+- Don't pad the review with compliments to soften criticism
+
+**Question Necessity:**
+- Ask "why does this exist?" for any code that adds complexity
+- Flag wrappers, helpers, and abstractions that don't earn their weight
+- AI-generated boilerplate comments are noise, not documentation
 
 **Prioritize Issues:**
 - Separate must-fix from nice-to-have
-- Focus on behavior and correctness first
-- Style issues are important but secondary to functionality
+- Security and contract stability issues are always critical
+- Assertive coding violations (silent bugs) outrank style issues
 
 **Reference Standards:**
 - Always cite specific guidelines when pointing out issues
@@ -303,20 +377,32 @@ Provide a high-level summary:
 
 This skill includes comprehensive reference materials:
 
+### references/hatch_architecture.md
+Project-specific architectural conventions for hatch-elixir: UseCase pattern (`call/1` entry points), domain boundaries, schema layer rules, facade access, forbidden patterns (Helpers/Utils). **Load this first for any hatch-elixir review.**
+
+### references/security_review.md
+Security checklist: API schema hardening (`additionalProperties: false`), JWT/token patterns, log redaction, feature flag separation, soft delete safety, auth pipeline ordering.
+
+### references/assertive_elixir.md
+Concrete patterns for assertive Elixir: no defensive nil on preloaded assocs, no rescue-and-return-nil, unreachable code detection, validation layer discipline.
+
+### references/database_operations.md
+Database operation patterns: batch operations (`update_all`, `insert_all`), `Ecto.assoc/2` usage, soft delete filtering, import collision avoidance.
+
 ### references/elixir_style_guide.md
-The community Elixir style guide covering formatting, naming, module structure, and code organization. Load this when questions arise about code style, formatting, or conventions.
+The community Elixir style guide covering formatting, naming, module structure, and code organization.
 
 ### references/elixir_otp_best_practices.md
-Key patterns and principles from "Elixir in Action" covering GenServer design, supervision trees, concurrency patterns, error handling, and common anti-patterns. Load this when reviewing process-based code or OTP implementations.
+Key patterns and principles from "Elixir in Action" covering GenServer design, supervision trees, concurrency patterns, error handling, and common anti-patterns.
 
 ### references/ecto_phoenix_patterns.md
-Modern patterns for Ecto and Phoenix including schema design, changesets, queries, transactions, context design, LiveView patterns, and testing. Load this when reviewing database code, Phoenix controllers, or LiveView components.
+Modern patterns for Ecto and Phoenix including schema design, changesets, queries, transactions, context design, LiveView patterns, and testing.
 
 ### references/testing_practices.md
-Comprehensive testing guidance covering behavior-based testing, ExUnit fundamentals, context testing, controller testing, LiveView testing, mocking, and test data management. Load this when evaluating test coverage and quality.
+Comprehensive testing guidance covering behavior-based testing, ExUnit fundamentals, context testing, controller testing, LiveView testing, mocking, and test data management.
 
 **How to use references:**
 - Load references on-demand when specific questions arise
 - Don't load all references at once; be selective based on the code being reviewed
+- For hatch-elixir reviews, always load `hatch_architecture.md` and `security_review.md`
 - Reference specific sections when providing feedback
-- Use grep patterns to find relevant sections quickly if references are large

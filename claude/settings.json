@@ -6,6 +6,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "fable",
   "hooks": {
     "Stop": [
       {
@@ -64,7 +65,7 @@
     "pyright-lsp@claude-plugins-official": true
   },
   "effortLevel": "high",
-  "skipAutoPermissionPrompt": true,
+  "tui": "fullscreen",
   "theme": "auto",
-  "tui": "fullscreen"
+  "skipAutoPermissionPrompt": true
 }

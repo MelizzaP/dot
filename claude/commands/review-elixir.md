@@ -51,14 +51,14 @@ pr_number: $2 (optional - the GitHub PR number for additional context)
      - Test coverage and quality
 
 4. **Review Focus Areas**
-   - **Readability**: Clear function names, proper use of pattern matching, pipeline operators
-   - **Maintainability**: Proper module organization, clear boundaries, testability
-   - **Modern Idioms**: Elixir 1.14+ features, proper use of `with`, `case`, pattern matching
-   - **Goal Achievement**: Does the code accomplish its intended purpose effectively?
-   - **Pattern Consistency**: Uses existing codebase patterns (Phoenix contexts, Ecto changesets, etc.)
-   - **No Regressions**: Changes don't break existing functionality
-   - **Anti-patterns**: Avoid improper error handling, blocking operations, inefficient queries, etc.
-   - **OTP Principles**: Proper use of GenServers, Supervisors, and other OTP behaviors
+   - **Architecture**: UseCase pattern compliance (`call/1` entry points), domain boundaries, facade access, no Helpers/Utils modules
+   - **Assertive Code**: No defensive nil on preloaded assocs, no unnecessary rescue, no unreachable code, validation at correct layer
+   - **Security**: `additionalProperties: false` on request schemas, JWT claim stability, log redaction, auth pipeline ordering
+   - **Database Ops**: Batch operations over loops (`update_all`/`insert_all`), `Ecto.assoc/2`, soft delete filtering, import collisions
+   - **Necessity**: Flag wrappers that add no value, premature abstractions, AI-generated boilerplate comments, dead code
+   - **Pattern Consistency**: Uses existing codebase patterns, no new patterns without justification
+   - **Readability**: Clear function names, pattern matching, pipeline operators (no single-pipe chains)
+   - **OTP Principles**: GenServer completeness, supervision strategy, error propagation
 
 5. **Testing & Validation**
    - Run tests: `mix test`
@@ -79,21 +79,14 @@ Return a well-formatted markdown report with the following structure:
 
 ## Summary
 
-{3-5 sentences summarizing the changes, their quality, and overall assessment}
+{2-3 sentences: what the PR does and the most important problems found}
 
 ## Test Results
 
-- **Tests:** {✅ PASS or ❌ FAIL or ⚠️ SKIPPED}
-- **Format Check:** {✅ PASS or ❌ FAIL or ⚠️ SKIPPED}
-- **Credo:** {✅ PASS or ❌ FAIL or ⚠️ SKIPPED}
-- **Dialyzer:** {✅ PASS or ❌ FAIL or ⚠️ SKIPPED}
-- **Coverage:** {percentage}%
-
-## Strengths
-
-- {positive aspect 1}
-- {positive aspect 2}
-- ...
+- **Tests:** {PASS or FAIL or SKIPPED}
+- **Format Check:** {PASS or FAIL or SKIPPED}
+- **Credo:** {PASS or FAIL or SKIPPED}
+- **Dialyzer:** {PASS or FAIL or SKIPPED}
 
 ## Issues Found
 
@@ -139,19 +132,17 @@ Return a well-formatted markdown report with the following structure:
 
 ---
 
-## Recommendations
+## Open Questions
 
-1. {overall recommendation 1}
-2. {overall recommendation 2}
-3. ...
+Questions the reviewer cannot answer from code alone. The author must address these:
+
+- {question about downstream consumers, deployment order, data impact, etc.}
+- {question about necessity of a pattern or wrapper}
+- ...
 
 ## Summary
 
-**Total Issues:** {count}
-- 🔴 Blockers: {count}
-- 🟠 Major: {count}
-- 🟡 Minor: {count}
-- ⚪ Nitpicks: {count}
+**Total Issues:** {count} | Blockers: {count} | Major: {count} | Minor: {count}
 ```
 
 ## Severity Definitions
@@ -163,13 +154,15 @@ Return a well-formatted markdown report with the following structure:
 
 ## Elixir-Specific Considerations
 
+- **Architecture**: UseCase `call/1` pattern, domain boundaries, facade access, no Helpers/Utils
+- **Assertive Code**: No defensive nil on preloaded assocs, no rescue-and-return-nil, crash loud over silent bug
+- **Security**: `additionalProperties: false`, JWT claim stability, log redaction, auth ordering
+- **Database**: Batch ops (`update_all`/`insert_all`), `Ecto.assoc/2`, soft delete filters
 - **Pattern Matching**: Proper use throughout, especially in function heads
-- **Error Handling**: Proper use of `{:ok, result}` and `{:error, reason}` tuples
-- **Pipeline Operator**: Appropriate use of `|>` for readability
-- **with Statements**: Proper error handling in multi-step operations
-- **Ecto**: N+1 query prevention, proper use of preloads, efficient changesets
-- **Phoenix**: Proper context boundaries, controller simplicity, view logic separation
-- **Concurrency**: Proper use of Task, GenServer, and other OTP behaviors
+- **Error Handling**: `{:ok, result}` / `{:error, reason}` tuples, validation at correct layer
+- **Pipeline Operator**: Appropriate use of `|>`, no single-pipe chains
+- **Ecto**: N+1 prevention, preloads, efficient changesets, import collision avoidance
+- **Necessity**: Flag wrappers, premature abstractions, AI-generated comments, dead code
 
 ## Critical Requirements
 

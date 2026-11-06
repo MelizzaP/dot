@@ -122,6 +122,12 @@
         "MDB_MCP_CONNECTION_STRING": "{file:~/.config/opencode/secrets/mongodb_atlas_connection_string}"
       },
       "enabled": false
+    },
+    "servers": {
+      "hatch-mcp": {
+        "type": "remote",
+        "url": "https://hatch-mcp-assistant-2-gateway.angler-elver.ts.net/mcp"
+      }
     }
   },
   "instructions": ["AGENTS.md"]
