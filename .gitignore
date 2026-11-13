@@ -10,6 +10,8 @@ config/**
 !config/nvim
 !config/nvim/**
 !config/opencode
+!config/opencode/agent
+!config/opencode/agent/elixir.md
 config/fish/fish_variables
 cli/**
 
