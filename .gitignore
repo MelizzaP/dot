@@ -16,6 +16,7 @@ cli/**
 claude/*
 !claude/agents
 !claude/skills
+claude/skills/synced/*
 !claude/templates
 !claude/hooks
 !claude/commands
